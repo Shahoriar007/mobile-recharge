@@ -1,10 +1,23 @@
 {
   "menu": [
     {
-      "url": "home",
+      "url": "admin/",
       "name": "Home",
       "icon": "home",
       "slug": "home"
+    },
+    {
+        "url": "admin/users",
+        "name": "Users",
+        "icon": "users",
+        "slug": "users"
+    },
+    {
+        "url": "admin/users",
+        "name": "Blog Categories",
+        "icon": "package",
+        "slug": "blog-categories"
     }
+
   ]
 }
