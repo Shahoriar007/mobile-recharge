@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
+use App\Traits\CreatedBy;
+use App\Traits\DeletedBy;
+use App\Traits\UpdatedBy;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, CreatedBy, UpdatedBy, DeletedBy;
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +25,9 @@ class User extends Authenticatable
         'email',
         'phone',
         'password',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     /**
