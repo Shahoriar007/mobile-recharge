@@ -1,49 +1,28 @@
 {
-  "menu": [
-    {
-      "url": "home",
-      "name": "Home",
-      "icon": "home",
-      "slug": "home"
-    },
-    {
-      "name": "Page Layouts",
-      "icon": "mail",
-      "slug": "",
-      "badge": "5",
-      "badgeClass": "badge rounded-pill badge-light-danger ms-auto me-1",
-      "submenu": [
+	"menu": [
+		{
+			"url": "admin/",
+			"name": "Home",
+			"icon": "home",
+			"slug": "home"
+		},
         {
-          "url": "layouts/collapsed-menu",
-          "name": "Collapsed Menu",
-          "icon": "circle",
-          "slug": "collapsed-menu"
+            "url": "admin/users",
+            "name": "Users",
+            "icon": "users",
+            "slug": "users"
         },
         {
-          "url": "layouts/full",
-          "name": "Layout Full",
-          "icon": "circle",
-          "slug": "layout-full"
+            "url": "admin/blog-category",
+            "name": "Blog Category",
+            "icon": "package",
+            "slug": "blog-category"
         },
         {
-          "url": "layouts/without-menu",
-          "name": "Without Menu",
-          "icon": "circle",
-          "slug": "without-menu"
-        },
-        {
-          "url": "layouts/empty",
-          "name": "Layout Empty",
-          "icon": "circle",
-          "slug": "layout-empty"
-        },
-        {
-          "url": "layouts/blank",
-          "name": "Layout Blank",
-          "icon": "circle",
-          "slug": "layout-blank"
+            "url": "admin/blog",
+            "name": "Blog",
+            "icon": "package",
+            "slug": "blog"
         }
-      ]
-    }
-  ]
+	]
 }

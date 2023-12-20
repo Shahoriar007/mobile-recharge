@@ -122,4 +122,67 @@ class BlogRepository
             return [];
         }
     }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function view($id)
+    {
+
+        try {
+            $data = $this->findById($id);
+            return $data;
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return [];
+        }
+    }
+
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function edit($id)
+    {
+
+        try {
+            $data = $this->findById($id);
+            return $data;
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return [];
+        }
+    }
+
+    /**
+     * @param $validated
+     * @return bool
+     */
+
+    public function update($validated, $id): bool
+    {
+
+        try {
+
+           
+
+            if (empty($validated['slug'])){
+                $validated['slug'] = Str::slug($validated['title'], '-');
+            }
+
+            if (empty($validated['author_id'])){
+                $validated['author_id'] = auth()->user()->id;
+            }
+
+            $data = $this->findById($id);
+            $data->update($validated);
+            return true;
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            info($e);
+            return false;
+        }
+    }
 }

@@ -51,6 +51,7 @@
                         <thead>
                             <tr>
                                 <th>Title</th>
+                                <th>Category</th>
                                 <th>Author</th>
                                 <th>Created at</th>
                                 <th>Updated at</th>
@@ -62,6 +63,10 @@
                                 <tr>
                                     <td>
                                         {{ $blog->title }}
+                                    </td>
+
+                                    <td>
+                                        {{ $blog->blogCategory->name }}
                                     </td>
 
                                     <td>
@@ -78,6 +83,12 @@
                                     </td>
 
                                     <td>
+                                        <a class="" href="{{ route('view-blog', ['id' => $blog->id]) }}">
+                                            <i data-feather="eye" class="me-50"></i>
+                                        </a>
+                                        <a class="" href="{{ route('edit-blog', ['id' => $blog->id]) }}">
+                                            <i data-feather="edit-2" class="me-50"></i>
+                                        </a>
                                         <form id="deleteForm" method="POST" action="{{ route('delete-blog') }}"
                                             class="d-inline">
                                             @method('DELETE')

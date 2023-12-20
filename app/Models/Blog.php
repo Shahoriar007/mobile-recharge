@@ -37,7 +37,7 @@ class Blog extends Model
         'deleted_by',
     ];
 
-    public function blog_category()
+    public function blogCategory()
     {
         return $this->belongsTo(BlogCategory::class, 'blog_category_id', 'id');
     }

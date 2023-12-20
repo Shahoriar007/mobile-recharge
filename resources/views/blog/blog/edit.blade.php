@@ -32,22 +32,23 @@
                         <div id="sticky-wrapper" class="sticky-wrapper" style="height: 86.0625px;">
                             <div class="card-header sticky-element bg-label-secondary d-flex justify-content-sm-between align-items-sm-center flex-column flex-sm-row"
                                 style="width: 1390px;">
-                                <h5 class="card-title mb-sm-0 me-2">Blog Form</h5>
+                                <h5 class="card-title mb-sm-0 me-2">Blog Edit Form</h5>
 
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="row">
 
-                                <form method="POST" action="{{ route('store-blog') }}">
+                                <form method="POST" action="{{ route('update-blog', ['id' => $data->id]) }}">
                                     @csrf
+                                    @method('PUT')
                                     <div class="col-lg-8 mx-auto">
                                         <!-- 1. Blog Information -->
                                         <h5 class="mb-4">1. Blog Information</h5>
                                         <div class="row g-3">
                                             <div class="col-md-12">
                                                 <label class="form-label" for="title">Title</label>
-                                                <input type="text" id="title" name="title" class="form-control"
+                                                <input type="text" id="title" name="title" value="{{ $data->title }}" class="form-control"
                                                     placeholder="Enter blog title" required>
                                                     @error('title')
                                                         <div class="text-danger">{{ $message }}</div>
@@ -56,7 +57,7 @@
 
                                             <div class="col-md-12">
                                                 <label class="form-label" for="slug">Slug</label>
-                                                <input type="text" id="slug" name="slug" class="form-control"
+                                                <input type="text" id="slug" name="slug" value="{{ $data->slug }}" class="form-control"
                                                     placeholder="Enter slug">
                                                     @error('slug')
                                                         <div class="text-danger">{{ $message }}</div>
@@ -65,7 +66,7 @@
 
                                             <div class="col-md-12">
                                                 <label class="form-label" for="slug_url">Slug URL</label>
-                                                <input type="text" id="slug_url" name="slug_url" class="form-control"
+                                                <input type="text" id="slug_url" name="slug_url" value="{{ $data->slug_url }}" class="form-control"
                                                     placeholder="Enter slug URL">
                                                     @error('slug_url')
                                                         <div class="text-danger">{{ $message }}</div>
@@ -74,7 +75,7 @@
 
                                             <div class="col-md-6">
                                                 <label class="form-label" for="blog_category">Blog Category</label>
-                                                <select id="blog_category" name="blog_category_id" class="form-select">
+                                                <select id="blog_category" name="blog_category_id" value="{{ $data->blog_category_id }}" class="form-select">
                                                     @foreach ($blogCategoryData as $blogCategory)
                                                         <option value="{{ $blogCategory->id }}">{{ $blogCategory->name }}
                                                         </option>
@@ -88,7 +89,7 @@
 
                                             <div class="col-md-6">
                                                 <label class="form-label" for="author">Author</label>
-                                                <select id="author" name="author_id" class="form-select">
+                                                <select id="author" name="author_id" class="form-select" value="{{ $data->author_id }}">
                                                     @foreach ($authorData as $author)
                                                         <option value="{{ $author->id }}">{{ $author->name }}</option>
                                                     @endforeach
@@ -97,11 +98,13 @@
 
                                             <div class="col-12">
                                                 <label class="form-label" for="description">Description</label>
-                                                <textarea name="description" class="form-control" id="description" rows="2" placeholder="Enter blog description"></textarea>
+                                                <textarea name="description" class="form-control" id="description"  rows="2" placeholder="Enter blog description">{{ $data->description }}</textarea>
                                                 @error('description')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
+
+
 
                                         </div>
                                         <hr>
@@ -111,53 +114,56 @@
                                         <div class="row g-3">
                                             <div class="col-md-12">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="index"
-                                                        id="index" name="index_status" checked="">
+                                                    <input class="form-check-input" type="checkbox" value="index" id="index" name="index_status"
+                                                        {{ $data && $data->index_status === 'index' ? 'checked' : '' }}>
                                                     <label class="form-check-label" for="index">Index</label>
                                                 </div>
                                             </div>
 
+
                                             <div class="col-md-6">
                                                 <label class="form-label" for="canonical_url">Canonical URL</label>
-                                                <input type="text" id="canonical_url" name="canonical_url"
+                                                <input type="text" id="canonical_url" name="canonical_url" value="{{ $data->canonical_url }}"
                                                     class="form-control" placeholder="Enter canonical URL">
                                             </div>
 
                                             <div class="col-md-6">
                                                 <label class="form-label" for="meta_title">Meta Title</label>
-                                                <input type="text" id="meta_title" name="meta_title"
+                                                <input type="text" id="meta_title" name="meta_title" value="{{ $data->meta_title }}"
                                                     class="form-control" placeholder="Enter meta title">
                                             </div>
 
                                             <div class="col-12">
                                                 <label class="form-label" for="meta_description">Meta Description</label>
                                                 <textarea name="meta_description" class="form-control" id="meta_description" rows="2"
-                                                    placeholder="Enter meta description"></textarea>
+                                                    placeholder="Enter meta description">{{ $data->meta_description }}</textarea>
                                             </div>
 
                                             <div class="col-md-6">
                                                 <label class="form-label" for="meta_url">Meta URL</label>
-                                                <input type="text" id="meta_url" name="meta_url"
+                                                <input type="text" id="meta_url" name="meta_url" value="{{ $data->meta_url }}"
                                                     class="form-control" placeholder="Enter meta URL">
                                             </div>
 
                                             <div class="col-md-6">
-                                                <label class="form-label" for="meta_publish_date">Meta Publish
-                                                    Date</label>
-                                                <input type="date" id="meta_publish_date" name="meta_publish_date"
+                                                <label class="form-label" for="meta_publish_date">Meta Publish Date</label>
+                                                <input type="date" id="meta_publish_date" name="meta_publish_date" value="{{ $data ? \Carbon\Carbon::parse($data->meta_publish_date)->toDateString() : '' }}"
                                                     class="form-control" placeholder="Enter meta publish date">
                                             </div>
+
+
 
                                             <div class="col-12">
                                                 <label class="form-label" for="schema_markup">Schema Markup</label>
                                                 <textarea name="schema_markup" class="form-control" id="schema_markup" rows="2"
-                                                    placeholder="Enter schema markup"></textarea>
+                                                    placeholder="Enter schema markup">{{ $data->schema_markup }}</textarea>
                                             </div>
 
                                             <div class="col-12">
                                                 <label class="form-label" for="custom_code">Custom Code</label>
-                                                <textarea name="custom_code" class="form-control" id="custom_code" rows="2" placeholder="Enter custom code"></textarea>
+                                                <textarea name="custom_code" class="form-control" id="custom_code" rows="2" placeholder="Enter custom code">{{ $data->custom_code }}</textarea>
                                             </div>
+
 
                                         </div>
                                         <div style = "margin-top: 20px;">

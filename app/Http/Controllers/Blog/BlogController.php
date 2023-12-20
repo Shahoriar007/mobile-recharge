@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Blog\BlogRepository;
 use App\Http\Requests\Blog\StoreBlogRequest;
+use App\Http\Requests\Blog\UpdateBlogRequest;
 
 class BlogController extends Controller
 {
@@ -49,6 +50,44 @@ class BlogController extends Controller
             return redirect()->route('blog')->with('success', 'Blog successfully created.');
         }else{
             return redirect()->route('blog')->with('error', 'Blog failed created.');
+        }
+
+    }
+
+    public function view($id)
+    {
+        $breadcrumbs = [
+            ['link' => "admin/blog", 'name' => "Blog"], ['name' => "View"]
+        ];
+
+        $data = $this->repository->view($id);
+
+        return view('blog.blog.view', compact('data', 'breadcrumbs'));
+    }
+
+    public function edit($id)
+    {
+        $breadcrumbs = [
+            ['link' => "admin/blog", 'name' => "Blog"], ['name' => "Edit"]
+        ];
+
+        $data = $this->repository->edit($id);
+        $blogCategoryData = $this->repository->blogCategory();
+        $authorData = $this->repository->author();
+
+        return view('blog.blog.edit', compact('data', 'breadcrumbs', 'blogCategoryData', 'authorData'));
+    }
+
+    public function update(UpdateBlogRequest $request, $id)
+    {
+        $validated = $request->validated();
+
+        $data = $this->repository->update($validated, $id);
+
+        if($data){
+            return redirect()->route('blog')->with('success', 'Blog successfully updated.');
+        }else{
+            return redirect()->route('blog')->with('error', 'Blog failed updated.');
         }
 
     }
