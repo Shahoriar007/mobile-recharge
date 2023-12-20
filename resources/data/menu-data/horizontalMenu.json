@@ -13,10 +13,10 @@
         "slug": "users"
     },
     {
-        "url": "admin/users",
-        "name": "Blog Categories",
+        "url": "admin/blog-category",
+        "name": "Blog Category",
         "icon": "package",
-        "slug": "blog-categories"
+        "slug": "blog-category"
     }
 
   ]

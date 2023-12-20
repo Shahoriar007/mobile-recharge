@@ -14,6 +14,10 @@ class BlogCategoryRepository
         $this->model = $model;
     }
 
+    /**
+     * @return array
+     */
+
     public function index()
     {
 
@@ -26,6 +30,11 @@ class BlogCategoryRepository
         }
     }
 
+    /**
+     * @param $validated
+     * @return bool
+     */
+
     public function store($validated): bool
     {
 
@@ -37,10 +46,13 @@ class BlogCategoryRepository
             return false;
         }
     }
+    /**
+     * @param $id
+     * @return bool
+     */
 
-    public function destroy($id)
+    public function destroy($id): bool
     {
-        info($id);
 
         try {
             $data = $this->findById($id);
@@ -52,7 +64,12 @@ class BlogCategoryRepository
         }
     }
 
-    public function findById($id)
+    /**
+     * @param $id
+     * @return BlogCategory
+     */
+
+    public function findById($id): BlogCategory
     {
 
         try {

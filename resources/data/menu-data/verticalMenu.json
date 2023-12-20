@@ -17,6 +17,12 @@
             "name": "Blog Category",
             "icon": "package",
             "slug": "blog-category"
+        },
+        {
+            "url": "admin/blog",
+            "name": "Blog",
+            "icon": "package",
+            "slug": "blog"
         }
 	]
 }

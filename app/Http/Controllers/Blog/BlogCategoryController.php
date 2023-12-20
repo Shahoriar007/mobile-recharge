@@ -25,7 +25,8 @@ class BlogCategoryController extends Controller
 
         $data = $this->repository->index();
 
-        return view('blog.blog-category.index', ['data' => $data, 'breadcrumbs' => $breadcrumbs]);
+        return view('blog.blog-category.index', compact('data', 'breadcrumbs'));
+
 
     }
 
