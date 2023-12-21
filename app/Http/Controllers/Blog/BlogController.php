@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Blog;
 
+use League\Fractal\Manager;
 use Illuminate\Http\Request;
+use League\Fractal\Resource\Item;
 use App\Http\Controllers\Controller;
+use App\Transformers\BlogTransformer;
+use League\Fractal\Resource\Collection;
+use Illuminate\Support\Facades\Response;
 use App\Repositories\Blog\BlogRepository;
 use App\Http\Requests\Blog\StoreBlogRequest;
 use App\Http\Requests\Blog\UpdateBlogRequest;
@@ -103,6 +108,35 @@ class BlogController extends Controller
         }else{
             return redirect()->route('blog')->with('error', 'Blog failed deleted.');
         }
+
+    }
+
+    public function apiIndex(Request $request)
+    {
+        $data = $this->repository->apiIndex();
+        $manager = new Manager();
+        $resource = new Collection($data, new BlogTransformer());
+
+        $transformedData = $manager->createData($resource)->toArray();
+
+        return response()->json([
+            'data' => $transformedData
+        ]);
+
+    }
+
+    public function apiShow(Request $request, $id)
+    {
+        $data = $this->repository->apiShow($id);
+
+        $manager = new Manager();
+        $resource = new Item($data, new BlogTransformer());
+
+        $transformedData = $manager->createData($resource)->toArray();
+
+        return response()->json([
+            'data' => $transformedData
+        ]);
 
     }
 }

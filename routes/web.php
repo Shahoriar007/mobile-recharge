@@ -12,7 +12,7 @@ require __DIR__ . '/auth/auth.php';
 //Admin Panel users routes
 require __DIR__ . '/users/users.php';
 
-//Blog Category routes
+//Blog routes
 require __DIR__ . '/blogs/blogs.php';
 
 
