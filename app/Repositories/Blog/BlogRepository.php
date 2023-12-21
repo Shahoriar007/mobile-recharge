@@ -210,7 +210,6 @@ class BlogRepository
              $data = $this->findById($id);
              return $data;
          } catch (\Exception $e) {
-info($e->getMessage());
              error_log($e->getMessage());
              return [];
          }
