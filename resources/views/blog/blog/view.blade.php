@@ -16,7 +16,7 @@
                 <div class="d-flex justify-content-between align-items-center flex-wrap mb-2 gap-1">
                   <div class="me-1">
                     <h1 class="mb-1">{{ $data->title }}</h1>
-                    <p class="mb-1">{{ $data->author->name }} <span class="fw-medium"> {{ $data->meta_publish_date }} </span></p>
+                    <p class="mb-1">{{ $data->author->name }} ||  <span class="fw-medium"> {{  \Carbon\Carbon::parse($data->meta_publish_date)->format('d M Y')  }} </span></p>
                   </div>
 
                 </div>
