@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Blog;
 
+use League\Fractal\Manager;
 use App\Models\BlogCategory;
 use Illuminate\Http\Request;
+use League\Fractal\Resource\Item;
 use App\Http\Controllers\Controller;
+use League\Fractal\Resource\Collection;
+use App\Transformers\BlogCategoryTransformer;
 use App\Repositories\BlogCategories\BlogCategoryRepository;
 use App\Http\Requests\BlogCategory\StoreBlogCategoryRequest;
 
@@ -56,5 +60,46 @@ class BlogCategoryController extends Controller
             return redirect()->route('blog-category')->with('error', 'Blog Category failed deleted.');
         }
 
+    }
+
+    public function apiIndex()
+    {
+        $data = $this->repository->apiIndex();
+
+        if (!$data) {
+            return response()->json([
+                'data' => []
+            ]);
+        }
+
+        $manager = new Manager();
+        $resource = new Collection($data, new BlogCategoryTransformer());
+
+        $transformedData = $manager->createData($resource)->toArray();
+
+        return response()->json([
+            'data' => $transformedData
+        ]);
+
+    }
+
+    public function apiShow(Request $request, $id)
+    {
+        $data = $this->repository->apiShow($id);
+
+        if (!$data) {
+            return response()->json([
+                'data' => []
+            ]);
+        }
+
+        $manager = new Manager();
+        $resource = new Item($data, new BlogCategoryTransformer());
+
+        $transformedData = $manager->createData($resource)->toArray();
+
+        return response()->json([
+            'data' => $transformedData
+        ]);
     }
 }

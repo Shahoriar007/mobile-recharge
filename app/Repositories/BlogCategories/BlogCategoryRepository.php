@@ -80,4 +80,33 @@ class BlogCategoryRepository
             return [];
         }
     }
+
+    /**
+     * @param $id
+     * @return BlogCategory
+     */
+
+     public function apiIndex()
+     {
+
+         try {
+             $data = $this->model->latest('created_at')->get();
+             return $data;
+         } catch (\Exception $e) {
+             error_log($e->getMessage());
+             return [];
+         }
+     }
+
+     public function apiShow($id)
+     {
+
+         try {
+             $data = $this->findById($id);
+             return $data;
+         } catch (\Exception $e) {
+             error_log($e->getMessage());
+             return [];
+         }
+     }
 }
