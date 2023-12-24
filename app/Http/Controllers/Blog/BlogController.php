@@ -25,7 +25,7 @@ class BlogController extends Controller
     public function index(Request $request)
     {
         $breadcrumbs = [
-            ['link' => "admin/blog", 'name' => "Blog"], ['name' => "Index"]
+            ['link' => "/blog", 'name' => "Blog"], ['name' => "Index"]
         ];
 
         $data = $this->repository->index();
@@ -36,7 +36,7 @@ class BlogController extends Controller
     public function create()
     {
         $breadcrumbs = [
-            ['link' => "admin/blog", 'name' => "Blog"], ['name' => "Create"]
+            ['link' => "/blog", 'name' => "Blog"], ['name' => "Create"]
         ];
 
         $blogCategoryData = $this->repository->blogCategory();
@@ -62,7 +62,7 @@ class BlogController extends Controller
     public function view($id)
     {
         $breadcrumbs = [
-            ['link' => "admin/blog", 'name' => "Blog"], ['name' => "View"]
+            ['link' => "/blog", 'name' => "Blog"], ['name' => "View"]
         ];
 
         $data = $this->repository->view($id);
@@ -73,7 +73,7 @@ class BlogController extends Controller
     public function edit($id)
     {
         $breadcrumbs = [
-            ['link' => "admin/blog", 'name' => "Blog"], ['name' => "Edit"]
+            ['link' => "/blog", 'name' => "Blog"], ['name' => "Edit"]
         ];
 
         $data = $this->repository->edit($id);

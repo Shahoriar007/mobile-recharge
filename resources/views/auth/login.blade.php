@@ -6,7 +6,7 @@
         <div class="auth-inner row m-0">
             <!-- Brand logo-->
             <span class="brand-logo">
-                <a href="" class="logo"> <img src="{{ asset('user/images/logo-black.png') }}" class="img-fluid"  style="height: 38px;"/> </a>
+                <a href="" class="logo"> <img src="{{ asset('images/logo/VISER-X-New.png') }}" class="img-fluid"  style="height: 38px; padding-top: 5px;"/> </a>
               </span>
             <!-- /Brand logo-->
             <!-- Left Text-->
@@ -21,7 +21,7 @@
             <!-- Login-->
             <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
-                    <h2 class="card-title fw-bold mb-1">Rivera Park City Admin Panal</h2>
+                    <h2 class="card-title fw-bold mb-1">VISER X Website Admin Panal</h2>
                     <p class="card-text mb-2">Please sign-in </p>
                     <form class="auth-login-form mt-2" action="{{ route('loginConfirm') }}" method="POST">
                         @csrf
