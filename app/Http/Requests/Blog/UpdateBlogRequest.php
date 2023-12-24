@@ -15,10 +15,10 @@ class UpdateBlogRequest extends FormRequest
     {
         return [
 
-            
+
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255'],
-            'slug_url' => ['nullable', 'url'],
+            'slug_url' => ['nullable', 'string', 'max:225'],
             'blog_category_id' => ['required', 'exists:blog_categories,id'],
             'author_id' => ['nullable', 'exists:users,id'],
             'description' => ['nullable', 'string'],

@@ -81,6 +81,7 @@ class BlogRepository
             }
 
             $this->model->create($validated);
+
             return true;
         } catch (\Exception $e) {
             info($e->getMessage());

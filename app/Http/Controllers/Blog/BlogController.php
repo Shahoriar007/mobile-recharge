@@ -118,7 +118,7 @@ class BlogController extends Controller
         if (!$data) {
             return response()->json([
                 'data' => []
-            ]);
+            ], 301);
         }
 
         $manager = new Manager();
@@ -128,7 +128,7 @@ class BlogController extends Controller
 
         return response()->json([
             'data' => $transformedData
-        ]);
+        ], 301);
 
     }
 

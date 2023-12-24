@@ -5,7 +5,7 @@ use App\Http\Controllers\Blog\BlogController;
 use App\Http\Controllers\Blog\BlogCategoryController;
 
 
-Route::middleware(['auth'])->prefix('admin')->group(function () {
+Route::middleware(['auth'])->group(function () {
 
     // blog category resource route
     Route::get('/blog-category', [BlogCategoryController::class, 'index'])->name('blog-category');
