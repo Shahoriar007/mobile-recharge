@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Models\Blog;
 use App\Models\Post;
 use Spatie\Sitemap\Sitemap;
-
 use Spatie\Sitemap\Tags\Url;
 use Illuminate\Console\Command;
 
