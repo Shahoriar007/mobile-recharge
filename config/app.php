@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
+use App\Services\Constant\TimeZoneService;
 
 return [
 
@@ -69,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'Asia/Dhaka',
+    'timezone' => TimeZoneService::BD_TIME_ZONE,
 
     /*
     |--------------------------------------------------------------------------

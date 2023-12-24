@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Services\Constant\TimeZoneService;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -16,6 +17,14 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule
+            ->command('sitemap:generate')
+            ->daily()
+            ->at('00:00')
+            ->timezone(TimeZoneService::BD_TIME_ZONE)
+            ->withoutOverlapping()
+            ->onOneServer()
+            ->appendOutputTo(storage_path('logs/sitemap.log'));
     }
 
     /**
