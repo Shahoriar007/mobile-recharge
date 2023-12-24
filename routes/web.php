@@ -17,7 +17,7 @@ require __DIR__ . '/blogs/blogs.php';
 
 
 
-Route::middleware(['auth'])->prefix('admin')->group(function () {
+Route::middleware(['auth'])->group(function () {
 
 Route::get('/', [StaterkitController::class, 'home'])->name('admin-home');
 

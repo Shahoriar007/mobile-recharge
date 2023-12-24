@@ -325,12 +325,12 @@
                     const userId = this.dataset.userId;
 
                     const editForm = document.getElementById('edit-user-form');
-                    editForm.action = `/admin/users/${userId}`;
+                    editForm.action = `/users/${userId}`;
 
                     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                     axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
 
-                    axios.get(`/admin/users/${userId}/edit`)
+                    axios.get(`/users/${userId}/edit`)
                         .then(response => {
 
                             const userData = response.data;

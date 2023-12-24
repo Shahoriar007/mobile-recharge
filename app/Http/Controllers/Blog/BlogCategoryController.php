@@ -24,7 +24,7 @@ class BlogCategoryController extends Controller
     public function index(Request $request)
     {
         $breadcrumbs = [
-            ['link' => "admin/blog-category", 'name' => "Blog Category"], ['name' => "Index"]
+            ['link' => "/blog-category", 'name' => "Blog Category"], ['name' => "Index"]
         ];
 
         $data = $this->repository->index();

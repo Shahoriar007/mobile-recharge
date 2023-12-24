@@ -61,6 +61,7 @@
                         <tbody>
                             @foreach ($data as $blog)
                                 <tr>
+
                                     <td>
                                         {{ $blog->title }}
                                     </td>

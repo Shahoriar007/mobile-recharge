@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
         $breadcrumbs = [
-            ['link' => "admin/users", 'name' => "Users"], ['name' => "Index"]
+            ['link' => "/users", 'name' => "Users"], ['name' => "Index"]
         ];
 
         $users = $this->user->latest('created_at')->paginate(10);
