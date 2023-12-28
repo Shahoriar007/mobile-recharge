@@ -49,7 +49,7 @@ class BlogController extends Controller
     {
         $validated = $request->validated();
 
-        $data = $this->repository->store($validated);
+        $data = $this->repository->store($validated, $request);
 
         if($data){
             return redirect()->route('blog')->with('success', 'Blog successfully created.');
@@ -87,7 +87,7 @@ class BlogController extends Controller
     {
         $validated = $request->validated();
 
-        $data = $this->repository->update($validated, $id);
+        $data = $this->repository->update($validated, $id, $request);
 
         if($data){
             return redirect()->route('blog')->with('success', 'Blog successfully updated.');

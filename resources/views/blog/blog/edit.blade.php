@@ -39,7 +39,7 @@
                         <div class="card-body">
                             <div class="row">
 
-                                <form method="POST" action="{{ route('update-blog', ['id' => $data->id]) }}">
+                                <form method="POST" action="{{ route('update-blog', ['id' => $data->id]) }}"  enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="col-lg-8 mx-auto">
@@ -56,6 +56,19 @@
                                             </div>
 
                                             <div class="col-md-12">
+                                                <label class="form-label" for="feature_picture">Featured Picture</label>
+                                                @if ($data->feature_picture)
+                                                <img src="{{ asset($data->feature_picture) }}" alt="Featured Picture" class="img-thumbnail" style="max-width: 200px;">
+                                                @endif
+                                                <input type="file" id="feature_picture" name="feature_picture" class="form-control">
+                                                @error('feature_picture')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+
+
+                                            <div class="col-md-12">
                                                 <label class="form-label" for="slug">Slug</label>
                                                 <input type="text" id="slug" name="slug" value="{{ $data->slug }}" class="form-control"
                                                     placeholder="Enter slug">
@@ -69,6 +82,15 @@
                                                 <input type="text" id="slug_url" name="slug_url" value="{{ $data->slug_url }}" class="form-control"
                                                     placeholder="Enter slug URL">
                                                     @error('slug_url')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <label class="form-label" for="read_time">Read Time</label>
+                                                <input type="text" id="read_time" name="read_time" value="{{ $data->read_time }}" class="form-control"
+                                                    placeholder="Enter read time">
+                                                    @error('read_time')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                             </div>

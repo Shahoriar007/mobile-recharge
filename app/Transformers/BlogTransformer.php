@@ -13,8 +13,10 @@ class BlogTransformer extends TransformerAbstract
         return [
             'id' => $blog->id,
             'title' => $blog->title,
+            'feature_picture' => asset($blog->feature_picture),
             'slug' => $blog->slug,
             'slug_url' => $blog->slug_url,
+            'read_time' => $blog->read_time,
             'blog_category_id' => $blog->blog_category_id,
             'blog_category' => $blog->blogCategory,
             'author_id' => $blog->author_id,

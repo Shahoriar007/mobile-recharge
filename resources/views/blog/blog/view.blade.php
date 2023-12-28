@@ -16,7 +16,8 @@
                 <div class="d-flex justify-content-between align-items-center flex-wrap mb-2 gap-1">
                   <div class="me-1">
                     <h1 class="mb-1">{{ $data->title }}</h1>
-                    <p class="mb-1">{{ $data->author->name }} ||  <span class="fw-medium"> {{  \Carbon\Carbon::parse($data->meta_publish_date)->format('d M Y')  }} </span></p>
+                    <p class="mb-1">{{ $data->author->name }} ||  <span class="fw-medium"> {{  \Carbon\Carbon::parse($data->meta_publish_date)->format('d M Y') }} || Read Time:  {{ $data->read_time }} </span></p>
+
                   </div>
 
                 </div>
@@ -25,6 +26,8 @@
 
                   <div class="card-body">
 
+                    <img src="{{ asset($data->feature_picture) }}" alt="images" style="width: 100%">
+                    <br><br>
                     {!! $data->description !!}
 
                   </div>
