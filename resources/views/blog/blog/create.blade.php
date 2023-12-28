@@ -39,17 +39,26 @@
                         <div class="card-body">
                             <div class="row">
 
-                                <form method="POST" action="{{ route('store-blog') }}">
+                                <form method="POST" action="{{ route('store-blog') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="col-lg-8 mx-auto">
                                         <!-- 1. Blog Information -->
                                         <h5 class="mb-4">1. Blog Information</h5>
                                         <div class="row g-3">
                                             <div class="col-md-12">
-                                                <label class="form-label" for="title">Title</label>
+                                                <label class="form-label" for="title">Title <span style="color: red;">*</span></label>
                                                 <input type="text" id="title" name="title" class="form-control"
                                                     placeholder="Enter blog title" required>
                                                     @error('title')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <label class="form-label" for="slug">Feature Picture</label>
+                                                <input type="file" id="feature_picture" name="feature_picture" class="form-control"
+                                                    placeholder="Enter feature picture">
+                                                    @error('feature_picture')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                             </div>
@@ -72,8 +81,17 @@
                                                     @enderror
                                             </div>
 
+                                            <div class="col-md-12">
+                                                <label class="form-label" for="read_time">Read Time</label>
+                                                <input type="text" id="read_time" name="read_time" class="form-control"
+                                                    placeholder="Enter read time">
+                                                    @error('read_time')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                            </div>
+
                                             <div class="col-md-6">
-                                                <label class="form-label" for="blog_category">Blog Category</label>
+                                                <label class="form-label" for="blog_category">Blog Category <span style="color: red;">*</span></label>
                                                 <select id="blog_category" name="blog_category_id" class="form-select">
                                                     @foreach ($blogCategoryData as $blogCategory)
                                                         <option value="{{ $blogCategory->id }}">{{ $blogCategory->name }}
@@ -87,7 +105,7 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <label class="form-label" for="author">Author</label>
+                                                <label class="form-label" for="author">Author <span style="color: red;">*</span></label>
                                                 <select id="author" name="author_id" class="form-select">
                                                     @foreach ($authorData as $author)
                                                         <option value="{{ $author->id }}">{{ $author->name }}</option>

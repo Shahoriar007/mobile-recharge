@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
             $table->string("title");
+            $table->string("feature_picture")->nullable();
             $table->string("slug")->nullable();
             $table->string("slug_url")->nullable();
+            $table->string("read_time")->nullable();
             $table->text("description")->nullable();
             $table->unsignedBigInteger('blog_category_id')->nullable()->comment('from blog_categories table');
             $table->unsignedBigInteger('author_id')->nullable()->comment('from users table');

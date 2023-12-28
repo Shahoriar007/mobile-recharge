@@ -6,6 +6,8 @@ use App\Models\Blog;
 use App\Models\User;
 use Illuminate\Support\Str;
 use App\Models\BlogCategory;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class BlogRepository
 {
@@ -67,17 +69,25 @@ class BlogRepository
      * @return bool
      */
 
-    public function store($validated): bool
+    public function store(array $validated, $request): bool
     {
-
         try {
-
-            if (empty($validated['slug'])){
+            if (empty($validated['slug'])) {
                 $validated['slug'] = Str::slug($validated['title'], '-');
             }
 
-            if (empty($validated['author_id'])){
+            if (empty($validated['author_id'])) {
                 $validated['author_id'] = auth()->user()->id;
+            }
+
+            if ($request->hasFile('feature_picture')) {
+                $image = $request->file('feature_picture');
+
+                $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+
+                Storage::putFileAs('public/blogs/images', $image, $filename);
+
+                $validated['feature_picture'] = 'storage/blogs/images/' . $filename;
             }
 
             $this->model->create($validated);
@@ -89,6 +99,7 @@ class BlogRepository
             return false;
         }
     }
+
     /**
      * @param $id
      * @return bool
@@ -162,23 +173,29 @@ class BlogRepository
      * @return bool
      */
 
-    public function update($validated, $id): bool
+    public function update($validated, $id, $request): bool
     {
-
         try {
-
-
-
-            if (empty($validated['slug'])){
+            if (empty($validated['slug'])) {
                 $validated['slug'] = Str::slug($validated['title'], '-');
             }
 
-            if (empty($validated['author_id'])){
+            if (empty($validated['author_id'])) {
                 $validated['author_id'] = auth()->user()->id;
             }
 
             $data = $this->findById($id);
+
+            if ($request->hasFile('feature_picture')) {
+
+                $image = $request->file('feature_picture');
+                $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+                Storage::putFileAs('public/blogs/images', $image, $filename);
+                $validated['feature_picture'] = 'storage/blogs/images/' . $filename;
+            }
+
             $data->update($validated);
+
             return true;
         } catch (\Exception $e) {
             error_log($e->getMessage());
@@ -187,32 +204,33 @@ class BlogRepository
         }
     }
 
+
     /**
      * @param $validated
      * @return bool
      */
 
-     public function apiIndex()
-     {
+    public function apiIndex()
+    {
 
-         try {
-             $data = $this->model->latest('created_at')->get();
-             return $data;
-         } catch (\Exception $e) {
-             error_log($e->getMessage());
-             return [];
-         }
-     }
+        try {
+            $data = $this->model->latest('created_at')->get();
+            return $data;
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return [];
+        }
+    }
 
-     public function apiShow($id)
-     {
+    public function apiShow($id)
+    {
 
-         try {
-             $data = $this->findById($id);
-             return $data;
-         } catch (\Exception $e) {
-             error_log($e->getMessage());
-             return [];
-         }
-     }
+        try {
+            $data = $this->findById($id);
+            return $data;
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return [];
+        }
+    }
 }

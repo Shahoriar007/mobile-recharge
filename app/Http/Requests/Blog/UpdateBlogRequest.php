@@ -19,6 +19,7 @@ class UpdateBlogRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255'],
             'slug_url' => ['nullable', 'string', 'max:225'],
+            'read_time' => ['nullable', 'string', 'max:255'],
             'blog_category_id' => ['required', 'exists:blog_categories,id'],
             'author_id' => ['nullable', 'exists:users,id'],
             'description' => ['nullable', 'string'],
