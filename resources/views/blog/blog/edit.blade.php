@@ -55,15 +55,20 @@
                                                     @enderror
                                             </div>
 
-                                            <div class="col-md-12">
-                                                <label class="form-label" for="feature_picture">Featured Picture</label>
+                                            <div class="col-md-4">
                                                 @if ($data->feature_picture)
                                                 <img src="{{ asset($data->feature_picture) }}" alt="Featured Picture" class="img-thumbnail" style="max-width: 200px;">
                                                 @endif
+
+                                            </div>
+
+                                            <div class="col-md-8">
+                                                <label class="form-label" for="feature_picture">Change Featured Picture</label>
                                                 <input type="file" id="feature_picture" name="feature_picture" class="form-control">
                                                 @error('feature_picture')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
+
                                             </div>
 
 
