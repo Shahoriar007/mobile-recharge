@@ -6,7 +6,6 @@ use App\Models\Blog;
 use App\Models\User;
 use Illuminate\Support\Str;
 use App\Models\BlogCategory;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 class BlogRepository
