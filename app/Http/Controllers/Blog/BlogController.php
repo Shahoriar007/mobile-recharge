@@ -111,7 +111,7 @@ class BlogController extends Controller
 
     }
 
-    public function apiIndex(Request $request)
+    public function apiIndex()
     {
         $data = $this->repository->apiIndex();
 
@@ -124,15 +124,15 @@ class BlogController extends Controller
 
     }
 
-    public function apiShow(Request $request, $id)
+    public function apiShow($slug)
     {
-        $data = $this->repository->apiShow($id);
+        $data = $this->repository->apiShow($slug);
 
         // $manager = new Manager();
         // $resource = new Item($data, new BlogTransformer());
 
         // $transformedData = $manager->createData($resource)->toArray();
 
-        return response()->json([$data]);
+        return response()->json($data);
     }
 }

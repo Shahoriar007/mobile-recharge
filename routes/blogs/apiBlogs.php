@@ -10,4 +10,4 @@ Route::get('/blog-category', [BlogCategoryController::class, 'apiIndex']);
 Route::get('/blog-category/{id}', [BlogCategoryController::class, 'apiShow']);
 // blogs api routes
 Route::get('/blog', [BlogController::class, 'apiIndex']);
-Route::get('/blog/{id}', [BlogController::class, 'apiShow']);
+Route::get('/blog/{slug}', [BlogController::class, 'apiShow']);

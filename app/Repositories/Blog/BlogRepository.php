@@ -221,11 +221,11 @@ class BlogRepository
         }
     }
 
-    public function apiShow($id)
+    public function apiShow($slug)
     {
 
         try {
-            $data = $this->findById($id);
+            $data = $this->model->where('slug', $slug)->first();
             return $data;
         } catch (\Exception $e) {
             error_log($e->getMessage());
