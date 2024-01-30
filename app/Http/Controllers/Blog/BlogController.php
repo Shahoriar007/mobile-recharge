@@ -122,12 +122,12 @@ class BlogController extends Controller
         }
 
         $manager = new Manager();
-        $resource = new Collection($data, new BlogTransformer());
+        // $resource = new Collection($data, new BlogTransformer());
 
-        $transformedData = $manager->createData($resource)->toArray();
+        // $transformedData = $manager->createData($resource)->toArray();
 
         return response()->json([
-            'data' => $transformedData
+            'data' => $data
         ], 301);
 
     }
