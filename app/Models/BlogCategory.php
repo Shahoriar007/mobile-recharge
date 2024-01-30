@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Blog;
+use App\Models\User;
 use App\Traits\CreatedBy;
 use App\Traits\DeletedBy;
 use App\Traits\UpdatedBy;
@@ -26,5 +28,10 @@ class BlogCategory extends Model
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function blog()
+    {
+        return $this->hasMany(Blog::class, 'blog_category_id', 'id');
     }
 }

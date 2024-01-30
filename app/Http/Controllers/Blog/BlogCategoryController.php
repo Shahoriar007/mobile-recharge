@@ -66,40 +66,14 @@ class BlogCategoryController extends Controller
     {
         $data = $this->repository->apiIndex();
 
-        if (!$data) {
-            return response()->json([
-                'data' => []
-            ]);
-        }
-
-        $manager = new Manager();
-        $resource = new Collection($data, new BlogCategoryTransformer());
-
-        $transformedData = $manager->createData($resource)->toArray();
-
-        return response()->json([
-            'data' => $transformedData
-        ]);
+        return response()->json($data);
 
     }
 
-    public function apiShow(Request $request, $id)
+    public function apiShow($id)
     {
         $data = $this->repository->apiShow($id);
 
-        if (!$data) {
-            return response()->json([
-                'data' => []
-            ]);
-        }
-
-        $manager = new Manager();
-        $resource = new Item($data, new BlogCategoryTransformer());
-
-        $transformedData = $manager->createData($resource)->toArray();
-
-        return response()->json([
-            'data' => $transformedData
-        ]);
+        return response()->json($data);
     }
 }

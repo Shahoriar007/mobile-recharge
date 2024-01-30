@@ -211,9 +211,8 @@ class BlogRepository
 
     public function apiIndex()
     {
-
         try {
-            $data = $this->model->latest('created_at')->get();
+            $data = $this->model->latest('created_at')->with('blogCategory')->get();
             return $data;
         } catch (\Exception $e) {
             error_log($e->getMessage());
@@ -223,9 +222,8 @@ class BlogRepository
 
     public function apiShow($slug)
     {
-
         try {
-            $data = $this->model->where('slug', $slug)->first();
+            $data = $this->model->where('slug', $slug)->with('blogCategory')->first();
             return $data;
         } catch (\Exception $e) {
             error_log($e->getMessage());

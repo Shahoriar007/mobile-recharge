@@ -115,11 +115,6 @@ class BlogController extends Controller
     {
         $data = $this->repository->apiIndex();
 
-        // $manager = new Manager();
-        // $resource = new Collection($data, new BlogTransformer());
-
-        // $transformedData = $manager->createData($resource)->toArray();
-
         return response()->json($data);
 
     }
@@ -127,11 +122,6 @@ class BlogController extends Controller
     public function apiShow($slug)
     {
         $data = $this->repository->apiShow($slug);
-
-        // $manager = new Manager();
-        // $resource = new Item($data, new BlogTransformer());
-
-        // $transformedData = $manager->createData($resource)->toArray();
 
         return response()->json($data);
     }

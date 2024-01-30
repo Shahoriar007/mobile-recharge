@@ -102,7 +102,7 @@ class BlogCategoryRepository
      {
 
          try {
-             $data = $this->findById($id);
+             $data = $this->model->where('id', $id)->with('blog')->get();
              return $data;
          } catch (\Exception $e) {
              error_log($e->getMessage());
