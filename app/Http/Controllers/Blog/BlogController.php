@@ -136,7 +136,7 @@ class BlogController extends Controller
         // $transformedData = $manager->createData($resource)->toArray();
 
         return response()->json([
-            'data' => $data
+            'data' => [$data]
         ]);
     }
 }
