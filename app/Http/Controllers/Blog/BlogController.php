@@ -120,9 +120,7 @@ class BlogController extends Controller
 
         // $transformedData = $manager->createData($resource)->toArray();
 
-        return response()->json([
-            'data' => $data
-        ], 301);
+        return response()->json($data);
 
     }
 
@@ -135,8 +133,6 @@ class BlogController extends Controller
 
         // $transformedData = $manager->createData($resource)->toArray();
 
-        return response()->json([
-            'data' => [$data]
-        ]);
+        return response()->json([$data]);
     }
 }
