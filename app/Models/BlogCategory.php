@@ -9,14 +9,11 @@ use App\Traits\DeletedBy;
 use App\Traits\UpdatedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BlogCategory extends Model
 {
-    use HasFactory;
-    use CreatedBy;
-    use UpdatedBy;
-    use DeletedBy;
+    use HasFactory, CreatedBy, UpdatedBy, DeletedBy, SoftDeletes;
 
     protected $fillable = [
         'name',

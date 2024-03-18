@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Response;
 use App\Repositories\Blog\BlogRepository;
 use App\Http\Requests\Blog\StoreBlogRequest;
 use App\Http\Requests\Blog\UpdateBlogRequest;
+use App\Models\Blog;
 
 class BlogController extends Controller
 {
@@ -51,12 +52,11 @@ class BlogController extends Controller
 
         $data = $this->repository->store($validated, $request);
 
-        if($data){
+        if ($data) {
             return redirect()->route('blog')->with('success', 'Blog successfully created.');
-        }else{
+        } else {
             return redirect()->route('blog')->with('error', 'Blog failed created.');
         }
-
     }
 
     public function view($id)
@@ -89,12 +89,11 @@ class BlogController extends Controller
 
         $data = $this->repository->update($validated, $id, $request);
 
-        if($data){
+        if ($data) {
             return redirect()->route('blog')->with('success', 'Blog successfully updated.');
-        }else{
+        } else {
             return redirect()->route('blog')->with('error', 'Blog failed updated.');
         }
-
     }
 
     public function destroy(Request $request)
@@ -103,20 +102,19 @@ class BlogController extends Controller
 
         $data = $this->repository->destroy($id);
 
-        if($data){
+        if ($data) {
             return redirect()->route('blog')->with('success', 'Blog successfully deleted.');
-        }else{
+        } else {
             return redirect()->route('blog')->with('error', 'Blog failed deleted.');
         }
-
     }
 
-    public function apiIndex()
+    public function apiIndex(Request $request)
     {
-        $data = $this->repository->apiIndex();
+        $data = $request->all();
+        $data = $this->repository->apiIndex($request);
 
         return response()->json($data);
-
     }
 
     public function apiShow($slug)

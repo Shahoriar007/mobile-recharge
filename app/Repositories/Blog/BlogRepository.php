@@ -71,14 +71,6 @@ class BlogRepository
     public function store(array $validated, $request): bool
     {
         try {
-            if (empty($validated['slug'])) {
-                $validated['slug'] = Str::slug($validated['title'], '-');
-            }
-
-            if (empty($validated['author_id'])) {
-                $validated['author_id'] = auth()->user()->id;
-            }
-
             if ($request->hasFile('feature_picture')) {
                 $image = $request->file('feature_picture');
 
@@ -86,8 +78,10 @@ class BlogRepository
 
                 Storage::putFileAs('public/blogs/images', $image, $filename);
 
-                $validated['feature_picture'] = 'storage/blogs/images/' . $filename;
+                $validated['featured_image'] = 'storage/blogs/images/' . $filename;
             }
+
+            $validated['index_status'] = $validated == 'on' ? 1 : 2;
 
             $this->model->create($validated);
 
@@ -209,10 +203,15 @@ class BlogRepository
      * @return bool
      */
 
-    public function apiIndex()
+    public function apiIndex($request)
     {
         try {
-            $data = $this->model->latest('created_at')->with('blogCategory')->get();
+            $blogs = $this->model->latest('created_at')->with('blogCategory')->paginate(6);
+            $categories = $this->blogCategory->all();
+            $data = [
+                'blogs' => $blogs,
+                'categories' => $categories
+            ];
             return $data;
         } catch (\Exception $e) {
             error_log($e->getMessage());

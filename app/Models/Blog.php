@@ -2,30 +2,28 @@
 
 namespace App\Models;
 
-use App\Models\User;
 use App\Traits\CreatedBy;
 use App\Traits\DeletedBy;
 use App\Traits\UpdatedBy;
 use App\Models\BlogCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Blog extends Model
 {
-    use HasFactory;
-    use CreatedBy;
-    use UpdatedBy;
-    use DeletedBy;
+    use HasFactory, CreatedBy, UpdatedBy, DeletedBy, SoftDeletes;
 
     protected $fillable = [
-        'title',
-        'read_time',
-        'feature_picture',
-        'slug',
-        'slug_url',
-        'description',
+        // blog features
         'blog_category_id',
-        'author_id',
+        'title',
+        'slug',
+        'featured_image',
+        'author',
+        'content',
+
+        // seo features
         'index_status',
         'canonical_url',
         'meta_title',
@@ -34,18 +32,27 @@ class Blog extends Model
         'meta_publish_date',
         'schema_markup',
         'custom_code',
+
         'created_by',
         'updated_by',
         'deleted_by',
     ];
+
+    // append featured_image_url attribute
+    protected $appends = ['featured_image_url'];
+
+    public function getFeaturedImageUrlAttribute()
+    {
+        return $this->featured_image ? asset($this->featured_image) : null;
+    }
 
     public function blogCategory()
     {
         return $this->belongsTo(BlogCategory::class, 'blog_category_id', 'id');
     }
 
-    public function author()
+    public function createdBy()
     {
-        return $this->belongsTo(User::class, 'author_id', 'id');
+        return $this->belongsTo(User::class, 'created_by', 'id');
     }
 }

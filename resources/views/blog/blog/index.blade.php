@@ -71,8 +71,7 @@
                                     </td>
 
                                     <td>
-                                        <b>Name: </b> {{ $blog->author->name }} <br>
-                                        <b>Email: </b> {{ $blog->author->email }}
+                                        <b> {{ $blog->author }}</b>
                                     </td>
 
                                     <td>

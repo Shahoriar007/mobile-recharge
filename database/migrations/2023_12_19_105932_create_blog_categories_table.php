@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('updated_by')->nullable()->comment('from users table');
             $table->unsignedBigInteger('deleted_by')->nullable()->comment('from users table');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

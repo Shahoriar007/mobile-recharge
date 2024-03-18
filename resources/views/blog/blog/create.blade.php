@@ -33,7 +33,6 @@
                             <div class="card-header sticky-element bg-label-secondary d-flex justify-content-sm-between align-items-sm-center flex-column flex-sm-row"
                                 style="width: 1390px;">
                                 <h5 class="card-title mb-sm-0 me-2">Blog Form</h5>
-
                             </div>
                         </div>
                         <div class="card-body">
@@ -42,85 +41,74 @@
                                 <form method="POST" action="{{ route('store-blog') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="col-lg-8 mx-auto">
-                                        <!-- 1. Blog Information -->
-                                        <h5 class="mb-4">1. Blog Information</h5>
-                                        <div class="row g-3">
-                                            <div class="col-md-12">
-                                                <label class="form-label" for="title">Title <span style="color: red;">*</span></label>
-                                                <input type="text" id="title" name="title" class="form-control"
-                                                    placeholder="Enter blog title" required>
+                                        <h3>Blog Information</h3>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="col-md-12">
+                                                    <label class="form-label" for="title">Title <span
+                                                            style="color: red;">*</span></label>
+                                                    <input type="text" id="title" name="title" class="form-control"
+                                                        value="{{ old('title') }}" placeholder="Enter blog title">
                                                     @error('title')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <label class="form-label" for="slug">Feature Picture</label>
-                                                <input type="file" id="feature_picture" name="feature_picture" class="form-control"
-                                                    placeholder="Enter feature picture">
-                                                    @error('feature_picture')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <label class="form-label" for="slug">Slug</label>
-                                                <input type="text" id="slug" name="slug" class="form-control"
-                                                    placeholder="Enter slug">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label class="form-label" for="title">Slug <span
+                                                            style="color: red;">*</span></label>
+                                                    <input type="text" id="slug" name="slug" class="form-control"
+                                                        value="{{ old('slug') }}" placeholder="Enter blog slug">
                                                     @error('slug')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <label class="form-label" for="slug_url">Slug URL</label>
-                                                <input type="text" id="slug_url" name="slug_url" class="form-control"
-                                                    placeholder="Enter slug URL">
-                                                    @error('slug_url')
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label class="form-label" for="blog_category">Blog Category <span
+                                                            style="color: red;">*</span></label>
+                                                    <select id="blog_category" name="blog_category_id" class="form-select">
+                                                        @foreach ($blogCategoryData as $blogCategory)
+                                                            <option value="{{ $blogCategory->id }}">
+                                                                {{ $blogCategory->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('blog_category_id')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
-                                            </div>
-
-                                            <div class="col-md-12">
-                                                <label class="form-label" for="read_time">Read Time</label>
-                                                <input type="text" id="read_time" name="read_time" class="form-control"
-                                                    placeholder="Enter read time">
-                                                    @error('read_time')
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label class="form-label" for="title">Author</label>
+                                                    <input type="text" id="author" name="author" class="form-control"
+                                                        value="{{ old('author') }}" placeholder="Enter blog author name">
+                                                    @error('author')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
+                                                </div>
                                             </div>
-
-                                            <div class="col-md-6">
-                                                <label class="form-label" for="blog_category">Blog Category <span style="color: red;">*</span></label>
-                                                <select id="blog_category" name="blog_category_id" class="form-select">
-                                                    @foreach ($blogCategoryData as $blogCategory)
-                                                        <option value="{{ $blogCategory->id }}">{{ $blogCategory->name }}
-                                                        </option>
-                                                    @endforeach
-
-                                                </select>
-                                                @error('blog_category_id')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                            <div class="col-md-4">
+                                                <div class="col-md-12">
+                                                    <label class="form-label" for="slug">Feature Picture<span
+                                                            style="color: red;">*</span></label>
+                                                    <input type="file" id="feature_picture" name="feature_picture"
+                                                        class="form-control" placeholder="Enter feature picture">
+                                                    @error('feature_picture')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-12 mt-1">
+                                                    <img id="preview-image-before-upload" hidden src=""
+                                                        width="100%" alt="preview image" alt="preview image"
+                                                        style="max-height: 250px;">
+                                                </div>
                                             </div>
-
-                                            <div class="col-md-6">
-                                                <label class="form-label" for="author">Author <span style="color: red;">*</span></label>
-                                                <select id="author" name="author_id" class="form-select">
-                                                    @foreach ($authorData as $author)
-                                                        <option value="{{ $author->id }}">{{ $author->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-
                                             <div class="col-12">
-                                                <label class="form-label" for="description">Description</label>
-                                                <textarea name="description" class="form-control" id="description" rows="2" placeholder="Enter blog description"></textarea>
-                                                @error('description')
+                                                <label class="form-label" for="content">Content<span
+                                                        style="color: red;">*</span></label>
+                                                <textarea name="content" class="form-control" id="content" rows="2" placeholder="Enter blog content"></textarea>
+                                                @error('content')
                                                     <div class="text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-
                                         </div>
                                         <hr>
                                         <!-- 2. Seo Features -->
@@ -129,8 +117,8 @@
                                         <div class="row g-3">
                                             <div class="col-md-12">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="index"
-                                                        id="index" name="index_status" checked="">
+                                                    <input class="form-check-input" type="checkbox" id="index"
+                                                        name="index_status" checked="">
                                                     <label class="form-check-label" for="index">Index</label>
                                                 </div>
                                             </div>
@@ -180,9 +168,6 @@
                                         </div>
                                         <div style = "margin-top: 20px;">
                                             <div class="action-btns">
-                                                {{-- <button class="btn btn-label-primary me-3 waves-effect">
-                                            <span class="align-middle"> Back</span>
-                                        </button> --}}
                                                 <button type="submit" class="btn btn-primary waves-effect waves-light">
                                                     Save
                                                 </button>
@@ -196,37 +181,57 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
 
+@section('vendor-script')
+    <!-- vendor js files -->
+    <script src="{{ asset(mix('vendors/js/pagination/jquery.bootpag.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/pagination/jquery.twbsPagination.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/editors/quill/katex.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/editors/quill/highlight.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/editors/quill/quill.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/file-uploaders/dropzone.min.js')) }}"></script>
 
+@endsection
+@section('page-script')
+    {{-- Page js files --}}
+    <script src="{{ asset(mix('js/scripts/pagination/components-pagination.js')) }}"></script>
+    <script src="{{ asset(mix('js/scripts/forms/form-select2.js')) }}"></script>
+    <script src="{{ asset(mix('js/scripts/forms/form-quill-editor.js')) }}"></script>
+    <script src="{{ asset(mix('js/scripts/forms/form-file-uploader.js')) }}"></script>
 
+    <script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('content');
+    </script>
 
+    <script>
+        document.getElementById('title').addEventListener('input', function(e) {
+            var title = e.target.value.toLowerCase().trim();
+            var slug = title.replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
+            document.getElementById('slug').value = slug;
+        });
 
-                    <!-- Hoverable rows end -->
-
-                @endsection
-
-                @section('vendor-script')
-                    <!-- vendor js files -->
-                    <script src="{{ asset(mix('vendors/js/pagination/jquery.bootpag.min.js')) }}"></script>
-                    <script src="{{ asset(mix('vendors/js/pagination/jquery.twbsPagination.min.js')) }}"></script>
-                    <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
-                    <script src="{{ asset(mix('vendors/js/editors/quill/katex.min.js')) }}"></script>
-                    <script src="{{ asset(mix('vendors/js/editors/quill/highlight.min.js')) }}"></script>
-                    <script src="{{ asset(mix('vendors/js/editors/quill/quill.min.js')) }}"></script>
-                    <script src="{{ asset(mix('vendors/js/file-uploaders/dropzone.min.js')) }}"></script>
-
-                @endsection
-                @section('page-script')
-                    {{-- Page js files --}}
-                    <script src="{{ asset(mix('js/scripts/pagination/components-pagination.js')) }}"></script>
-                    <script src="{{ asset(mix('js/scripts/forms/form-select2.js')) }}"></script>
-                    <script src="{{ asset(mix('js/scripts/forms/form-quill-editor.js')) }}"></script>
-                    <script src="{{ asset(mix('js/scripts/forms/form-file-uploader.js')) }}"></script>
-
-                    <script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
-                    <script>
-                        CKEDITOR.replace('description');
-                    </script>
-
-
-                @endsection
+        // image preview
+        const inputFile = document.getElementById('feature_picture');
+        const previewContainer = document.getElementById('preview-image-before-upload');
+        // set the image preview
+        inputFile.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    const result = reader.result;
+                    previewContainer.src = result;
+                    previewContainer.hidden = false;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+@endsection
