@@ -16,11 +16,10 @@ class StoreBlogRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255'],
-            'blog_category_id' => ['required', 'exists:blog_categories,id'],
             'feature_picture' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            'content' => ['required', 'string'],
-
             'author' => ['nullable', 'string', 'max:255'],
+            'published_at' => ['nullable', 'date'],
+
             'canonical_url' => ['nullable', 'url'],
             'meta_title' => ['nullable', 'string', 'max:255'],
             'meta_description' => ['nullable', 'string'],

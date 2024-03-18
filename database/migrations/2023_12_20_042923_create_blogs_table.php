@@ -19,9 +19,8 @@ return new class extends Migration
             $table->string("title");
             $table->string("slug")->unique();
             $table->string("featured_image")->nullable();
-            $table->unsignedBigInteger('blog_category_id')->nullable();
             $table->string("author")->nullable();
-            $table->longText("content")->nullable();
+            $table->date('published_at')->nullable();
 
             // seo features
             $table->enum('index_status', [1, 2])->default(2)->comment('1=index, 2=noindex');

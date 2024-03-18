@@ -16,12 +16,11 @@ class Blog extends Model
 
     protected $fillable = [
         // blog features
-        'blog_category_id',
         'title',
         'slug',
         'featured_image',
         'author',
-        'content',
+        'published_at',
 
         // seo features
         'index_status',
@@ -44,11 +43,6 @@ class Blog extends Model
     public function getFeaturedImageUrlAttribute()
     {
         return $this->featured_image ? asset($this->featured_image) : null;
-    }
-
-    public function blogCategory()
-    {
-        return $this->belongsTo(BlogCategory::class, 'blog_category_id', 'id');
     }
 
     public function createdBy()
