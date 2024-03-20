@@ -34,7 +34,7 @@ class BlogController extends Controller
         return view('blog.blog.index', compact('data', 'breadcrumbs'));
     }
 
-    public function createBLogView()
+    public function createBlogView()
     {
         $breadcrumbs = [
             ['link' => "/blog", 'name' => "Blog"], ['name' => "Create"]
@@ -151,6 +151,42 @@ class BlogController extends Controller
 
         if ($data) {
             return redirect('/blog/content/update/' . $data);
+        } else {
+            return redirect()->route('blog')->with('error', 'Blog failed updated.');
+        }
+    }
+
+    public function updateContent(Request $request)
+    {
+        $data = $this->repository->updateContent($request);
+
+        if ($data) {
+            return redirect('/blog/seo/update/' . $data);
+        } else {
+            return redirect()->route('blog')->with('error', 'Blog failed updated.');
+        }
+    }
+
+    public function updateSeoView($id)
+    {
+        $breadcrumbs = [
+            ['link' => "/blog", 'name' => "Blog"], ['name' => "SEO"]
+        ];
+
+        $data = $this->repository->updateSeoView($id);
+
+        $postLinkData = $this->repository->postLink($id);
+        $postScriptData = $this->repository->postScript($id);
+
+        return view('blog.blog.update-seo', compact('data', 'breadcrumbs', 'postLinkData', 'postScriptData'));
+    }
+
+    public function updateSeo(Request $request)
+    {
+        $data = $this->repository->updateSeo($request);
+
+        if ($data) {
+            return redirect()->route('blog')->with('success', 'Blog successfully updated.');
         } else {
             return redirect()->route('blog')->with('error', 'Blog failed updated.');
         }

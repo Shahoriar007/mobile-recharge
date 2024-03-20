@@ -62,14 +62,14 @@
 
             <div class="card">
                 <div class="card-header border-bottom">
-                    <h4 class="card-title">Edit Input</h4>
+                    <h4 class="card-title">Edit Content Input</h4>
                 </div>
                 <div class="card-body py-2 my-25">
 
 
 
                     <!-- form -->
-                    <form class="validate-form mt-2 pt-50" method="POST" action="{{ route('create-content') }}" enctype="multipart/form-data">
+                    <form class="validate-form mt-2 pt-50" method="POST" action="{{ route('update-content') }}" enctype="multipart/form-data">
                         @csrf
 
                         @php

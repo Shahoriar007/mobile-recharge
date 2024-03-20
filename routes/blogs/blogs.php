@@ -17,16 +17,23 @@ Route::middleware(['auth'])->group(function () {
 
     // blog routes
     Route::get('/blog', [BlogController::class, 'index'])->name('blog'); //blog list
-    Route::get('/blog/create', [BlogController::class, 'createBLogView'])->name('create-blog'); //blog create view
+    Route::get('/blog/create', [BlogController::class, 'createBlogView'])->name('create-blog'); //blog create view
     Route::post('/blog/post', [BlogController::class, 'storeBlog'])->name('store-blog'); //blog create
     Route::match(['put', 'get'], '/blog/update/{id}', [BlogController::class, 'createContentView'])->name('update-blog');//content view
     Route::post('/blog/content', [BlogController::class, 'storeContent'])->name('create-content'); //blog content create
     Route::match(['put', 'get'], '/blog/seo/{id}', [BlogController::class, 'createSeoView'])->name('seo-blog');//seo view
-    Route::post('/blog/seo', [BlogController::class, 'storeSeo'])->name('store-seo'); //blog content create
+    Route::post('/blog/seo', [BlogController::class, 'storeSeo'])->name('store-seo'); //seo create
 
     Route::get('/blog/{id}/edit', [BlogController::class, 'edit'])->name('edit-blog'); //blog edit view
     Route::put('/blog/{id}', [BlogController::class, 'update'])->name('update-blog'); //update blog
     Route::match(['put', 'get'], '/blog/content/update/{id}', [BlogController::class, 'updateContentView'])->name('update-blog-content');//update content view
+    Route::post('/blog/content/update', [BlogController::class, 'updateContent'])->name('update-content'); //blog content update
+    Route::match(['put', 'get'], '/blog/seo/update/{id}', [BlogController::class, 'updateSeoView'])->name('seo-blog-update');//seo update view
+    Route::post('/blog/seo/update', [BlogController::class, 'updateSeo'])->name('update-seo'); //seo update
+
+
+
+
 
 
 

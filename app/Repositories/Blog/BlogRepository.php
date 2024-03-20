@@ -127,7 +127,6 @@ class BlogRepository
             }
 
             return $blogId;
-
         } catch (\Exception $e) {
             error_log($e->getMessage());
             return false;
@@ -181,7 +180,6 @@ class BlogRepository
                         'value' => $postValues[$index],
                         'blog_id' => $request->input('blog_id')
                     ]);
-
                 }
 
                 $type = $request->input('type');
@@ -220,12 +218,17 @@ class BlogRepository
      * @return bool
      */
 
-    public function destroy($id): bool
+    public function destroy($id)
     {
 
         try {
-            $data = $this->findById($id);
-            $data->delete();
+            DB::transaction(function () use ($id) {
+                $this->findById($id)->forceDelete();
+                $this->content->where('blog_id', $id)->delete();
+                $this->postLink->where('blog_id', $id)->delete();
+                $this->postScript->where('blog_id', $id)->delete();
+            });
+
             return true;
         } catch (\Exception $e) {
             error_log($e->getMessage());
@@ -276,7 +279,6 @@ class BlogRepository
 
         try {
             $data = $this->findById($id);
-            info($data);
             return $data;
         } catch (\Exception $e) {
             error_log($e->getMessage());
@@ -311,11 +313,118 @@ class BlogRepository
             $data->blogCategories()->sync($validated['blog_category']);
 
             return $data->id;
-
         } catch (\Exception $e) {
             error_log($e->getMessage());
             info($e);
             return false;
+        }
+    }
+
+    public function updateContent($request)
+    {
+        try {
+            $blogId = $request->input('blog_id');
+
+            DB::transaction(function () use ($request, $blogId) {
+                $this->content->where('blog_id', $blogId)->delete();
+
+                $contentTitles = $request->input('contentTitle');
+                $descriptions = $request->input('description');
+
+                foreach ($contentTitles as $key => $title) {
+                    Content::create([
+                        'title' => $title,
+                        'description' => $descriptions[$key],
+                        'blog_id' => $blogId
+                    ]);
+                }
+            });
+
+            return $blogId;
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    public function updateSeoView($id)
+    {
+        try {
+            $data = $this->model->where('id', $id)->with(['postLinks', 'postScripts'])->get();
+
+            return $data;
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return [];
+        }
+    }
+
+
+    public function updateSeo($request)
+    {
+        return DB::transaction(function () use ($request) {
+            try {
+                $blog = $this->findById($request->input('blog_id'));
+
+                $blog->update([
+                    'index_status' => $request->input('index_status') == 'on' ? 1 : 2,
+                    'meta_title' => $request->input('meta_title'),
+                    'meta_description' => $request->input('meta_description')
+                ]);
+
+                $postKeys = $request->input('post_key');
+                $postValues = $request->input('post_value');
+
+                $this->postLink->where('blog_id', $blog->id)->delete();
+
+                foreach ($postKeys as $index => $postKey) {
+                    $this->postLink->create([
+                        'key' => $postKey,
+                        'value' => $postValues[$index],
+                        'blog_id' => $request->input('blog_id')
+                    ]);
+                }
+
+                $type = $request->input('type');
+                $script = $request->input('script');
+
+                $this->postScript->where('blog_id', $blog->id)->delete();
+
+                foreach ($type as $items => $type) {
+                    $this->postScript->create([
+                        'type' => $type,
+                        'script' => $script[$items],
+                        'blog_id' => $request->input('blog_id')
+                    ]);
+                }
+
+                return true;
+            } catch (\Exception $e) {
+                error_log($e->getMessage());
+                return [];
+            }
+        });
+    }
+
+    public function postLink($id)
+    {
+        try {
+            $data = $this->postLink->where('blog_id', $id)->get();
+            return $data;
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return [];
+        }
+    }
+
+    public function postScript($id)
+    {
+        try {
+            $data = $this->postScript->where('blog_id', $id)->get();
+            return $data;
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return [];
         }
     }
 
