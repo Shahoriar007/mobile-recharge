@@ -64,8 +64,8 @@
 
                         <div class="row">
                             <div class="col-12 col-sm-6 mb-1">
-                                <label class="form-label" for="accountTitle">Title</label>
-                                <input type="text" class="form-control" id="accountTitle" name="title"
+                                <label class="form-label" for="title">Title</label>
+                                <input type="text" class="form-control" id="title" name="title"
                                     placeholder="Enter title" value="{{ old('title') }}" data-msg="Please enter title" />
                             </div>
                             <div class="col-12 col-sm-6 mb-1">
@@ -203,6 +203,14 @@
             };
             reader.readAsDataURL(event.target.files[0]);
         }
+        </script>
+
+        <script>
+             document.getElementById('title').addEventListener('input', function(e) {
+            var title = e.target.value.toLowerCase().trim();
+            var slug = title.replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
+            document.getElementById('slug').value = slug;
+        });
         </script>
 
 
