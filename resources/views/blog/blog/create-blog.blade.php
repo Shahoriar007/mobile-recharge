@@ -116,8 +116,8 @@
                             <div class="col-12 col-sm-6 mb-1">
                                 <label for="slug" class="form-label">Feature Picture</label>
 
-                                <div class="mb-2">
-                                    <img id="preview"  alt="Featured Image" class="img-thumbnail" style="max-width: 200px;">
+                                <div class="mb-2" id="preview-container" style="display: none;">
+                                    <img id="preview" alt="Featured Image" class="img-thumbnail" style="max-width: 200px;">
                                 </div>
 
                                 <input type="file" id="feature_picture" name="feature_picture" class="form-control"
@@ -171,47 +171,24 @@
     </script>
 
     <script>
-        document.getElementById('title').addEventListener('input', function(e) {
-            var title = e.target.value.toLowerCase().trim();
-            var slug = title.replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
-            document.getElementById('slug').value = slug;
-        });
-
-        // image preview
-        const inputFile = document.getElementById('feature_picture');
-        const previewContainer = document.getElementById('preview-image-before-upload');
-        // set the image preview
-        inputFile.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function() {
-                    const result = reader.result;
-                    previewContainer.src = result;
-                    previewContainer.hidden = false;
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
-    <script>
         function previewImage(event) {
             var reader = new FileReader();
             reader.onload = function() {
                 var output = document.getElementById('preview');
                 output.src = reader.result;
+                document.getElementById('preview-container').style.display = 'block';
             };
             reader.readAsDataURL(event.target.files[0]);
         }
-        </script>
+    </script>
 
-        <script>
-             document.getElementById('title').addEventListener('input', function(e) {
+    <script>
+        document.getElementById('title').addEventListener('input', function(e) {
             var title = e.target.value.toLowerCase().trim();
             var slug = title.replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
             document.getElementById('slug').value = slug;
         });
-        </script>
+    </script>
 
 
 @endsection
