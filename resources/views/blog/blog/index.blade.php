@@ -67,11 +67,13 @@
                                     </td>
 
                                     <td>
-                                        {{ $blog->blogCategory->name }}
+                                        @foreach($blog->blogCategories as $category)
+                                        <b> {{ $category->name }}, </b>
+                                        @endforeach
                                     </td>
 
                                     <td>
-                                        <b> {{ $blog->author }}</b>
+                                        <b> {{ $blog->authors->name }}</b>
                                     </td>
 
                                     <td>

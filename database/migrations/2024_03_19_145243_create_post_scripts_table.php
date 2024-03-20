@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('blog_content', function (Blueprint $table) {
+        Schema::create('post_scripts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('blog_id');
-            $table->unsignedBigInteger('content_id');
+            $table->string('type')->nullable();
+            $table->text('script')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blog_content');
+        Schema::dropIfExists('post_script');
     }
 };

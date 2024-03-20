@@ -19,18 +19,13 @@ return new class extends Migration
             $table->string("title");
             $table->string("slug")->unique();
             $table->string("featured_image")->nullable();
-            $table->string("author")->nullable();
+            $table->unsignedBigInteger("author_id")->nullable();
             $table->date('published_at')->nullable();
 
             // seo features
             $table->enum('index_status', [1, 2])->default(2)->comment('1=index, 2=noindex');
-            $table->string("canonical_url")->nullable();
             $table->string("meta_title")->nullable();
             $table->text("meta_description")->nullable();
-            $table->string("meta_url")->nullable();
-            $table->dateTime('meta_publish_date')->nullable();
-            $table->longText('schema_markup')->nullable();
-            $table->longText('custom_code')->nullable();
 
             $table->unsignedBigInteger('created_by')->nullable()->comment('from users table');
             $table->unsignedBigInteger('updated_by')->nullable()->comment('from users table');

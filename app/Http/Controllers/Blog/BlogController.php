@@ -34,7 +34,7 @@ class BlogController extends Controller
         return view('blog.blog.index', compact('data', 'breadcrumbs'));
     }
 
-    public function create()
+    public function createBLogView()
     {
         $breadcrumbs = [
             ['link' => "/blog", 'name' => "Blog"], ['name' => "Create"]
@@ -43,14 +43,70 @@ class BlogController extends Controller
         $blogCategoryData = $this->repository->blogCategory();
         $authorData = $this->repository->author();
 
-        return view('blog.blog.create', compact('breadcrumbs', 'blogCategoryData', 'authorData'));
+        return view('blog.blog.create-blog', compact('breadcrumbs', 'blogCategoryData', 'authorData'));
     }
 
-    public function store(StoreBlogRequest $request)
+    public function updateContentView()
+    {
+        $breadcrumbs = [
+            ['link' => "/blog", 'name' => "Blog"], ['name' => "Update Content"]
+        ];
+
+        return view('blog.blog.create-content', compact('breadcrumbs'));
+    }
+
+
+
+    public function storeBlog(StoreBlogRequest $request)
     {
         $validated = $request->validated();
+        $data = $this->repository->storeBlog($validated, $request);
 
-        $data = $this->repository->store($validated, $request);
+        $blogId = $data['id'];
+
+        if ($data) {
+            return redirect('/blog/update/' . $blogId);
+
+        } else {
+            return redirect()->route('blog')->with('error', 'Blog failed created.');
+        }
+    }
+
+    public function createContentView(Request $id)
+    {
+
+        $breadcrumbs = [
+            ['link' => "/blog", 'name' => "Blog"], ['name' => "Update"]
+        ];
+
+        return view('blog.blog.create-content');
+    }
+
+    public function storeContent(Request $request)
+    {
+        $data = $this->repository->storeContent($request);
+
+        if ($data) {
+            return redirect('/blog/seo/' . $data);
+
+        } else {
+            return redirect()->route('blog')->with('error', 'Blog failed created.');
+        }
+    }
+
+    public function createSeoView($id)
+    {
+        $breadcrumbs = [
+            ['link' => "/blog", 'name' => "Blog"], ['name' => "SEO"]
+        ];
+
+        return view('blog.blog.create-seo', compact('breadcrumbs'));
+
+    }
+
+    public function storeSeo(Request $request)
+    {
+        $data = $this->repository->storeSeo($request);
 
         if ($data) {
             return redirect()->route('blog')->with('success', 'Blog successfully created.');
@@ -123,4 +179,7 @@ class BlogController extends Controller
 
         return response()->json($data);
     }
+
+
+
 }

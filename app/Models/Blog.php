@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Author;
+use App\Models\PostLink;
 use App\Traits\CreatedBy;
 use App\Traits\DeletedBy;
 use App\Traits\UpdatedBy;
+use App\Models\PostScript;
 use App\Models\BlogCategory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Blog extends Model
 {
@@ -19,18 +22,13 @@ class Blog extends Model
         'title',
         'slug',
         'featured_image',
-        'author',
+        'author_id',
         'published_at',
 
         // seo features
         'index_status',
-        'canonical_url',
         'meta_title',
         'meta_description',
-        'meta_url',
-        'meta_publish_date',
-        'schema_markup',
-        'custom_code',
 
         'created_by',
         'updated_by',
@@ -43,6 +41,26 @@ class Blog extends Model
     public function getFeaturedImageUrlAttribute()
     {
         return $this->featured_image ? asset($this->featured_image) : null;
+    }
+
+    public function blogCategories()
+    {
+        return $this->belongsToMany(BlogCategory::class, 'blog_category_blog', 'blog_id', 'blog_category_id');
+    }
+
+    public function authors()
+    {
+        return $this->belongsTo(Author::class, 'author_id', 'id');
+    }
+
+    public function postLinks()
+    {
+        return $this->hasMany(PostLink::class, 'blog_id', 'id');
+    }
+
+    public function postScripts()
+    {
+        return $this->hasMany(PostScript::class, 'blog_id', 'id');
     }
 
     public function createdBy()

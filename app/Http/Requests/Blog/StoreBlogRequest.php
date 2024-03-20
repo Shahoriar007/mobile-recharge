@@ -17,7 +17,7 @@ class StoreBlogRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255'],
             'feature_picture' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            'author' => ['nullable', 'string', 'max:255'],
+            'author_id' => ['nullable'],
             'published_at' => ['nullable', 'date'],
 
             'canonical_url' => ['nullable', 'url'],
@@ -27,6 +27,13 @@ class StoreBlogRequest extends FormRequest
             'meta_publish_date' => ['nullable', 'date'],
             'schema_markup' => ['nullable', 'string'],
             'custom_code' => ['nullable', 'string'],
+
+
+            //blog category id can be multiple
+
+            'blog_category' => ['required', 'array'],
+            'blog_category.*' => ['exists:blog_categories,id'],
+
         ];
     }
 
