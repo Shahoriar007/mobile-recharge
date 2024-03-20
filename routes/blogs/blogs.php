@@ -24,13 +24,15 @@ Route::middleware(['auth'])->group(function () {
     Route::match(['put', 'get'], '/blog/seo/{id}', [BlogController::class, 'createSeoView'])->name('seo-blog');//seo view
     Route::post('/blog/seo', [BlogController::class, 'storeSeo'])->name('store-seo'); //blog content create
 
+    Route::get('/blog/{id}/edit', [BlogController::class, 'edit'])->name('edit-blog'); //blog edit view
+    Route::put('/blog/{id}', [BlogController::class, 'update'])->name('update-blog'); //update blog
+    Route::match(['put', 'get'], '/blog/content/update/{id}', [BlogController::class, 'updateContentView'])->name('update-blog-content');//update content view
 
 
 
 
-    Route::get('/blog/seo', [BlogController::class, 'updateSeoView'])->name('update-seo');
-    Route::get('/blog/{id}/edit', [BlogController::class, 'edit'])->name('edit-blog');
-    Route::put('/blog/{id}', [BlogController::class, 'update'])->name('update-blog');
+
+    // Route::get('/blog/seo', [BlogController::class, 'updateSeoView'])->name('update-seo');
     Route::delete('/blog', [BlogController::class, 'destroy'])->name('delete-blog');
     Route::get('/blog/{id}/view', [BlogController::class, 'view'])->name('view-blog');
 

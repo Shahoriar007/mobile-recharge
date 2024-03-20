@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Create Blog')
+@section('title', 'Create SEO')
 
 @section('vendor-style')
     <!-- vendor css files -->

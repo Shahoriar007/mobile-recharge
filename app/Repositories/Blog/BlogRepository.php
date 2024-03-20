@@ -92,8 +92,6 @@ class BlogRepository
                     $validated['featured_image'] = 'storage/blogs/images/' . $filename;
                 }
 
-                $validated['index_status'] = $validated == 'on' ? 1 : 2;
-
                 $this->model->create($validated);
 
                 //category sync
@@ -141,6 +139,17 @@ class BlogRepository
 
         try {
             $data = $this->findById($id);
+            return $data;
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return [];
+        }
+    }
+
+    public function updateContentView($id)
+    {
+        try {
+            $data = $this->content->where('blog_id', $id)->get();
             return $data;
         } catch (\Exception $e) {
             error_log($e->getMessage());
@@ -267,6 +276,7 @@ class BlogRepository
 
         try {
             $data = $this->findById($id);
+            info($data);
             return $data;
         } catch (\Exception $e) {
             error_log($e->getMessage());
@@ -279,30 +289,29 @@ class BlogRepository
      * @return bool
      */
 
-    public function update($validated, $id, $request): bool
+    public function update($validated, $request)
     {
         try {
+
             if (empty($validated['slug'])) {
                 $validated['slug'] = Str::slug($validated['title'], '-');
             }
 
-            if (empty($validated['author_id'])) {
-                $validated['author_id'] = auth()->user()->id;
-            }
-
-            $data = $this->findById($id);
+            $data = $this->findById($validated['blog_id']);
 
             if ($request->hasFile('feature_picture')) {
 
                 $image = $request->file('feature_picture');
                 $filename = uniqid() . '.' . $image->getClientOriginalExtension();
                 Storage::putFileAs('public/blogs/images', $image, $filename);
-                $validated['feature_picture'] = 'storage/blogs/images/' . $filename;
+                $validated['feature_image'] = 'storage/blogs/images/' . $filename;
             }
 
             $data->update($validated);
+            $data->blogCategories()->sync($validated['blog_category']);
 
-            return true;
+            return $data->id;
+
         } catch (\Exception $e) {
             error_log($e->getMessage());
             info($e);

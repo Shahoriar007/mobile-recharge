@@ -17,22 +17,28 @@ class UpdateBlogRequest extends FormRequest
 
 
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255'],
-            'slug_url' => ['nullable', 'string', 'max:225'],
-            'read_time' => ['nullable', 'string', 'max:255'],
-            'author_id' => ['nullable', 'exists:users,id'],
+            'slug' => ['required', 'string', 'max:255'],
+            'feature_picture' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'author_id' => ['nullable'],
             'published_at' => ['nullable', 'date'],
 
-            'index_status' => ['nullable', 'in:index,not_index'],
-            'canonical_url' => ['nullable', 'url'],
-            'meta_title' => ['nullable', 'string', 'max:255'],
-            'meta_description' => ['nullable', 'string'],
-            'meta_url' => ['nullable', 'url'],
-            'meta_publish_date' => ['nullable', 'date'],
-            'schema_markup' => ['nullable', 'string'],
-            'custom_code' => ['nullable', 'string'],
+            //blog category id can be multiple
+
+            'blog_category' => ['required', 'array'],
+            'blog_category.*' => ['exists:blog_categories,id'],
+
+            'blog_id' => 'required|exists:blogs,id'
 
 
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Title is required',
+            'slug.required' => 'Slug is required',
+            'blog_category_id.required' => 'Blog category is required',
         ];
     }
 }

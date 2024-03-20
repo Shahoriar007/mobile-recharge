@@ -38,7 +38,7 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="#">
                         <i data-feather="lock" class="font-medium-3 me-50"></i>
-                        <span class="fw-bold">Content</span>
+                        <span class="fw-bold">Edit Content</span>
                     </a>
                 </li>
                 <!-- billing and plans -->
@@ -62,7 +62,7 @@
 
             <div class="card">
                 <div class="card-header border-bottom">
-                    <h4 class="card-title">Content Input</h4>
+                    <h4 class="card-title">Edit Input</h4>
                 </div>
                 <div class="card-body py-2 my-25">
 
@@ -79,23 +79,28 @@
 
                         <input type="hidden" name="blog_id" value="{{ $id }}">
 
+
+                        @foreach($contentData as $content)
+
                         <div id="content-sections">
                             <div class="content-section">
                                 <div class="row">
                                     <div class="col-12 col-sm-12 mb-1">
                                         <label class="form-label" for="accountTitle">Title</label>
-                                        <input type="text" class="form-control" name="contentTitle[]" placeholder="Enter content title">
+                                        <input type="text" class="form-control" name="contentTitle[]" value="{{ $content->title }}" placeholder="Enter content title">
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-12 col-sm-12 mb-1">
                                         <label class="form-label" for="description">Description</label>
-                                        <textarea name="description[]" class="form-control ckeditor" rows="2" placeholder="Enter blog description"></textarea>
+                                        <textarea name="description[]" class="form-control ckeditor" rows="2" placeholder="Enter blog description">{{ $content->description }}</textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        @endforeach
 
                         <div class="col-12">
                             <button type="button" class="btn btn-primary mt-1 me-1" id="add">Add</button>

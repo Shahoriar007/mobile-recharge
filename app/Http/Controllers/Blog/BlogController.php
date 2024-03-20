@@ -46,13 +46,15 @@ class BlogController extends Controller
         return view('blog.blog.create-blog', compact('breadcrumbs', 'blogCategoryData', 'authorData'));
     }
 
-    public function updateContentView()
+    public function updateContentView($id)
     {
         $breadcrumbs = [
             ['link' => "/blog", 'name' => "Blog"], ['name' => "Update Content"]
         ];
 
-        return view('blog.blog.create-content', compact('breadcrumbs'));
+        $contentData = $this->repository->updateContentView($id);
+
+        return view('blog.blog.update-content', compact('breadcrumbs', 'contentData'));
     }
 
 
@@ -139,14 +141,16 @@ class BlogController extends Controller
         return view('blog.blog.edit', compact('data', 'breadcrumbs', 'blogCategoryData', 'authorData'));
     }
 
-    public function update(UpdateBlogRequest $request, $id)
+    public function update(UpdateBlogRequest $request)
     {
         $validated = $request->validated();
 
-        $data = $this->repository->update($validated, $id, $request);
+        $blog_id = $validated['blog_id'];
+
+        $data = $this->repository->update($validated,  $request);
 
         if ($data) {
-            return redirect()->route('blog')->with('success', 'Blog successfully updated.');
+            return redirect('/blog/content/update/' . $data);
         } else {
             return redirect()->route('blog')->with('error', 'Blog failed updated.');
         }

@@ -85,9 +85,9 @@
                                     </td>
 
                                     <td>
-                                        <a class="" href="{{ route('view-blog', ['id' => $blog->id]) }}">
+                                        {{-- <a class="" href="{{ route('view-blog', ['id' => $blog->id]) }}">
                                             <i data-feather="eye" class="me-50"></i>
-                                        </a>
+                                        </a> --}}
                                         <a class="" href="{{ route('edit-blog', ['id' => $blog->id]) }}">
                                             <i data-feather="edit-2" class="me-50"></i>
                                         </a>

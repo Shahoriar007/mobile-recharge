@@ -115,8 +115,13 @@
 
                             <div class="col-12 col-sm-6 mb-1">
                                 <label for="slug" class="form-label">Feature Picture</label>
+
+                                <div class="mb-2">
+                                    <img id="preview"  alt="Featured Image" class="img-thumbnail" style="max-width: 200px;">
+                                </div>
+
                                 <input type="file" id="feature_picture" name="feature_picture" class="form-control"
-                                    placeholder="Enter feature picture">
+                                    placeholder="Enter feature picture" onchange="previewImage(event)">
                                 @error('feature_picture')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -189,6 +194,16 @@
             }
         });
     </script>
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('preview');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+        </script>
 
 
 @endsection
