@@ -15,6 +15,9 @@ require __DIR__ . '/users/users.php';
 //Blog routes
 require __DIR__ . '/blogs/blogs.php';
 
+//OG images
+require __DIR__ . '/og-images/ogImages.php';
+
 
 
 Route::middleware(['auth'])->group(function () {

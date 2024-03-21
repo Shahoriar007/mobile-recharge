@@ -15,7 +15,7 @@
         {
             "url": "/blog-category",
             "name": "Blog Category",
-            "icon": "package",
+            "icon": "file-plus",
             "slug": "blog-category"
         },
         {

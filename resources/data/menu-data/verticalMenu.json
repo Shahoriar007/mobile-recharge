@@ -21,8 +21,14 @@
         {
             "url": "/blog",
             "name": "Blog",
-            "icon": "package",
+            "icon": "file",
             "slug": "blog"
+        },
+        {
+            "url": "/og-images",
+            "name": "OG Images",
+            "icon": "image",
+            "slug": "og-images"
         }
 	]
 }
