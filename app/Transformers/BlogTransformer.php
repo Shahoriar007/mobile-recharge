@@ -7,9 +7,11 @@ use League\Fractal\TransformerAbstract;
 
 class BlogTransformer extends TransformerAbstract
 {
+
+    protected array $availableIncludes = ['blogCategories'];
+
     public function transform(Blog $blog)
     {
-
         return [
             'id' => $blog->id,
             'title' => $blog->title,
@@ -17,8 +19,6 @@ class BlogTransformer extends TransformerAbstract
             'slug' => $blog->slug,
             'slug_url' => $blog->slug_url,
             'read_time' => $blog->read_time,
-            'blog_category_id' => $blog->blog_category_id,
-            'blog_category' => $blog->blogCategory,
             'author_id' => $blog->author_id,
             'author' => $blog->author,
             'description' => $blog->description,
@@ -32,7 +32,13 @@ class BlogTransformer extends TransformerAbstract
             'custom_code' => $blog->custom_code,
             'created_at' => $blog->created_at,
             'updated_at' => $blog->updated_at,
+            'blog_categories' => $blog->blogCategories,
 
         ];
+    }
+
+    public function includeBlogCategories(Blog $blog)
+    {
+        return $this->collection($blog->blogCategories, new BlogCategoryTransformer());
     }
 }

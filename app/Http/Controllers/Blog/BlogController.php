@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers\Blog;
 
-use League\Fractal\Manager;
-use Illuminate\Http\Request;
-use League\Fractal\Resource\Item;
-use App\Http\Controllers\Controller;
 use App\Transformers\BlogTransformer;
-use League\Fractal\Resource\Collection;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Repositories\Blog\BlogRepository;
 use App\Http\Requests\Blog\StoreBlogRequest;
 use App\Http\Requests\Blog\UpdateBlogRequest;
-use App\Models\Blog;
+use League\Fractal\Resource\Item;
+use League\Fractal\Manager;
 
 class BlogController extends Controller
 {
@@ -205,19 +202,40 @@ class BlogController extends Controller
         }
     }
 
-    public function apiIndex(Request $request)
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function apiIndex()
     {
-        $data = $request->all();
-        $data = $this->repository->apiIndex($request);
+        $data = $this->repository->apiIndex();
 
         return response()->json($data);
     }
 
     public function apiShow($slug)
     {
-        $data = $this->repository->apiShow($slug);
+        try {
+            $data = $this->repository->apiShow($slug);
+            $manager = new Manager();
+            $resource = new Item($data, new BlogTransformer());
+            $data = $manager->createData($resource)->toArray();
+            return response()->json([
+                'data' => $data,
+                'status' => 'success',
+                'message' => 'Blog found'
+            ], 200);
 
-        return response()->json($data);
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Blog not found'
+                ],
+                404
+            );
+        }
+
+
     }
 
 

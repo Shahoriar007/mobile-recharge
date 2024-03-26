@@ -69,7 +69,7 @@
 
 
                     <!-- form -->
-                    <form class="validate-form mt-2 pt-50" method="POST" action="{{ route('update-content') }}" enctype="multipart/form-data">
+                    <form class="validate-form pt-50" method="POST" action="{{ route('update-content') }}" enctype="multipart/form-data">
                         @csrf
 
                         @php
@@ -138,12 +138,8 @@
     <script src="{{ asset(mix('js/scripts/forms/form-select2.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/forms/form-quill-editor.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/forms/form-file-uploader.js')) }}"></script>
-
-    {{-- <script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('content');
-    </script> --}}
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
     <script>
         document.getElementById('title').addEventListener('input', function(e) {
             var title = e.target.value.toLowerCase().trim();
@@ -167,34 +163,12 @@
                 reader.readAsDataURL(file);
             }
         });
-    </script>
 
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
+        $(document).ready(function() {
         var contentSections = $('#content-sections');
 
         $('#add').click(function() {
-            var newSection = contentSections.children('.content-section').first().clone();
-            newSection.find('input').val('');
-            newSection.find('textarea').val('');
-            newSection.append('<button type="button" class="btn btn-danger mt-1 me-1 remove">Remove</button>');
-            contentSections.append(newSection);
-        });
-
-        $(document).on('click', '.remove', function() {
-            $(this).closest('.content-section').remove();
-        });
-    });
-</script> --}}
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
-<script>
-    $(document).ready(function() {
-        var contentSections = $('#content-sections');
-
-        $('#add').click(function() {
+            console.log('hello')
             var newSection = contentSections.children('.content-section').first().clone();
             newSection.find('input').val('');
             newSection.find('textarea').val('');
@@ -202,7 +176,7 @@
             contentSections.append(newSection);
 
             // Initialize CKEditor for the newly added textarea
-            CKEDITOR.replace(newSection.find('textarea')[0]);
+            // CKEDITOR.replace(newSection.find('textarea')[0]);
         });
 
         $(document).on('click', '.remove', function() {

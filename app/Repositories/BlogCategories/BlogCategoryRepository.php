@@ -25,8 +25,7 @@ class BlogCategoryRepository
             $data = $this->model->latest('created_at')->paginate(10);
             return $data;
         } catch (\Exception $e) {
-            error_log($e->getMessage());
-            return [];
+            dd($e->getMessage());
         }
     }
 

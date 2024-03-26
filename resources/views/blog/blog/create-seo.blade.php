@@ -58,7 +58,7 @@
                 <div class="card-body py-2 my-25">
 
                     <!-- form -->
-                    <form class="validate-form mt-2 pt-50" method="POST" action="{{ route('store-seo') }}" enctype="multipart/form-data">
+                    <form class="validate-form pt-50" method="POST" action="{{ route('store-seo') }}" enctype="multipart/form-data">
                         @csrf
 
                         @php
@@ -92,11 +92,11 @@
                             <!-- End of Meta Information Section -->
 
                             <!-- Post Links Section -->
-                            <div class="col-12">
-                                <div class="card-header border-bottom">
+                            <div class="col-12 mt-2">
+                                <div class="border-bottom">
                                     <h4 class="card-title">Post Links</h4>
                                 </div>
-                                <div class="card-body py-2 my-25" id="post-link-sections">
+                                <div class="my-25" id="post-link-sections">
                                     <!-- Post Link Section Template -->
                                     <div class="post-link-template">
                                         <div class="row">
@@ -120,11 +120,11 @@
                             <!-- End of Post Links Section -->
 
                             <!-- Post Script Section -->
-                            <div class="col-12">
-                                <div class="card-header border-bottom">
+                            <div class="col-12 mt-3">
+                                <div class="border-bottom">
                                     <h4 class="card-title">Post Script</h4>
                                 </div>
-                                <div class="card-body py-2 my-25" id="post-script-sections">
+                                <div class="my-25" id="post-script-sections">
                                     <!-- Post Script Section Template -->
                                     <div class="post-script-template">
                                         <div class="row">

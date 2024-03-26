@@ -58,7 +58,7 @@
                 <div class="card-body py-2 my-25">
 
                     <!-- form -->
-                    <form class="validate-form mt-2 pt-50" method="POST" action="{{ route('update-seo') }}" enctype="multipart/form-data">
+                    <form class="validate-form pt-50" method="POST" action="{{ route('update-seo') }}" enctype="multipart/form-data">
                         @csrf
 
                         @php
