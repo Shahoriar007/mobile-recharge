@@ -62,7 +62,7 @@
                     @endphp
 
                     <!-- form -->
-                    <form class="validate-form mt-2 pt-50" method="POST" action="{{ route('update-blog', ['id' => $id]) }}"
+                    <form class="validate-form pt-50" method="POST" action="{{ route('update-blog', ['id' => $id]) }}"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')

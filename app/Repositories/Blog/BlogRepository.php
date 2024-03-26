@@ -431,33 +431,44 @@ class BlogRepository
 
     /**
      * @param $validated
-     * @return bool
+     * @return array
      */
 
-    public function apiIndex($request)
+    public function apiIndex(): array
     {
         try {
-            $blogs = $this->model->latest('created_at')->with('blogCategory')->paginate(6);
+            $blogs = $this->model->with('blogCategories')->paginate(6);
             $categories = $this->blogCategory->all();
-            $data = [
+            return [
+                'status' => 'success',
+                'message' => 'Blogs fetched successfully.',
                 'blogs' => $blogs,
                 'categories' => $categories
             ];
-            return $data;
         } catch (\Exception $e) {
             error_log($e->getMessage());
-            return [];
+            return [
+                'status' => 'error',
+                'message' => $e->getMessage(),
+                'blogs' => [],
+                'categories' => []
+            ];
         }
     }
 
     public function apiShow($slug)
     {
         try {
-            $data = $this->model->where('slug', $slug)->with('blogCategory')->first();
-            return $data;
+            return $this->model->with('blogCategories')->where('slug', $slug)->first();
+
         } catch (\Exception $e) {
             error_log($e->getMessage());
-            return [];
+
+            return [
+                'status' => 'error',
+                'message' => $e->getMessage(),
+                'data' => '',
+            ];
         }
     }
 }

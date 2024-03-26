@@ -2,13 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Author;
-use App\Models\PostLink;
 use App\Traits\CreatedBy;
 use App\Traits\DeletedBy;
 use App\Traits\UpdatedBy;
-use App\Models\PostScript;
-use App\Models\BlogCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
