@@ -168,7 +168,6 @@
         var contentSections = $('#content-sections');
 
         $('#add').click(function() {
-            console.log('hello')
             var newSection = contentSections.children('.content-section').first().clone();
             newSection.find('input').val('');
             newSection.find('textarea').val('');
@@ -176,7 +175,7 @@
             contentSections.append(newSection);
 
             // Initialize CKEditor for the newly added textarea
-            // CKEDITOR.replace(newSection.find('textarea')[0]);
+            CKEDITOR.replace(newSection.find('textarea')[0]);
         });
 
         $(document).on('click', '.remove', function() {

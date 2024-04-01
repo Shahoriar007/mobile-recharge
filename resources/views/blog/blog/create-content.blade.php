@@ -147,7 +147,7 @@
                 contentSections.append(newSection);
 
                 // Initialize CKEditor for the newly added textarea
-                // CKEDITOR.replace(newSection.find('textarea')[0]);
+                CKEDITOR.replace(newSection.find('textarea')[0]);
             });
 
             $(document).on('click', '.remove', function() {
