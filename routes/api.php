@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 //Blog api routes
 require __DIR__ . '/blogs/apiBlogs.php';
+require __DIR__ . '/queries/apiQueries.php';
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
