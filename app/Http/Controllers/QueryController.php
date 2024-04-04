@@ -19,7 +19,7 @@ class QueryController extends Controller
             ['link' => "/Query", 'name' => "Query"], ['name' => "Index"]
         ];
 
-        $data = Query::orderBy('id', 'desc')->paginate(10);
+        $data = Query::orderBy('id', 'desc')->paginate(30);
 
         return view('query.index', compact('data', 'breadcrumbs'));
 
