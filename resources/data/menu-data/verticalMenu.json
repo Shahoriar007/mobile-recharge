@@ -29,6 +29,12 @@
             "name": "OG Images",
             "icon": "image",
             "slug": "og-images"
+        },
+        {
+            "url": "/query",
+            "name": "Queries",
+            "icon": "package",
+            "slug": "query"
         }
 	]
 }
