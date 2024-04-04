@@ -18,6 +18,9 @@ require __DIR__ . '/blogs/blogs.php';
 //OG images
 require __DIR__ . '/og-images/ogImages.php';
 
+//Queries routes
+require __DIR__ . '/queries/queries.php';
+
 
 
 Route::middleware(['auth'])->group(function () {
