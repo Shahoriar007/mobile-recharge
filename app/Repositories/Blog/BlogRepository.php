@@ -42,7 +42,7 @@ class BlogRepository
     {
 
         try {
-            $data = $this->model->latest('created_at')->paginate(10);
+            $data = $this->model->latest('created_at')->paginate(30);
             return $data;
         } catch (\Exception $e) {
             error_log($e->getMessage());
