@@ -217,9 +217,7 @@ class BlogController extends Controller
         try {
             $data = $this->repository->apiShow($slug);
 
-            // info($data);
-
-            if ($data->index_status = 1)
+            if ($data->index_status == 1)
             {
                 $indexStatus = "index";
             }else{
@@ -246,13 +244,13 @@ class BlogController extends Controller
                                 'alt' => "Blog Post",
                             ],
                         ],
-                        'links' => is_array($data->post_links) && !empty($data->post_links) ? array_map(function($link) {
+                        'links' => $data->postLinks->map(function($link) {
                             return [
                                 'key' => $link->key,
                                 'value' => $link->value,
                             ];
-                        }, $data->post_links) : [],
-                        'scripts' => is_array($data->post_scripts) && !empty($data->post_scripts) ? array_map(function($script) {
+                        })->toArray(),
+                        'scripts' => $data->postScripts->map(function($script) {
                             return [
                                 'type' => $script->type,
                                 'script' => $script->script,
@@ -262,26 +260,26 @@ class BlogController extends Controller
                                 'url' => 'https://viserx.com/',
                                 'logo' => 'https://viserx.com/wp-content/uploads/2021/10/VISER-X-New.png',
                             ];
-                        }, $data->post_scripts) : [],
+                        })->toArray(),
                     ],
                     'blog' => [
                         'title' => $data->title ?? null,
                         'author' => $data->authors->name ?? null,
                         'published_at' => $data->published_at ?? null,
                         'featured_image_url' => $websiteUrl.$data->featured_image ?? null,
-                        'categories' => is_array($data->blog_categories) && !empty($data->blog_categories) ? array_map(function($category) {
+                        'categories' => $data->blogCategories->map(function($category) {
                             return [
                                 'id' => $category->id,
                                 'title' => $category->name,
                             ];
-                        }, $data->blog_categories) : [],
-                        'contents' => is_array($data->contents) && !empty($data->contents) ? array_map(function($content) {
+                        })->toArray(),
+                        'contents' => $data->contents->map(function($content) {
                             return [
                                 'id' => $content->id,
                                 'title' => $content->title,
                                 'description' => $content->description,
                             ];
-                        }, $data->contents) : [],
+                        })->toArray(),
                     ],
 
 
