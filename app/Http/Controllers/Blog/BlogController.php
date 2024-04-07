@@ -228,10 +228,8 @@ class BlogController extends Controller
 
             $websiteUrl = "https://viserx.com";
 
-
-
             return response()->json([
-                'blog' => [
+
                     'seo' => [
                         'title' => $data->meta_title ?? null,
                         'description' => $data->meta_description ?? null,
@@ -285,7 +283,7 @@ class BlogController extends Controller
                             ];
                         }, $data->contents) : [],
                     ],
-                ]
+
 
             ], 200);
 
@@ -302,6 +300,13 @@ class BlogController extends Controller
         }
 
 
+    }
+
+    public function apiAllBlogSlugs()
+    {
+        $data = $this->repository->apiAllBlogSlugs();
+
+        return response()->json($data);
     }
 
     //subscription

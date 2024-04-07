@@ -472,4 +472,16 @@ class BlogRepository
             ];
         }
     }
+
+    public function apiAllBlogSlugs()
+    {
+        try {
+            $data = $this->model->select('slug')->get();
+            
+            return $data;
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return [];
+        }
+    }
 }
