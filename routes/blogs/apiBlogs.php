@@ -10,3 +10,5 @@ Route::get('/blog-category/{id}', [BlogCategoryController::class, 'apiShow']);
 // blogs api routes
 Route::get('/blog', [BlogController::class, 'apiIndex']);
 Route::get('/blog/{slug}', [BlogController::class, 'apiShow']);
+
+Route::post('/subscription', [BlogController::class, 'subscription']);

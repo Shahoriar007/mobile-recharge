@@ -216,14 +216,80 @@ class BlogController extends Controller
     {
         try {
             $data = $this->repository->apiShow($slug);
-            $manager = new Manager();
-            $resource = new Item($data, new BlogTransformer());
-            $data = $manager->createData($resource)->toArray();
+
+            // info($data);
+
+            if ($data->index_status = 1)
+            {
+                $indexStatus = "index";
+            }else{
+                $indexStatus = "no-index";
+            }
+
+            $websiteUrl = "https://viserx.com";
+
+
+
             return response()->json([
-                'data' => $data,
-                'status' => 'success',
-                'message' => 'Blog found'
+                'blog' => [
+                    'seo' => [
+                        'title' => $data->meta_title ?? null,
+                        'description' => $data->meta_description ?? null,
+                        'robots' => $indexStatus,
+                        'openGraph' => [
+                            'type' => "website",
+                            'locale' => "en_IE",
+                            'url' => $websiteUrl,
+                            'site_name' => "VISER X",
+                            'image' => [
+                                'url' => $websiteUrl.$data->featured_image ?? null,
+                                'width' => 800,
+                                'height' => 600,
+                                'alt' => "Blog Post",
+                            ],
+                        ],
+                        'links' => is_array($data->post_links) && !empty($data->post_links) ? array_map(function($link) {
+                            return [
+                                'key' => $link->key,
+                                'value' => $link->value,
+                            ];
+                        }, $data->post_links) : [],
+                        'scripts' => is_array($data->post_scripts) && !empty($data->post_scripts) ? array_map(function($script) {
+                            return [
+                                'type' => $script->type,
+                                'script' => $script->script,
+                                '@type' => 'Organization',
+                                'name' => 'VISER X Limited',
+                                'alternateName' => 'VISER X',
+                                'url' => 'https://viserx.com/',
+                                'logo' => 'https://viserx.com/wp-content/uploads/2021/10/VISER-X-New.png',
+                            ];
+                        }, $data->post_scripts) : [],
+                    ],
+                    'blog' => [
+                        'title' => $data->title ?? null,
+                        'author' => $data->authors->name ?? null,
+                        'published_at' => $data->published_at ?? null,
+                        'featured_image_url' => $websiteUrl.$data->featured_image ?? null,
+                        'categories' => is_array($data->blog_categories) && !empty($data->blog_categories) ? array_map(function($category) {
+                            return [
+                                'id' => $category->id,
+                                'title' => $category->name,
+                            ];
+                        }, $data->blog_categories) : [],
+                        'contents' => is_array($data->contents) && !empty($data->contents) ? array_map(function($content) {
+                            return [
+                                'id' => $content->id,
+                                'title' => $content->title,
+                                'description' => $content->description,
+                            ];
+                        }, $data->contents) : [],
+                    ],
+                ]
+
             ], 200);
+
+
 
         } catch (\Exception $e) {
             return response()->json(
@@ -235,6 +301,14 @@ class BlogController extends Controller
             );
         }
 
+
+    }
+
+    //subscription
+
+    public function subscription(Request $request)
+    {
+        info($request->all());
 
     }
 

@@ -59,6 +59,11 @@ class Blog extends Model
         return $this->hasMany(PostScript::class, 'blog_id', 'id');
     }
 
+    public function contents()
+    {
+        return $this->hasMany(Content::class, 'blog_id', 'id');
+    }
+
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by', 'id');

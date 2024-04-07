@@ -439,12 +439,8 @@ class BlogRepository
         try {
             $blogs = $this->model->with('blogCategories')->paginate(6);
             $categories = $this->blogCategory->all();
-            return [
-                'status' => 'success',
-                'message' => 'Blogs fetched successfully.',
-                'blogs' => $blogs,
-                'categories' => $categories
-            ];
+            return $blogs;
+
         } catch (\Exception $e) {
             error_log($e->getMessage());
             return [
@@ -459,7 +455,7 @@ class BlogRepository
     public function apiShow($slug)
     {
         try {
-            return $this->model->with('blogCategories')->where('slug', $slug)->first();
+            return $this->model->with('postLinks', 'postScripts', 'authors', 'blogCategories', 'contents')->where('slug', $slug)->first();
 
         } catch (\Exception $e) {
             error_log($e->getMessage());

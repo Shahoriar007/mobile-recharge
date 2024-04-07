@@ -76,4 +76,6 @@ class BlogCategoryController extends Controller
 
         return response()->json($data);
     }
+
+
 }
