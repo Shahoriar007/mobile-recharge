@@ -439,7 +439,12 @@ class BlogRepository
         try {
             $blogs = $this->model->with('blogCategories')->paginate(6);
             $categories = $this->blogCategory->all();
-            return $blogs;
+            return [
+                'status' => 'success',
+                'message' => 'Blogs fetched successfully.',
+                'blogs' => $blogs,
+                'categories' => $categories
+            ];
 
         } catch (\Exception $e) {
             error_log($e->getMessage());
