@@ -477,6 +477,7 @@ class BlogRepository
     {
         try {
             $data = $this->model->select('slug')->get();
+            
             return $data;
         } catch (\Exception $e) {
             error_log($e->getMessage());
