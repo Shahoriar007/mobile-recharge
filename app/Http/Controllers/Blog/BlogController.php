@@ -224,7 +224,7 @@ class BlogController extends Controller
                 $indexStatus = "no-index";
             }
 
-            $websiteUrl = "https://viserx.com";
+            $websiteUrl = env('APP_URL', 'https://viserx.com');
 
             return response()->json([
 
@@ -238,7 +238,7 @@ class BlogController extends Controller
                             'url' => $websiteUrl,
                             'site_name' => "VISER X",
                             'image' => [
-                                'url' => $websiteUrl.$data->featured_image ?? null,
+                                'url' => !empty($data->featured_image) ? asset($data->featured_image) : null,
                                 'width' => 800,
                                 'height' => 600,
                                 'alt' => "Blog Post",
@@ -254,11 +254,11 @@ class BlogController extends Controller
                             return [
                                 'type' => $script->type,
                                 'script' => $script->script,
-                                '@type' => 'Organization',
-                                'name' => 'VISER X Limited',
-                                'alternateName' => 'VISER X',
-                                'url' => 'https://viserx.com/',
-                                'logo' => 'https://viserx.com/wp-content/uploads/2021/10/VISER-X-New.png',
+//                                '@type' => 'Organization',
+//                                'name' => 'VISER X Limited',
+//                                'alternateName' => 'VISER X',
+//                                'url' => 'https://viserx.com/',
+//                                'logo' => 'https://viserx.com/wp-content/uploads/2021/10/VISER-X-New.png',
                             ];
                         })->toArray(),
                     ],
@@ -266,7 +266,7 @@ class BlogController extends Controller
                         'title' => $data->title ?? null,
                         'author' => $data->authors->name ?? null,
                         'published_at' => $data->published_at ?? null,
-                        'featured_image_url' => $websiteUrl.$data->featured_image ?? null,
+                        'featured_image_url' => !empty($data->featured_image) ? asset($data->featured_image) : null,
                         'categories' => $data->blogCategories->map(function($category) {
                             return [
                                 'id' => $category->id,
