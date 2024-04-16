@@ -208,7 +208,6 @@ class BlogController extends Controller
     public function apiIndex(Request $request)
     {
         $category = $request['category'];
-        info($category);
         $data = $this->repository->apiIndex($category);
 
 
