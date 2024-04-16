@@ -65,7 +65,6 @@ class BlogController extends Controller
 
         if ($data) {
             return redirect('/blog/update/' . $blogId);
-
         } else {
             return redirect()->route('blog')->with('error', 'Blog failed created.');
         }
@@ -87,7 +86,6 @@ class BlogController extends Controller
 
         if ($data) {
             return redirect('/blog/seo/' . $data);
-
         } else {
             return redirect()->route('blog')->with('error', 'Blog failed created.');
         }
@@ -100,7 +98,6 @@ class BlogController extends Controller
         ];
 
         return view('blog.blog.create-seo', compact('breadcrumbs'));
-
     }
 
     public function storeSeo(Request $request)
@@ -207,6 +204,7 @@ class BlogController extends Controller
      */
     public function apiIndex(Request $request)
     {
+        info($request->all());
         $category = $request['category'];
         $data = $this->repository->apiIndex($category);
 
@@ -219,10 +217,9 @@ class BlogController extends Controller
         try {
             $data = $this->repository->apiShow($slug);
 
-            if ($data->index_status == 1)
-            {
+            if ($data->index_status == 1) {
                 $indexStatus = "index";
-            }else{
+            } else {
                 $indexStatus = "no-index";
             }
 
@@ -231,65 +228,62 @@ class BlogController extends Controller
 
             return response()->json([
 
-                    'seo' => [
-                        'title' => $data->meta_title ?? null,
-                        'description' => $data->meta_description ?? null,
-                        'robots' => $indexStatus,
-                        'openGraph' => [
-                            'type' => "website",
-                            'locale' => "en_IE",
-                            'url' => $websiteUrl,
-                            'site_name' => "VISER X",
-                            'image' => [
-                                'url' => !empty($data->featured_image) ? asset($data->featured_image) : null,
-                                'width' => 800,
-                                'height' => 600,
-                                'alt' => "Blog Post",
-                            ],
+                'seo' => [
+                    'title' => $data->meta_title ?? null,
+                    'description' => $data->meta_description ?? null,
+                    'robots' => $indexStatus,
+                    'openGraph' => [
+                        'type' => "website",
+                        'locale' => "en_IE",
+                        'url' => $websiteUrl,
+                        'site_name' => "VISER X",
+                        'image' => [
+                            'url' => !empty($data->featured_image) ? asset($data->featured_image) : null,
+                            'width' => 800,
+                            'height' => 600,
+                            'alt' => "Blog Post",
                         ],
-                        'links' => $data->postLinks->map(function($link) {
-                            return [
-                                'key' => $link->key,
-                                'value' => $link->value,
-                            ];
-                        })->toArray(),
-                        'scripts' => $data->postScripts->map(function($script) {
-                            return [
-                                'type' => $script->type,
-                                'script' => $script->script,
-//                                '@type' => 'Organization',
-//                                'name' => 'VISER X Limited',
-//                                'alternateName' => 'VISER X',
-//                                'url' => 'https://viserx.com/',
-//                                'logo' => 'https://viserx.com/wp-content/uploads/2021/10/VISER-X-New.png',
-                            ];
-                        })->toArray(),
                     ],
-                    'blog' => [
-                        'title' => $data->title ?? null,
-                        'author' => $data->authors->name ?? null,
-                        'published_at' => $data->published_at ?? null,
-                        'featured_image_url' => !empty($data->featured_image) ? asset($data->featured_image) : null,
-                        'categories' => $data->blogCategories->map(function($category) {
-                            return [
-                                'id' => $category->id,
-                                'title' => $category->name,
-                            ];
-                        })->toArray(),
-                        'contents' => $data->contents->map(function($content) {
-                            return [
-                                'id' => $content->id,
-                                'title' => $content->title,
-                                'description' => $content->description,
-                            ];
-                        })->toArray(),
-                    ],
+                    'links' => $data->postLinks->map(function ($link) {
+                        return [
+                            'key' => $link->key,
+                            'value' => $link->value,
+                        ];
+                    })->toArray(),
+                    'scripts' => $data->postScripts->map(function ($script) {
+                        return [
+                            'type' => $script->type,
+                            'script' => $script->script,
+                            //                                '@type' => 'Organization',
+                            //                                'name' => 'VISER X Limited',
+                            //                                'alternateName' => 'VISER X',
+                            //                                'url' => 'https://viserx.com/',
+                            //                                'logo' => 'https://viserx.com/wp-content/uploads/2021/10/VISER-X-New.png',
+                        ];
+                    })->toArray(),
+                ],
+                'blog' => [
+                    'title' => $data->title ?? null,
+                    'author' => $data->authors->name ?? null,
+                    'published_at' => $data->published_at ?? null,
+                    'featured_image_url' => !empty($data->featured_image) ? asset($data->featured_image) : null,
+                    'categories' => $data->blogCategories->map(function ($category) {
+                        return [
+                            'id' => $category->id,
+                            'title' => $category->name,
+                        ];
+                    })->toArray(),
+                    'contents' => $data->contents->map(function ($content) {
+                        return [
+                            'id' => $content->id,
+                            'title' => $content->title,
+                            'description' => $content->description,
+                        ];
+                    })->toArray(),
+                ],
 
 
             ], 200);
-
-
-
         } catch (\Exception $e) {
             return response()->json(
                 [
@@ -299,8 +293,6 @@ class BlogController extends Controller
                 404
             );
         }
-
-
     }
 
     public function apiAllBlogSlugs()
@@ -315,9 +307,5 @@ class BlogController extends Controller
     public function subscription(Request $request)
     {
         info($request->all());
-
     }
-
-
-
 }
