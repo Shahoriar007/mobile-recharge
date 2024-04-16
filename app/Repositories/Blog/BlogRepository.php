@@ -434,10 +434,16 @@ class BlogRepository
      * @return array
      */
 
-    public function apiIndex(): array
+    public function apiIndex($category)
     {
         try {
-            $blogs = $this->model->with('blogCategories')->paginate(6);
+            if ($category) {
+                $blogs = $this->model->with('blogCategories')->whereHas('blogCategories', function ($query) use ($category) {
+                    $query->where('name', $category);
+                })->paginate(6);
+            } else {
+                $blogs = $this->model->with('blogCategories')->paginate(6);
+            }
             $categories = $this->blogCategory->all();
             return [
                 'status' => 'success',
@@ -477,7 +483,7 @@ class BlogRepository
     {
         try {
             $data = $this->model->select('slug')->get();
-            
+
             return $data;
         } catch (\Exception $e) {
             error_log($e->getMessage());
