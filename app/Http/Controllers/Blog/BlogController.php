@@ -205,9 +205,11 @@ class BlogController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function apiIndex()
+    public function apiIndex(Request $request)
     {
-        $data = $this->repository->apiIndex();
+        $category = $request['category'];
+        $data = $this->repository->apiIndex($category);
+
 
         return response()->json($data);
     }
@@ -224,7 +226,8 @@ class BlogController extends Controller
                 $indexStatus = "no-index";
             }
 
-            $websiteUrl = env('APP_URL', 'https://viserx.com');
+            $websiteUrl = env('APP_URL');
+
 
             return response()->json([
 
