@@ -86,9 +86,10 @@
                                             </button>
                                         </form>
 
-                                        <button type="button" class="btn-link copy-btn" style="border: none; background: none; padding: 0; margin: 0;" onclick="copyImageSrc()">
+                                        <button type="button" class="btn-link copy-btn" style="border: none; background: none; padding: 0; margin: 0;" onclick="copyImageSrc('{{ asset($ogImage->image) }}')">
                                             <i data-feather="copy" class="me-50"></i>
                                         </button>
+
                                     </td>
 
                                 </tr>
@@ -289,11 +290,12 @@
 
 
 <script>
-    function copyImageSrc() {
+    function copyImageSrc(url) {
+
         var imageElement = document.getElementById('ogImage');
 
         if (imageElement) {
-            var imageSrc = imageElement.getAttribute('src');
+            var imageSrc = url;
 
             var tempInput = document.createElement('input');
             tempInput.setAttribute('value', imageSrc);
