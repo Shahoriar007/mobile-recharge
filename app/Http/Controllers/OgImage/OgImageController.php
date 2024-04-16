@@ -41,7 +41,6 @@ class OgImageController extends Controller
             'image' => 'required'
         ]);
 
-        info($request->all());
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = uniqid() . '.' . $image->getClientOriginalExtension();
@@ -49,7 +48,6 @@ class OgImageController extends Controller
             $validated['image'] = 'storage/ogImages/images/' . $filename;
         }
 
-        info($validated);
 
         $data = OgImage::create($validated);
 
