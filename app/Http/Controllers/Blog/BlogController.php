@@ -227,10 +227,10 @@ class BlogController extends Controller
             $websiteUrl = env('APP_URL');
             $x = [];
             $x[] = [
-                'type' => 'og:title',
+                'type' => "application/ld+json",
                 'script' => '{
                     "@context": "https://schema.org",
-                    "@type": "application/ld+json",
+                    "@type": "BlogPosting",
                     "mainEntityOfPage": {
                       "@type": "WebPage",
                       "@id": '.$websiteUrl.'/blog/'.$slug.'"
