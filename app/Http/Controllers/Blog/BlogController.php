@@ -233,14 +233,14 @@ class BlogController extends Controller
                     "@type": "BlogPosting",
                     "mainEntityOfPage": {
                       "@type": "WebPage",
-                      "@id": '.$websiteUrl.'/blog/'.$slug.'"
+                      "@id": "'.$websiteUrl.'/blog/'.$slug.'"
                     },
-                    "headline": '.$data->title .',
-                    "description": '.$data->meta_description .',
-                    "image": '.(!empty($data->featured_image) ? asset($data->featured_image) : null).',
+                    "headline": "' . $data->title . '",
+                    "description": "'.$data->meta_description .'",
+                    "image": "'.(!empty($data->featured_image) ? asset($data->featured_image) : null).'",
                     "author": {
                       "@type": "Person",
-                      "name": '.$data->authors->name .',
+                      "name": "'.$data->authors->name .'",
                       "url": null,
                     },
                     "publisher": {
@@ -251,8 +251,8 @@ class BlogController extends Controller
                         "url": "https://viserx.com/wp-content/uploads/2021/10/VISER-X-New.png"
                       }
                     },
-                    "datePublished": '.$data->published_at .',
-                    "dateModified": '.$data->updated_at .',
+                    "datePublished": "'.$data->published_at .'",
+                    "dateModified": "'.$data->updated_at .'",
                   }',
             ];
 
