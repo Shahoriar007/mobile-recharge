@@ -223,8 +223,45 @@ class BlogController extends Controller
                 $indexStatus = "no-index";
             }
 
-            $websiteUrl = env('APP_URL');
 
+            $websiteUrl = env('APP_URL');
+            $x = [];
+            $x[] = [
+                'type' => 'og:title',
+                'script' => '{
+                    "@context": "https://schema.org",
+                    "@type": "application/ld+json",
+                    "mainEntityOfPage": {
+                      "@type": "WebPage",
+                      "@id": '.$websiteUrl.'/blog/'.$slug.'"
+                    },
+                    "headline": '.$data->title .',
+                    "description": '.$data->meta_description .',
+                    "image": '.(!empty($data->featured_image) ? asset($data->featured_image) : null).',
+                    "author": {
+                      "@type": "Person",
+                      "name": '.$data->authors->name .',
+                      "url": null,
+                    },
+                    "publisher": {
+                      "@type": "Organization",
+                      "name": "VISER X",
+                      "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://viserx.com/wp-content/uploads/2021/10/VISER-X-New.png"
+                      }
+                    },
+                    "datePublished": '.$data->published_at .',
+                    "dateModified": '.$data->updated_at .',
+                  }',
+            ];
+
+            foreach ( $data->postScripts as $script) {
+                $x[]= [
+                    'type' => $script->type,
+                    'script' => $script->script,
+                ];
+            }
 
             return response()->json([
 
@@ -250,17 +287,8 @@ class BlogController extends Controller
                             'value' => $link->value,
                         ];
                     })->toArray(),
-                    'scripts' => $data->postScripts->map(function ($script) {
-                        return [
-                            'type' => $script->type,
-                            'script' => $script->script,
-                            //                                '@type' => 'Organization',
-                            //                                'name' => 'VISER X Limited',
-                            //                                'alternateName' => 'VISER X',
-                            //                                'url' => 'https://viserx.com/',
-                            //                                'logo' => 'https://viserx.com/wp-content/uploads/2021/10/VISER-X-New.png',
-                        ];
-                    })->toArray(),
+                    'scripts' => $x,
+
                 ],
                 'blog' => [
                     'title' => $data->title ?? null,
@@ -285,6 +313,7 @@ class BlogController extends Controller
 
             ], 200);
         } catch (\Exception $e) {
+            return $e->getMessage();
             return response()->json(
                 [
                     'status' => 'error',
