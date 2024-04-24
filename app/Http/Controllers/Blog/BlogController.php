@@ -227,10 +227,10 @@ class BlogController extends Controller
             $websiteUrl = env('APP_URL');
 
             $fixedLink = [];
-            $fixedLink[] = [
-                'key' => 'canonical',
-                'value' => $websiteUrl . '/blog/' . $slug,
-            ];
+            // $fixedLink[] = [
+            //     'key' => 'canonical',
+            //     'value' => $websiteUrl . '/blog/' . $slug,
+            // ];
 
             foreach ($data->postLinks as $link) {
                 $fixedLink[] = [
@@ -243,35 +243,35 @@ class BlogController extends Controller
 
 
             $fixedScript = [];
-            $fixedScript[] = [
-                'type' => "application/ld+json",
-                'script' => '{
-                    "@context": "https://schema.org",
-                    "@type": "BlogPosting",
-                    "mainEntityOfPage": {
-                      "@type": "WebPage",
-                      "@id": "'.$websiteUrl.'/blog/'.$slug.'"
-                    },
-                    "headline": "' . $data->title . '",
-                    "description": "'.$data->meta_description .'",
-                    "image": "'.(!empty($data->featured_image) ? asset($data->featured_image) : null).'",
-                    "author": {
-                      "@type": "Person",
-                      "name": "'.$data->authors->name .'",
-                      "url": null,
-                    },
-                    "publisher": {
-                      "@type": "Organization",
-                      "name": "VISER X",
-                      "logo": {
-                        "@type": "ImageObject",
-                        "url": "https://viserx.com/wp-content/uploads/2021/10/VISER-X-New.png"
-                      }
-                    },
-                    "datePublished": "'.$data->published_at .'",
-                    "dateModified": "'.$data->updated_at .'",
-                  }',
-            ];
+            // $fixedScript[] = [
+            //     'type' => "application/ld+json",
+            //     'script' => '{
+            //         "@context": "https://schema.org",
+            //         "@type": "BlogPosting",
+            //         "mainEntityOfPage": {
+            //           "@type": "WebPage",
+            //           "@id": "'.$websiteUrl.'/blog/'.$slug.'"
+            //         },
+            //         "headline": "' . $data->title . '",
+            //         "description": "'.$data->meta_description .'",
+            //         "image": "'.(!empty($data->featured_image) ? asset($data->featured_image) : null).'",
+            //         "author": {
+            //           "@type": "Person",
+            //           "name": "'.$data->authors->name .'",
+            //           "url": null,
+            //         },
+            //         "publisher": {
+            //           "@type": "Organization",
+            //           "name": "VISER X",
+            //           "logo": {
+            //             "@type": "ImageObject",
+            //             "url": "https://viserx.com/wp-content/uploads/2021/10/VISER-X-New.png"
+            //           }
+            //         },
+            //         "datePublished": "'.$data->published_at .'",
+            //         "dateModified": "'.$data->updated_at .'",
+            //       }',
+            // ];
 
             foreach ( $data->postScripts as $script) {
                 $fixedScript[]= [
