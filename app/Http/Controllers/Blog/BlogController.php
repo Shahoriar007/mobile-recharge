@@ -224,12 +224,12 @@ class BlogController extends Controller
             }
 
 
-            $websiteUrl = env('APP_URL');
+            $frontendUrl = env('FRONTEND_URL');
 
             $fixedLink = [];
             // $fixedLink[] = [
             //     'key' => 'canonical',
-            //     'value' => $websiteUrl . '/blog/' . $slug,
+            //     'value' => $frontendUrl . '/blog/' . $slug,
             // ];
 
             foreach ($data->postLinks as $link) {
@@ -239,9 +239,6 @@ class BlogController extends Controller
                 ];
             }
 
-
-
-
             $fixedScript = [];
             $fixedScript[] = [
                 'type' => "application/ld+json",
@@ -250,7 +247,7 @@ class BlogController extends Controller
                     "@type"=> "BlogPosting",
                     "mainEntityOfPage"=> [
                       "@type"=> "WebPage",
-                      "@id"=> $websiteUrl.'/blog/'.$slug
+                      "@id"=> $frontendUrl.'/blog/'.$slug
                     ],
                     "headline"=> $data->title,
                     "description"=> $data->meta_description,
@@ -289,7 +286,7 @@ class BlogController extends Controller
                     'openGraph' => [
                         'type' => "website",
                         'locale' => "en_IE",
-                        'url' => $websiteUrl,
+                        'url' => $frontendUrl.'/blog/'.$slug,
                         'site_name' => "VISER X",
                         'image' => [
                             'url' => !empty($data->featured_image) ? asset($data->featured_image) : null,
