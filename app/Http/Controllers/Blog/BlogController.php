@@ -204,7 +204,6 @@ class BlogController extends Controller
      */
     public function apiIndex(Request $request)
     {
-        info($request->all());
         $category = $request['category'];
         $data = $this->repository->apiIndex($category);
 
@@ -232,12 +231,12 @@ class BlogController extends Controller
                 'value' => $frontendUrl . '/blog/' . $slug,
             ];
 
-            foreach ($data->postLinks as $link) {
-                $fixedLink[] = [
-                    'key' => $link->key,
-                    'value' => $link->value,
-                ];
-            }
+            // foreach ($data->postLinks as $link) {
+            //     $fixedLink[] = [
+            //         'key' => $link->key,
+            //         'value' => $link->value,
+            //     ];
+            // }
 
             $fixedScript = [];
             $fixedScript[] = [
@@ -270,12 +269,12 @@ class BlogController extends Controller
             ],
             ];
 
-            foreach ( $data->postScripts as $script) {
-                $fixedScript[]= [
-                    'type' => $script->type,
-                    'script' => $script->script,
-                ];
-            }
+            // foreach ( $data->postScripts as $script) {
+            //     $fixedScript[]= [
+            //         'type' => $script->type,
+            //         'script' => $script->script,
+            //     ];
+            // }
 
             return response()->json([
 
