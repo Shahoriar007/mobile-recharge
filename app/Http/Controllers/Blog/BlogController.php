@@ -225,8 +225,25 @@ class BlogController extends Controller
 
 
             $websiteUrl = env('APP_URL');
-            $x = [];
-            $x[] = [
+
+            $fixedLink = [];
+            $fixedLink[] = [
+                'key' => 'canonical',
+                'value' => $websiteUrl . '/blog/' . $slug,
+            ];
+
+            foreach ($data->postLinks as $link) {
+                $fixedLink[] = [
+                    'key' => $link->key,
+                    'value' => $link->value,
+                ];
+            }
+
+
+
+
+            $fixedScript = [];
+            $fixedScript[] = [
                 'type' => "application/ld+json",
                 'script' => '{
                     "@context": "https://schema.org",
@@ -257,7 +274,7 @@ class BlogController extends Controller
             ];
 
             foreach ( $data->postScripts as $script) {
-                $x[]= [
+                $fixedScript[]= [
                     'type' => $script->type,
                     'script' => $script->script,
                 ];
@@ -281,13 +298,8 @@ class BlogController extends Controller
                             'alt' => "Blog Post",
                         ],
                     ],
-                    'links' => $data->postLinks->map(function ($link) {
-                        return [
-                            'key' => $link->key,
-                            'value' => $link->value,
-                        ];
-                    })->toArray(),
-                    'scripts' => $x,
+                    'links' => $fixedLink,
+                    'scripts' => $fixedScript,
 
                 ],
                 'blog' => [
