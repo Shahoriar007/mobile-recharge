@@ -227,10 +227,10 @@ class BlogController extends Controller
             $frontendUrl = env('FRONTEND_URL');
 
             $fixedLink = [];
-            // $fixedLink[] = [
-            //     'key' => 'canonical',
-            //     'value' => $frontendUrl . '/blog/' . $slug,
-            // ];
+            $fixedLink[] = [
+                'key' => 'canonical',
+                'value' => $frontendUrl . '/blog/' . $slug,
+            ];
 
             foreach ($data->postLinks as $link) {
                 $fixedLink[] = [
