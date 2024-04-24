@@ -241,7 +241,7 @@ class BlogController extends Controller
             $fixedScript = [];
             $fixedScript[] = [
                 'type' => "application/ld+json",
-                'script' => [
+                'script' => json_encode([
                     "@context"=> "https://schema.org",
                     "@type"=> "BlogPosting",
                     "mainEntityOfPage"=> [
@@ -266,7 +266,7 @@ class BlogController extends Controller
                     ],
                     "datePublished"=> $data->published_at,
                     "dateModified"=> $data->updated_at,
-            ],
+                ])
             ];
 
             // foreach ( $data->postScripts as $script) {
