@@ -230,17 +230,13 @@ class BlogController extends Controller
                 'key' => 'canonical',
                 'value' => $frontendUrl . '/blog/' . $slug,
             ];
-            $fixedLink[] = [
-                'key' => 'canonical2',
-                'value' => $frontendUrl . '/blog/' . $slug,
-            ];
 
-            // foreach ($data->postLinks as $link) {
-            //     $fixedLink[] = [
-            //         'key' => $link->key,
-            //         'value' => $link->value,
-            //     ];
-            // }
+            foreach ($data->postLinks as $link) {
+                $fixedLink[] = [
+                    'key' => $link->key,
+                    'value' => $link->value,
+                ];
+            }
 
             $fixedScript = [];
             $fixedScript[] = [
