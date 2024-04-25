@@ -264,6 +264,31 @@ class BlogController extends Controller
                     "dateModified" => $data->updated_at,
                 ])
             ];
+            $fixedScript[] = [
+                'type' => "application/ld+json",
+                'script' => json_encode([
+                    "@context" => "https://schema.org",
+                    "@type" => "BlogPosting1",
+                    "mainEntityOfPage" => [
+                        "@type" => "WebPage",
+                        "@id" => $frontendUrl . '/blog/' . $slug
+                    ],
+                    "headline" => $data->title,
+                    "description" => $data->meta_description,
+                    "image" => (!empty($data->featured_image) ? asset($data->featured_image) : null),
+                    "author" => [
+                        "@type" => "Person",
+                        "name" => $data->authors->name,
+                        "url" => null,
+                    ],
+                    "publisher" => [
+                        "@type" => "Organization",
+                        "name" => "VISER X",
+                    ],
+                    "datePublished" => $data->published_at,
+                    "dateModified" => $data->updated_at,
+                ])
+            ];
 
             // foreach ( $data->postScripts as $script) {
             //     $fixedScript[]= [
