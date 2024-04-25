@@ -241,7 +241,7 @@ class BlogController extends Controller
             $fixedScript = [];
             $fixedScript[] = [
                 'type' => "application/ld+json",
-                'script' => json_encode([
+                'script' => ([
                     "@context" => "https://schema.org",
                     "@type" => "BlogPosting",
                     "mainEntityOfPage" => [
