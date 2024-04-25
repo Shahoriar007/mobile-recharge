@@ -259,10 +259,6 @@ class BlogController extends Controller
                     "publisher" => [
                         "@type" => "Organization",
                         "name" => "VISER X",
-                        "logo" => [
-                            "@type" => "ImageObject",
-                            "url" => "https://viserx.com/wp-content/uploads/2021/10/VISER-X-New.png"
-                        ],
                     ],
                     "datePublished" => $data->published_at,
                     "dateModified" => $data->updated_at,
