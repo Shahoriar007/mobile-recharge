@@ -81,7 +81,7 @@
                             </div>
                             <!-- Meta Title -->
                             <div class="col-12 col-sm-6 mb-1">
-                                <label class="form-label" for="meta_title">Title(Meta)</label>
+                                <label class="form-label" for="meta_title">Title(Meta) <span style="color: red;">[NB: %currentyear%  = Current Year]</span></label>
                                 <input type="text" class="form-control" id="meta_title" name="meta_title" placeholder="Meta Title" value="{{ $data[0]->meta_title}}" data-msg="Please enter meta title" />
                             </div>
                             <!-- Meta Description -->

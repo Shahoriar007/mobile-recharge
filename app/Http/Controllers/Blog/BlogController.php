@@ -276,7 +276,7 @@ class BlogController extends Controller
             return response()->json([
 
                 'seo' => [
-                    'title' => $data->meta_title ?? null,
+                    'title' => $data->meta_title ? str_replace("%currentyear%", date("Y"), $data->meta_title ) : null,
                     'description' => $data->meta_description ?? null,
                     'robots' => $indexStatus,
                     'openGraph' => [
