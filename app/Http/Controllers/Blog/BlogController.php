@@ -231,50 +231,47 @@ class BlogController extends Controller
                 'value' => $frontendUrl . '/blog/' . $slug,
             ];
 
-            // foreach ($data->postLinks as $link) {
-            //     $fixedLink[] = [
-            //         'key' => $link->key,
-            //         'value' => $link->value,
-            //     ];
-            // }
+            foreach ($data->postLinks as $link) {
+                $fixedLink[] = [
+                    'key' => $link->key,
+                    'value' => $link->value,
+                ];
+            }
 
             $fixedScript = [];
             $fixedScript[] = [
                 'type' => "application/ld+json",
                 'script' => json_encode([
-                    "@context"=> "https://schema.org",
-                    "@type"=> "BlogPosting",
-                    "mainEntityOfPage"=> [
-                      "@type"=> "WebPage",
-                      "@id"=> $frontendUrl.'/blog/'.$slug
+                    "@context" => "https://schema.org",
+                    "@type" => "BlogPosting",
+                    "mainEntityOfPage" => [
+                        "@type" => "WebPage",
+                        "@id" => $frontendUrl . '/blog/' . $slug
                     ],
-                    "headline"=> $data->title,
-                    "description"=> $data->meta_description,
-                    "image"=> (!empty($data->featured_image) ? asset($data->featured_image) : null),
-                    "author"=> [
-                      "@type"=> "Person",
-                      "name"=> $data->authors->name,
-                      "url"=> null,
+                    "headline" => $data->title,
+                    "description" => $data->meta_description,
+                    "image" => (!empty($data->featured_image) ? asset($data->featured_image) : null),
+                    "author" => [
+                        "@type" => "Person",
+                        "name" => $data->authors->name,
+                        "url" => null,
                     ],
-                    "publisher"=> [
-                      "@type"=> "Organization",
-                      "name"=> "VISER X",
-                      "logo"=> [
-                        "@type"=> "ImageObject",
-                        "url"=> "https://viserx.com/wp-content/uploads/2021/10/VISER-X-New.png"
-                      ]
+                    "publisher" => [
+                        "@type" => "Organization",
+                        "name" => "VISER X",
                     ],
-                    "datePublished"=> $data->published_at,
-                    "dateModified"=> $data->updated_at,
+                    "datePublished" => $data->published_at,
+                    "dateModified" => $data->updated_at,
                 ])
             ];
 
-            // foreach ( $data->postScripts as $script) {
-            //     $fixedScript[]= [
-            //         'type' => $script->type,
-            //         'script' => $script->script,
-            //     ];
-            // }
+
+            foreach ($data->postScripts as $script) {
+                $fixedScript[] = [
+                    'type' => $script->type,
+                    'script' => $script->script,
+                ];
+            }
 
             return response()->json([
 
@@ -285,7 +282,7 @@ class BlogController extends Controller
                     'openGraph' => [
                         'type' => "website",
                         'locale' => "en_IE",
-                        'url' => $frontendUrl.'/blog/'.$slug,
+                        'url' => $frontendUrl . '/blog/' . $slug,
                         'site_name' => "VISER X",
                         'image' => [
                             'url' => !empty($data->featured_image) ? asset($data->featured_image) : null,
