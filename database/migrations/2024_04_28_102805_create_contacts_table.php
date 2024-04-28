@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('company')->nullable();
             $table->string('subject')->nullable();
             $table->string('message')->nullable();
+            $table->string('country')->nullable();
 
             $table->timestamps();
         });

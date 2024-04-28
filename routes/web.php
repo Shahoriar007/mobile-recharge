@@ -21,6 +21,9 @@ require __DIR__ . '/og-images/ogImages.php';
 //Queries routes
 require __DIR__ . '/queries/queries.php';
 
+//Contacts routes
+require __DIR__ . '/contacts/contacts.php';
+
 
 
 Route::middleware(['auth'])->group(function () {
