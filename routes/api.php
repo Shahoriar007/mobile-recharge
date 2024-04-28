@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 require __DIR__ . '/blogs/apiBlogs.php';
 require __DIR__ . '/queries/apiQueries.php';
 require __DIR__ . '/subscription/apiSubscription.php';
+require __DIR__ . '/contacts/apiContacts.php';
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
