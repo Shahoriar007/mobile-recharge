@@ -24,9 +24,18 @@ class ContactController extends Controller
                 'message' => 'nullable|string',
             ]);
 
+            info($request->all());
+
             $ip = $request->ip();
+
+            info($ip);
+
             $response = Http::get("http://ip-api.com/json/$ip?fields=country");
+
+            info($response->json());
             $country = $response->json()['country'] ?? null;
+
+            info($country);
 
             $contact = new Contact();
             $contact->name = $request->name;
