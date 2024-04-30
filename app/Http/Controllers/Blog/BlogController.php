@@ -743,7 +743,8 @@ class BlogController extends Controller
         };
         $sitemap .= '</urlset>';
 
-        return $sitemap;
+        return response()->json($sitemap);
+
     }
 
 }
