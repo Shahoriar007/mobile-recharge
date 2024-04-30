@@ -277,7 +277,7 @@ class BlogController extends Controller
             return response()->json([
 
                 'seo' => [
-                    'title' => $data->meta_title ? str_replace("%currentyear%", date("Y"), $data->meta_title ) : null,
+                    'title' => $data->meta_title ? str_replace("%currentyear%", date("Y"), $data->meta_title) : null,
                     'description' => $data->meta_description ?? null,
                     'robots' => $indexStatus,
                     'openGraph' => [
@@ -350,401 +350,384 @@ class BlogController extends Controller
 
         $blogs = Blog::get();
 
-        $sitemap = '<?xml version="1.0" encoding="UTF-8"?>
-            <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-        ';
-
-
-        $sitemap .= '
-        <url>
-        <loc>'.$frontendUrl.'/</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/software</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/software/erp</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/software/ecommerce</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/software/project-management</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/software/crm</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/software/hr-management</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/software/accounting-finance</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/software/payroll-management</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/software/mobile-app</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/web-development</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/web-development/website-development</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/web-development/ecommerce-website-development</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/web-development/website-speed-optimization</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/web-development/website-maintenance</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/digital-marketing/seo</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/digital-marketing/seo/seo-services</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/digital-marketing/seo/ecommerce-seo</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/digital-marketing/seo/local-seo</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/digital-marketing/seo/guest-post</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/digital-marketing/seo/seo-audit</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/digital-marketing/seo/google-business-profile-optimization</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/digital-marketing/seo/app-store-optimization</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/digital-marketing</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/digital-marketing/media-buying</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/digital-marketing/social-media-management</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/digital-marketing/online-reputation-management</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/digital-marketing/media-buying/facebook-ads-management</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/digital-marketing/media-buying/google-ads-management</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/digital-marketing/media-buying/youtube-ads-management</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/digital-marketing/media-buying/linkedIn-ads-management</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/creative-content</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/creative-content/content-writing</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/creative-content/video-production</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/creative-content/social-media-content-creation</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/creative-design</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/creative-design/ui-ux-design</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/creative-design/graphic-design</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/services/creative-design/motion-graphic</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/industries</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/industries/software</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/industries/education</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/industries/finance</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/industries/ecommerce</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/industries/banking</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/industries/real-state</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/industries/legal</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/industries/travel</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/case-studies</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/blog</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-    </url>
-
-    <url>
-        <loc>'.$frontendUrl.'/about-us</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/media</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/career</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/life-at-viserx</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/contact-us</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/privacy-policy/</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/testimonials/</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/refund-policy/</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/cookie-policy/</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/life-seo-in-bangladesh</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-    <url>
-        <loc>'.$frontendUrl.'/seo-service-in-dubai</loc>
-        <lastmod>2024-04-07</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.5</priority>
-    </url>
-        ';
+        $data = [
+            [
+                'loc' => $frontendUrl . '/',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.9'
+            ],
+            [
+                'loc' => $frontendUrl . '/services',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.8'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/software',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.6'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/software/erp',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.5'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/software/ecommerce',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.5'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/software/project-management',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.5'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/software/crm',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.5'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/software/hr-management',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.5'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/software/accounting-finance',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.5'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/software/payroll-management',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.5'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/software/mobile-app',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.5'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/web-development',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.8'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/web-development/website-development',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/web-development/ecommerce-website-development',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/web-development/website-speed-optimization',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/web-development/website-maintenance',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/digital-marketing/seo',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.8'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/digital-marketing/seo/seo-services',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/digital-marketing/seo/ecommerce-seo',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/digital-marketing/seo/local-seo',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/digital-marketing/seo/guest-post',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/digital-marketing/seo/seo-audit',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/digital-marketing/seo/google-business-profile-optimization',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/digital-marketing/seo/app-store-optimization',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/digital-marketing',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.8'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/digital-marketing/media-buying',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/digital-marketing/social-media-management',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/digital-marketing/online-reputation-management',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/digital-marketing/media-buying/facebook-ads-management',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/digital-marketing/media-buying/google-ads-management',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/digital-marketing/media-buying/youtube-ads-management',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/digital-marketing/media-buying/linkedIn-ads-management',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/creative-content',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/creative-content/content-writing',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/creative-content/video-production',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/creative-content/social-media-content-creation',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/creative-design',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/creative-design/ui-ux-design',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/creative-design/graphic-design',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/services/creative-design/motion-graphic',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/industries',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/industries/software',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/industries/education',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/industries/finance',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/industries/ecommerce',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/industries/banking',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/industries/real-state',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/industries/legal',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/industries/travel',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ],
+            [
+                'loc' => $frontendUrl . '/blog',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.9'
+            ],
+            [
+                'loc' => $frontendUrl . '/about',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.9'
+            ],
+            [
+                'loc' => $frontendUrl . '/media',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.9'
+            ],
+            [
+                'loc' => $frontendUrl . '/career',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.9'
+            ],
+            [
+                'loc' => $frontendUrl . '/life-at-viserx',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.9'
+            ],
+            [
+                'loc' => $frontendUrl . '/contact-us',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.9'
+            ],
+            [
+                'loc' => $frontendUrl . '/privacy-policy',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.9'
+            ],
+            [
+                'loc' => $frontendUrl . '/testimonials',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.9'
+            ],
+            [
+                'loc' => $frontendUrl . '/refund-policy',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.9'
+            ],
+            [
+                'loc' => $frontendUrl . '/cookie-policy',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.9'
+            ],
+            [
+                'loc' => $frontendUrl . '/seo-service-company-in-bangladesh',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.9'
+            ],
+            [
+                'loc' => $frontendUrl . '/seo-services-in-dubai',
+                'lastmod' => '2024-04-07',
+                'changefreq' => 'monthly',
+                'priority' => '0.8'
+            ],
+        ];
 
         foreach ($blogs as $blog) {
-            $sitemap .= '
-            <url>
-                <loc>'.$blog->slug.'</loc>
-                <lastmod>'.$blog->updated_at.'</lastmod>
-                <changefreq>monthly</changefreq>
-                <priority>0.7</priority>
-            </url>
-            ';
+            $data[] = [
+                'loc' => $frontendUrl . '/blog/' . $blog->blogCategories[0]->name . '/' . $blog->slug,
+                'lastmod' => $blog->updated_at,
+                'changefreq' => 'monthly',
+                'priority' => '0.7'
+            ];
         };
-        $sitemap .= '</urlset>';
 
-        return response()->json($sitemap);
-
+        return response()->json($data);
     }
-
 }
