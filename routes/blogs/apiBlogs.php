@@ -15,4 +15,7 @@ Route::middleware('throttle:600,1')->group(function () {
 //all blogs api routes
 Route::get('/all-blog-slugs', [BlogController::class, 'apiAllBlogSlugs']);
 
+// api site map
+Route::get('/site-map', [BlogController::class, 'apiSiteMap']);
+
 Route::post('/subscription', [BlogController::class, 'subscription']);
