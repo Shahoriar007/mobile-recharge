@@ -720,8 +720,16 @@ class BlogController extends Controller
         ];
 
         foreach ($blogs as $blog) {
+
+            $category = strtolower($blog->blogCategories[0]->name);
+            $category = str_replace(' ', '-', $category);
+            $category = preg_replace('/[^a-z0-9\-]/', '', $category);
+            $category = preg_replace('/-+/', '-', $category);
+            $category = trim($category, '-');
+
+
             $data[] = [
-                'loc' => $frontendUrl . '/blog/' . $blog->blogCategories[0]->name . '/' . $blog->slug,
+                'loc' => $frontendUrl . '/blog/' . $category . '/' . $blog->slug,
                 'lastmod' => $blog->updated_at,
                 'changefreq' => 'monthly',
                 'priority' => '0.7'
