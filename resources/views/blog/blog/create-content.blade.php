@@ -140,7 +140,9 @@
             var contentSections = $('#content-sections');
 
             $('#add').click(function() {
+
                 var newSection = contentSections.children('.content-section').first().clone();
+
                 newSection.find('input').val('');
                 newSection.find('textarea').val('');
                 newSection.append('<button type="button" class="btn btn-danger mt-1 me-1 remove">Remove</button>');

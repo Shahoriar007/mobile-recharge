@@ -175,22 +175,30 @@ class BlogRepository
 
 
                 foreach ($postKeys as $index => $postKey) {
-                    $this->postLink->create([
-                        'key' => $postKey,
-                        'value' => $postValues[$index],
-                        'blog_id' => $request->input('blog_id')
-                    ]);
+                    if ($postKey != null && $postValues[$index] != null)
+                    {
+                        $this->postLink->create([
+                            'key' => $postKey,
+                            'value' => $postValues[$index],
+                            'blog_id' => $request->input('blog_id')
+                        ]);
+                    }
+
                 }
 
                 $type = $request->input('type');
                 $script = $request->input('script');
 
                 foreach ($type as $items => $type) {
-                    $this->postScript->create([
-                        'type' => $type,
-                        'script' => $script[$items],
-                        'blog_id' => $request->input('blog_id')
-                    ]);
+                    if ($type != null && $script[$items] != null)
+                    {
+                        $this->postScript->create([
+                            'type' => $type,
+                            'script' => $script[$items],
+                            'blog_id' => $request->input('blog_id')
+                        ]);
+                    }
+
                 }
             });
 

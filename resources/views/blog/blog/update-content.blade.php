@@ -141,34 +141,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
     <script>
-        document.getElementById('title').addEventListener('input', function(e) {
-            var title = e.target.value.toLowerCase().trim();
-            var slug = title.replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
-            document.getElementById('slug').value = slug;
-        });
 
-        // image preview
-        const inputFile = document.getElementById('feature_picture');
-        const previewContainer = document.getElementById('preview-image-before-upload');
-        // set the image preview
-        inputFile.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function() {
-                    const result = reader.result;
-                    previewContainer.src = result;
-                    previewContainer.hidden = false;
-                }
-                reader.readAsDataURL(file);
-            }
-        });
 
         $(document).ready(function() {
-        var contentSections = $('#content-sections');
+            var contentSections = $('#content-sections');
 
         $('#add').click(function() {
+
             var newSection = contentSections.children('.content-section').first().clone();
+
             newSection.find('input').val('');
             newSection.find('textarea').val('');
             newSection.append('<button type="button" class="btn btn-danger mt-1 me-1 remove">Remove</button>');
@@ -182,6 +163,11 @@
             $(this).closest('.content-section').remove();
         });
     });
+    document.getElementById('title').addEventListener('input', function(e) {
+            var title = e.target.value.toLowerCase().trim();
+            var slug = title.replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
+            document.getElementById('slug').value = slug;
+        });
 </script>
 
 

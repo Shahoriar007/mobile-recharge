@@ -98,24 +98,50 @@
                                 </div>
                                 <div class="card-body py-2 my-25" id="post-link-sections">
                                     <!-- Post Link Section Template -->
-                                    <div class="post-link-template">
-                                        @foreach($postLinkData as $post_link)
+                                        <div class="post-link-template">
+                                            @foreach($postLinkData as $post_link)
+                                                <div class="row">
+                                                    <div class="col-12 col-sm-6 mb-1">
+                                                        <label class="form-label" for="key">Key</label>
+                                                        <input type="text" class="form-control" name="post_key[]" value="{{ $post_link->key }}" placeholder="Key" data-msg="Please enter key" />
+                                                    </div>
+                                                    <div class="col-12 col-sm-6 mb-1">
+                                                        <label class="form-label" for="value">Value</label>
+                                                        <input type="text" class="form-control" name="post_value[]" value="{{ $post_link->value }}" placeholder="Value" data-msg="Please enter value" />
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <button type="button" class="btn btn-danger mt-1 me-1 remove" style="display: none;">Remove</button>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+
+                                        </div>
+
+                                        <div class="post-link-template-update">
+
                                             <div class="row">
                                                 <div class="col-12 col-sm-6 mb-1">
                                                     <label class="form-label" for="key">Key</label>
-                                                    <input type="text" class="form-control" name="post_key[]" value="{{ $post_link->key }}" placeholder="Key" data-msg="Please enter key" />
+                                                    <input type="text" class="form-control" name="post_key[]" value="" placeholder="Key" data-msg="Please enter key" />
                                                 </div>
                                                 <div class="col-12 col-sm-6 mb-1">
                                                     <label class="form-label" for="value">Value</label>
-                                                    <input type="text" class="form-control" name="post_value[]" value="{{ $post_link->value }}" placeholder="Value" data-msg="Please enter value" />
+                                                    <input type="text" class="form-control" name="post_value[]" value="" placeholder="Value" data-msg="Please enter value" />
                                                 </div>
                                                 <div class="col-12">
                                                     <button type="button" class="btn btn-danger mt-1 me-1 remove" style="display: none;">Remove</button>
                                                 </div>
                                             </div>
-                                        @endforeach
 
-                                    </div>
+                                        </div>
+
+
+
+
+
+
+
+
                                     <!-- End of Post Link Section Template -->
                                 </div>
                                 <button type="button" class="btn btn-primary mt-1 me-1" id="add-post-link">Add</button>
@@ -145,7 +171,28 @@
                                             </div>
                                         </div>
                                         @endforeach
+
                                     </div>
+
+                                    <div class="post-script-template-update">
+
+                                        <div class="row">
+                                            <div class="col-12 col-sm-12 mb-1">
+                                                <label class="form-label" for="type">Type</label>
+                                                <input type="text" class="form-control" name="type[]" placeholder="Type" value="" data-msg="Please enter type" />
+                                            </div>
+                                            <div class="col-12 col-sm-12 mb-1">
+                                                <label class="form-label" for="script">Script</label>
+                                                <textarea class="form-control" name="script[]" placeholder="Script"  data-msg="Please enter script"></textarea>
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="button" class="btn btn-danger mt-1 me-1 remove" style="display: none;">Remove</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
                                     <!-- End of Post Script Section Template -->
                                 </div>
                                 <button type="button" class="btn btn-primary mt-1 me-1" id="add-post-script">Add</button>
@@ -192,17 +239,15 @@
         CKEDITOR.replace('content');
     </script>
 
-    <script>
+    {{-- <script>
         document.getElementById('title').addEventListener('input', function(e) {
             var title = e.target.value.toLowerCase().trim();
             var slug = title.replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
             document.getElementById('slug').value = slug;
         });
 
-        // image preview
         const inputFile = document.getElementById('feature_picture');
         const previewContainer = document.getElementById('preview-image-before-upload');
-        // set the image preview
         inputFile.addEventListener('change', function() {
             const file = this.files[0];
             if (file) {
@@ -215,15 +260,15 @@
                 reader.readAsDataURL(file);
             }
         });
-    </script>
+    </script> --}}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
     $(document).ready(function() {
         $('#add-post-script').click(function() {
-            var newSection = $('.post-script-template').clone();
-            newSection.removeClass('post-script-template').addClass('post-script-section');
+            var newSection = $('.post-script-template-update').clone();
+            newSection.removeClass('post-script-template-update').addClass('post-script-section');
             newSection.find('input[type="text"], textarea').val('');
             $('#post-script-sections').append(newSection);
             newSection.find('.remove').show(); // Show remove button for newly added section
@@ -236,8 +281,8 @@
 
     $(document).ready(function() {
         $('#add-post-link').click(function() {
-            var newSection = $('.post-link-template').clone();
-            newSection.removeClass('post-link-template').addClass('post-link-sections');
+            var newSection = $('.post-link-template-update').clone();
+            newSection.removeClass('post-link-template-update').addClass('post-link-sections');
             newSection.find('input[type="text"], input[type="text"]').val('');
             $('#post-link-sections').append(newSection);
             newSection.find('.remove').show(); // Show remove button for newly added section
