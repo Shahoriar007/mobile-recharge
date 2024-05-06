@@ -41,7 +41,7 @@
 <body>
 
     <div class="container">
-        <h2>Contact Form Submission</h2>
+        <h2>A form has been submitted on {{ \Carbon\Carbon::today()->isoFormat('Do MMMM YYYY') }} from {{ $ip }} - {{ $contact['country'] }}</h2>
         <div class="detail">
             <label>Name:</label>
             <p>{{ $contact['name'] }}</p>

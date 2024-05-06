@@ -38,17 +38,19 @@ class ContactController extends Controller
             $contact->country = $country;
             $contact->save();
 
+            $cc = explode(',', config('mail.contact-cc'));
+
             if ($country == 'Bangladesh') {
-                Mail::to(env('CONTACT_EMAIL_BD'))->send(new ContactMail($contact));
+                Mail::to(env('CONTACT_EMAIL_BD'))->cc($cc)->send(new ContactMail($contact, $ip));
             }else{
-                Mail::to(env('CONTACT_EMAIL'))->send(new ContactMail($contact));
+                Mail::to(env('CONTACT_EMAIL'))->cc($cc)->send(new ContactMail($contact, $ip));
             }
 
             return response()->json(['message' => 'Contact created successfully'], 201);
 
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return response()->json(['error' => 'There was an error processing your request'], 500);
+            return response()->json($e->getMessage(), 500);
         }
 
 
