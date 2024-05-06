@@ -114,4 +114,6 @@ return [
         ],
     ],
 
+    'contact-cc' => env('CONTACT_EMAIL_CC') 
+
 ];

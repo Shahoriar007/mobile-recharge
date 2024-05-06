@@ -5,6 +5,7 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -14,15 +15,17 @@ class ContactMail extends Mailable
     use Queueable, SerializesModels;
 
     public $contact;
+    public $ip;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($contact)
+    public function __construct($contact, $ip)
     {
         $this->contact = $contact;
+        $this->ip = $ip;
     }
 
     /**
@@ -33,7 +36,10 @@ class ContactMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Contact Mail',
+            subject: "Request For Consultation: VISER X - " . $this->contact['subject'],
+            replyTo: [
+                new Address($this->contact['email'])
+            ]
         );
     }
 
