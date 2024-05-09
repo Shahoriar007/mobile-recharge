@@ -212,10 +212,15 @@ class BlogController extends Controller
         return response()->json($data);
     }
 
-    public function apiShow($slug)
+    public function apiShow($category, $slug )
     {
         try {
-            $data = $this->repository->apiShow($slug);
+            $data = $this->repository->apiShow($category, $slug);
+
+            if (empty($data))
+            {
+                return null;
+            }
 
             if ($data->index_status == 1) {
                 $indexStatus = "index";
@@ -319,6 +324,7 @@ class BlogController extends Controller
 
             ], 200);
         } catch (\Exception $e) {
+            return null;
             return $e->getMessage();
             return response()->json(
                 [

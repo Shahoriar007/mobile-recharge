@@ -471,10 +471,14 @@ class BlogRepository
         }
     }
 
-    public function apiShow($slug)
+    public function apiShow($category = null, $slug)
     {
         try {
-            return $this->model->with('postLinks', 'postScripts', 'authors', 'blogCategories', 'contents')->where('slug', $slug)->first();
+            return $this->model->with('postLinks', 'postScripts', 'authors', 'blogCategories', 'contents')->where('slug', $slug)->whereHas(
+                'blogCategories', function ($query) use ($category) {
+                    $query->where('name', $category);
+                }
+            )->first();
 
         } catch (\Exception $e) {
             error_log($e->getMessage());
