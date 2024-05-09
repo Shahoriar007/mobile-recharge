@@ -211,6 +211,26 @@ class BlogController extends Controller
 
         return response()->json($data);
     }
+    
+    function slugify($str) {
+    // Remove leading and trailing whitespace
+    $str = trim($str);
+    
+    // Convert to lowercase
+    $str = strtolower($str);
+    
+    // Replace non-alphanumeric characters (except spaces and hyphens) with a single space
+    $str = preg_replace('/[^a-z0-9 -]/', '', $str);
+    
+    // Replace consecutive spaces or hyphens with a single hyphen
+    $str = preg_replace('/\s+/', '-', $str);
+    $str = preg_replace('/-+/', '-', $str);
+    
+    // Trim any leading or trailing hyphens
+    $str = trim($str, '-');
+    
+    return $str;
+}
 
     public function apiShow($slug)
     {
@@ -229,7 +249,7 @@ class BlogController extends Controller
             $fixedLink = [];
             $fixedLink[] = [
                 'key' => 'canonical',
-                'value' => $frontendUrl . '/blog/' . $slug,
+                'value' => $frontendUrl . '/blog/' . $this->slugify($data->blogCategories[0]->name) . '/' .  $slug,
             ];
 
             foreach ($data->postLinks as $link) {
