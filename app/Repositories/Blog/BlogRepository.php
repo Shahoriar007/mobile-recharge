@@ -340,17 +340,22 @@ class BlogRepository
                 $descriptions = $request->input('description');
 
                 foreach ($contentTitles as $key => $title) {
-                    Content::create([
+                    $content = Content::create([
                         'title' => $title,
                         'description' => $descriptions[$key],
                         'blog_id' => $blogId
                     ]);
                 }
+
+                //update blog updated_at
+                $blog = Blog::where('id', $blogId)->first();
+                $blog->touch();
+
             });
 
             return $blogId;
         } catch (\Exception $e) {
-            error_log($e->getMessage());
+            info($e);
             return false;
         }
     }
@@ -380,6 +385,8 @@ class BlogRepository
                     'meta_description' => $request->input('meta_description')
                 ]);
 
+                $blog->touch();
+
                 $postKeys = $request->input('post_key');
                 $postValues = $request->input('post_value');
 
@@ -405,6 +412,8 @@ class BlogRepository
                         'blog_id' => $request->input('blog_id')
                     ]);
                 }
+
+
 
                 return true;
             } catch (\Exception $e) {
