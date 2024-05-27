@@ -9,7 +9,7 @@ $configData = Helper::applClasses();
       <li class="nav-item me-auto">
         <a class="navbar-brand" href="{{ url('/') }}">
           <span>
-           <img src="{{ asset('images/logo/VISER-X-New.png') }}" class="img-fluid"  style="height: 38px; padding-top: 5px;"/>
+           {{-- <img src="{{ asset('images/logo/VISER-X-New.png') }}" class="img-fluid"  style="height: 38px; padding-top: 5px;"/> --}}
           </span>
 
         </a>

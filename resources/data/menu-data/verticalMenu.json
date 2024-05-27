@@ -13,28 +13,18 @@
             "slug": "users"
         },
         {
-            "url": "/blog-category",
-            "name": "Blog Category",
-            "icon": "package",
-            "slug": "blog-category"
+            "url": "/providers",
+            "name": "Providers",
+            "icon": "users",
+            "slug": "providers"
         },
         {
-            "url": "/blog",
-            "name": "Blog",
-            "icon": "file",
-            "slug": "blog"
-        },
-        {
-            "url": "/og-images",
-            "name": "OG Images",
-            "icon": "image",
-            "slug": "og-images"
-        },
-        {
-            "url": "/contacts",
-            "name": "Contacts",
-            "icon": "user",
-            "slug": "contacts"
+            "url": "/products",
+            "name": "Products",
+            "icon": "users",
+            "slug": "products"
         }
+
+
 	]
 }

@@ -24,6 +24,11 @@ require __DIR__ . '/queries/queries.php';
 //Contacts routes
 require __DIR__ . '/contacts/contacts.php';
 
+//providers routes
+require __DIR__ . '/providers/providers.php';
+
+//products routes
+require __DIR__ . '/products/products.php';
 
 
 Route::middleware(['auth'])->group(function () {

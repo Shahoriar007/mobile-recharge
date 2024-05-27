@@ -6,7 +6,7 @@
         <div class="auth-inner row m-0">
             <!-- Brand logo-->
             <span class="brand-logo">
-                <a href="" class="logo"> <img src="{{ asset('images/logo/VISER-X-New.png') }}" class="img-fluid"  style="height: 38px; padding-top: 5px;"/> </a>
+                {{-- <a href="" class="logo"> <img src="{{ asset('images/logo/VISER-X-New.png') }}" class="img-fluid"  style="height: 38px; padding-top: 5px;"/> </a> --}}
               </span>
             <!-- /Brand logo-->
             <!-- Left Text-->
