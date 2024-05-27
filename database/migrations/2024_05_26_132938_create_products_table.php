@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('code')->nullable();
             $table->unsignedBigInteger('provider');
-            $table->decimal('min_amount', 2,2)->nullable();
-            $table->decimal('max_amount', 3,2)->nullable();
+            $table->decimal('min_amount', 6,2)->nullable();
+            $table->decimal('max_amount', 6,2)->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
