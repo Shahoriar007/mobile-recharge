@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'User List')
+@section('title', 'Product List')
 
 @section('vendor-style')
     <!-- vendor css files -->
@@ -16,69 +16,160 @@
 @endif
 
     <div class="row" id="table-hover-row">
+        <div class="col-12 card">
+            <div class="card-body">
+                <form class="form form-horizontal" action="{{ route('update-or-create-product') }}" method="POST">
+                    @csrf
+
+                    <input type="hidden" name="id" id="record_id" value="">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="name">Name<span style="color: red"> * </span></label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="name" class="form-control" name="name"
+                                        placeholder="Name"  required/>
+                                    @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="code">Code<span style="color: red"> * </span></label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="code" class="form-control" name="code"
+                                        placeholder="Code" value="{{ old('code') }}" />
+                                    @error('code')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="min_amount">minimum amount<span style="color: red"> * </span></label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="min_amount" class="form-control" name="min_amount"
+                                        placeholder="min_amount" value="{{ old('min_amount') }}" />
+                                    @error('min_amount')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="max_amount">minimum amount<span style="color: red"> * </span></label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="max_amount" class="form-control" name="max_amount"
+                                        placeholder="max_amount" value="{{ old('max_amount') }}" />
+                                    @error('max_amount')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="provider">Provider<span style="color: red"> * </span></label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <select id="provider" class="form-control" name="provider" >
+                                        <option value="" disabled selected>Select provider</option>
+                                        @foreach($providers as $provider)
+                                        <option value="{{ $provider->id }}">{{ $provider->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                    @error('provider')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="status">Status<span style="color: red"> * </span></label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <select id="status" class="form-control" name="status" >
+                                        <option value="" disabled selected>Select category</option>
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                    </select>
+                                    @error('status')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-9 offset-sm-3">
+                            @if (session('error'))
+                                <div class="text-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            <button type="submit" class="btn btn-primary me-1">Submit</button>
+                            <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
         <div class="col-12">
             <div class="card">
 
-                <div class="card-body">
-                    <form action="#" method="get">
-                        <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                data-bs-target="#createUser">Add User</button>
-                        </div>
-                    </form>
-                </div>
+
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="productsTable">
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone Number</th>
-                                <th>Created at</th>
+                                <th>Code</th>
+                                <th>minimum amount</th>
+                                <th>maximum amount</th>
+                                <th>provider</th>
+                                <th>Status</th>
                                 <th>Actions</th>
+
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
-                                <tr>
-                                    <td>
-                                        <span class="fw-bold">
-                                            {{ $user->name }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        {{ $user->email }}
-                                    </td>
-                                    <td>
-                                        <span>
-                                            {{ $user->phone }}
-                                        </span>
-                                    </td>
 
-                                    <td>{{ \Carbon\Carbon::parse($user->created_at)->format('d M Y H:ia') }}</td>
-                                    <td>
+                            @foreach ($products as $product)
+                            <tr data-id="{{ $product->id }}">
+                                <td>{{ $product->name }}</td>
+                                <td>{{ $product->code }}</td>
+                                <td>{{ $product->min_amount }}</td>
+                                <td>{{ $product->max_amount }}</td>
 
-                                        {{-- <a class="" href="#">
-                                            <i data-feather="eye" class="me-50"></i>
-                                        </a> --}}
-
-                                        <a href="#" class="edit-user" data-bs-toggle="modal"
-                                            data-bs-target="#editUser" data-user-id="{{ $user->id }}">
-                                            <i data-feather="edit-2" class="me-50"></i>
-                                        </a>
-
-                                        <form id="deleteForm" method="POST" action="{{ route('delete-user') }}" class="d-inline">
-                                            @method('DELETE')
-                                            @csrf
-                                            <input type="text" name="user_id" id="delete-user-id" hidden>
-                                            <button type="button" class="btn-link" style="border: none; background: none; padding: 0; margin: 0;"
-                                               onclick="confirmDelete({{ $user->id }})">
-                                               <i data-feather="trash-2" class="me-50"></i>
-                                            </button>
-                                         </form>
-
-                                    </td>
-                                </tr>
+                                <td>{{ $product->provider }}</td>
+                                <td>{{ $product->status }}</td>
+                                <td>
+                                    <!-- Add action buttons here if needed -->
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -86,17 +177,17 @@
                         <nav aria-label="Page navigation">
                             <ul class="pagination mt-2">
                                 <li class="page-item prev"><a class="page-link"
-                                        style="pointer-events: {{ $users->currentPage() == 1 ? 'none' : '' }}"
-                                        href="{{ $users->url($users->currentPage() - 1) }}"></a>
+                                        style="pointer-events: {{ $products->currentPage() == 1 ? 'none' : '' }}"
+                                        href="{{ $products->url($products->currentPage() - 1) }}"></a>
                                 </li>
-                                @for ($i = 1; $i <= $users->lastPage(); $i++)
-                                    <li class="page-item {{ $i == $users->currentPage() ? 'active' : '' }}">
-                                        <a class="page-link" href="{{ $users->url($i) }}">{{ $i }}</a>
+                                @for ($i = 1; $i <= $products->lastPage(); $i++)
+                                    <li class="page-item {{ $i == $products->currentPage() ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $products->url($i) }}">{{ $i }}</a>
                                     </li>
                                 @endfor
                                 <li class="page-item next" disabled><a class="page-link"
-                                        style="pointer-events: {{ $users->currentPage() == $users->lastPage() ? 'none' : '' }}"
-                                        href="{{ $users->url($users->currentPage() + 1) }}"></a>
+                                        style="pointer-events: {{ $products->currentPage() == $products->lastPage() ? 'none' : '' }}"
+                                        href="{{ $products->url($products->currentPage() + 1) }}"></a>
                                 </li>
                             </ul>
                         </nav>
@@ -106,198 +197,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="createUser" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-edit-user">
-            <div class="modal-content">
-                <div class="modal-header bg-transparent">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body pb-5 px-sm-5 pt-50">
-                    <div class="text-center mb-2">
-                        <h1 class="mb-1">Add new user</h1>
-                    </div>
 
-                    <div class="card-body">
-                        <form class="form form-horizontal" action="{{ route('create-user') }}" method="POST">
-                            @csrf
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="first-name">Name<span style="color: red"> * </span></label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="text" id="name" class="form-control" name="name"
-                                                placeholder="Name"  required/>
-                                            @error('name')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="email-id">Email<span style="color: red"> * </span></label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="email" id="email" class="form-control" name="email"
-                                                placeholder="Email" value="{{ old('email') }}" required/>
-                                            @error('email')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="phn-id">Phone Number<span style="color: red"> * </span></label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="number" id="phn" class="form-control" name="phone"
-                                                placeholder="phone number" value="{{ old('phone') }}" required/>
-                                            @error('number')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-12">
-                                    <div class="mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="password">Password<span style="color: red"> * </span></label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <div class="input-group input-group-merge form-password-toggle">
-                                                <input class="form-control form-control-merge" id="login-password"
-                                                    type="password" name="password" placeholder="············"
-                                                    aria-describedby="login-password" tabindex="2" required/>
-                                                <span class="input-group-text cursor-pointer"><i
-                                                        data-feather="eye"></i></span>
-                                            </div>
-                                            @error('password')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-9 offset-sm-3">
-                                    @if (session('error'))
-                                        <div class="text-danger">
-                                            {{ session('error') }}
-                                        </div>
-                                    @endif
-                                    <button type="submit" class="btn btn-primary me-1">Submit</button>
-                                    <button type="reset" class="btn btn-outline-secondary">Reset</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-edit-user">
-            <div class="modal-content">
-                <div class="modal-header bg-transparent">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body pb-5 px-sm-5 pt-50">
-                    <div class="text-center mb-2">
-                        <h1 class="mb-1">Update User</h1>
-                    </div>
-
-                    <div class="card-body">
-                        <form class="form form-horizontal" id="edit-user-form"  action="" method="POST">
-                            @csrf
-                            @method('PUT')
-
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="first-name">Name</label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="text" id="first-name" class="form-control" name="name"
-                                                placeholder="Name" />
-                                            @error('name')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="email-id">Email</label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="email" id="email-id" class="form-control" name="email"
-                                                placeholder="Email"  />
-                                            @error('email')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="phn-id">Phone Number</label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="number" id="phn-id" class="form-control" name="phone"
-                                                placeholder="phone number" />
-                                            @error('number')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <div class="mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="password">New Password</label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <div class="input-group input-group-merge form-password-toggle">
-                                                <input class="form-control form-control-merge" id="login-password"
-                                                    type="password" name="password" placeholder="············"
-                                                    aria-describedby="login-password" tabindex="2" />
-                                                <span class="input-group-text cursor-pointer"><i
-                                                        data-feather="eye"></i></span>
-                                            </div>
-                                            @error('password')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-9 offset-sm-3">
-                                    @if (session('error'))
-                                        <div class="text-danger">
-                                            {{ session('error') }}
-                                        </div>
-                                    @endif
-                                    <button type="submit" class="btn btn-primary me-1">Submit</button>
-                                    <button type="reset" class="btn btn-outline-secondary">Reset</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Hoverable rows end -->
 
@@ -315,37 +215,7 @@
     <script src="{{ asset(mix('js/scripts/forms/form-select2.js')) }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const editLinks = document.querySelectorAll('.edit-user');
 
-            editLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const userId = this.dataset.userId;
-
-                    const editForm = document.getElementById('edit-user-form');
-                    editForm.action = `/users/${userId}`;
-
-                    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                    axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
-
-                    axios.get(`/users/${userId}/edit`)
-                        .then(response => {
-
-                            const userData = response.data;
-
-                            document.getElementById('first-name').value = userData.name;
-                            document.getElementById('email-id').value = userData.email;
-                            document.getElementById('phn-id').value = userData.phone;
-                        })
-                        .catch(error => {
-                            console.error('Error fetching user data', error);
-                        });
-                });
-            });
-        });
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
@@ -355,6 +225,28 @@
             }, 3000);
         });
     </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const nameInput = document.getElementById('name');
+        const recordIdInput = document.getElementById('record_id');
+        const dataTable = document.getElementById('productsTable');
+
+        nameInput.addEventListener('input', function () {
+            const name = this.value.toLowerCase();
+            let recordId = '';
+
+            Array.from(dataTable.querySelectorAll('tbody tr')).forEach(row => {
+                const rowDataName = row.cells[0].textContent.toLowerCase();
+                if (rowDataName === name) {
+                    recordId = row.getAttribute('data-id');
+                }
+            });
+
+            recordIdInput.value = recordId;
+        });
+    });
+</script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
