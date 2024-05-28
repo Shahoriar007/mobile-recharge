@@ -24,6 +24,13 @@
             "icon": "users",
             "slug": "products"
         }
+        ,
+        {
+            "url": "/offers",
+            "name": "Offers",
+            "icon": "users",
+            "slug": "offers"
+        }
 
 
 	]

@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Provider List')
+@section('title', 'Offer List')
 
 @section('vendor-style')
     <!-- vendor css files -->
@@ -18,69 +18,43 @@
     <div class="row" id="table-hover-row">
         <div class="col-12 card">
             <div class="card-body">
-                <form class="form form-horizontal" action="{{ route('update-or-create-provider') }}" method="POST">
+                <form class="form form-horizontal" action="{{ route('update-or-create-offer') }}" method="POST">
                     @csrf
 
                     <input type="hidden" name="id" id="record_id" value="">
 
                     <div class="row">
+
                         <div class="col-12">
                             <div class="mb-1 row">
                                 <div class="col-sm-3">
-                                    <label class="col-form-label" for="name">Name<span style="color: red"> * </span></label>
+                                    <label class="col-form-label" for="description">Description<span style="color: red"> * </span></label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <input type="text" id="name" class="form-control" name="name"
-                                        placeholder="Name"  required/>
-                                    @error('name')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="mb-1 row">
-                                <div class="col-sm-3">
-                                    <label class="col-form-label" for="code">Code<span style="color: red"> * </span></label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input type="text" id="code" class="form-control" name="code"
-                                        placeholder="Code" value="{{ old('code') }}" />
-                                    @error('code')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="mb-1 row">
-                                <div class="col-sm-3">
-                                    <label class="col-form-label" for="length">Length<span style="color: red"> * </span></label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input type="text" id="length" class="form-control" name="length"
-                                        placeholder="length" value="{{ old('length') }}" />
-                                    @error('length')
+                                    <input type="text" id="description" class="form-control" name="description"
+                                        placeholder="description" value="{{ old('description') }}" />
+                                    @error('description')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
 
+
                         <div class="col-12">
                             <div class="mb-1 row">
                                 <div class="col-sm-3">
-                                    <label class="col-form-label" for="category">Category<span style="color: red"> * </span></label>
+                                    <label class="col-form-label" for="provider">Provider<span style="color: red"> * </span></label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <select id="category" class="form-control" name="category" >
-                                        <option value="" disabled selected>Select category</option>
-                                        <option value="recharge">Recharge</option>
-                                        <option value="drive">Drive</option>
-                                        <option value="bill">Bill</option>
-                                        <option value="withdraw">Withdraw</option>
+                                    <select id="provider_id" class="form-control" name="provider_id" >
+                                        <option value="" disabled selected>Select provider</option>
+                                        @foreach($providers as $provider)
+                                        <option value="{{ $provider->id }}">{{ $provider->name }}</option>
+                                        @endforeach
+
                                     </select>
-                                    @error('category')
+                                    @error('provider')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -92,45 +66,51 @@
                         <div class="col-12">
                             <div class="mb-1 row">
                                 <div class="col-sm-3">
-                                    <label class="col-form-label" for="status">Status<span style="color: red"> * </span></label>
+                                    <label class="col-form-label" for="type">type<span style="color: red"> * </span></label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <select id="status" class="form-control" name="status" >
-                                        <option value="" disabled selected>Select Status</option>
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
-                                        <option value="net_problem">Net Problem</option>
-                                        <option value="stock_out">Stock Out</option>
+                                    <select id="type" class="form-control" name="type" >
+                                        <option value="" disabled selected>Select type</option>
+                                        <option value="minute">Minute</option>
+                                        <option value="internet">Internet</option>
                                     </select>
-                                    @error('status')
+                                    @error('type')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
 
                         </div>
-
-
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="price">Price<span style="color: red"> * </span></label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" id="price" class="form-control" name="price"
+                                        placeholder="price" value="{{ old('price') }}" />
+                                    @error('price')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="col-12">
                             <div class="mb-1 row">
                                 <div class="col-sm-3">
-                                    <label class="col-form-label" for="prefix">prefix<span style="color: red"> * </span></label>
+                                    <label class="col-form-label" for="cashback">Cashback<span style="color: red"> * </span></label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <div class="input-group input-group-merge form-prefix-toggle">
-                                        <input class="form-control form-control-merge" id="prefix"
-                                            type="prefix" name="prefix" placeholder="Prefix"
-                                            aria-describedby="prefix" tabindex="2" />
-                                        <span class="input-group-text cursor-pointer"><i
-                                                data-feather="eye"></i></span>
-                                    </div>
-                                    @error('prefix')
+                                    <input type="text" id="cashback" class="form-control" name="cashback"
+                                        placeholder="cashback"  required/>
+                                    @error('cashback')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="col-sm-9 offset-sm-3">
                             @if (session('error'))
@@ -151,28 +131,29 @@
 
 
                 <div class="table-responsive">
-                    <table class="table table-hover" id="providersTable">
+                    <table class="table table-hover" id="offersTable">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Code</th>
-                                <th>Length</th>
-                                <th>Category</th>
-                                <th>Status</th>
-                                <th>Prefix</th>
+                                <th>Description</th>
+                                <th> provider</th>
+                                <th>type</th>
+                                <th>price</th>
+                                <th>cashback</th>
                                 <th>Actions</th>
 
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($providers as $provider)
-                            <tr data-id="{{ $provider->id }}">
-                                <td>{{ $provider->name }}</td>
-                                <td>{{ $provider->code }}</td>
-                                <td>{{ $provider->length }}</td>
-                                <td>{{ $provider->category }}</td>
-                                <td>{{ $provider->status }}</td>
-                                <td>{{ $provider->prefix }}</td>
+
+                            @foreach ($offers as $offer)
+                            <tr data-id="{{ $offer->id }}">
+                                <td>{{ $offer->description }}</td>
+                                <td>{{ $offer->provider->name}}</td>
+
+                                <td>{{ $offer->type }}</td>
+                                <td>{{ $offer->price }}</td>
+
+                                <td>{{ $offer->cashback }}</td>
                                 <td>
                                     <!-- Add action buttons here if needed -->
                                 </td>
@@ -184,17 +165,17 @@
                         <nav aria-label="Page navigation">
                             <ul class="pagination mt-2">
                                 <li class="page-item prev"><a class="page-link"
-                                        style="pointer-events: {{ $providers->currentPage() == 1 ? 'none' : '' }}"
-                                        href="{{ $providers->url($providers->currentPage() - 1) }}"></a>
+                                        style="pointer-events: {{ $offers->currentPage() == 1 ? 'none' : '' }}"
+                                        href="{{ $offers->url($offers->currentPage() - 1) }}"></a>
                                 </li>
-                                @for ($i = 1; $i <= $providers->lastPage(); $i++)
-                                    <li class="page-item {{ $i == $providers->currentPage() ? 'active' : '' }}">
-                                        <a class="page-link" href="{{ $providers->url($i) }}">{{ $i }}</a>
+                                @for ($i = 1; $i <= $offers->lastPage(); $i++)
+                                    <li class="page-item {{ $i == $offers->currentPage() ? 'active' : '' }}">
+                                        <a class="page-link" href="{{ $offers->url($i) }}">{{ $i }}</a>
                                     </li>
                                 @endfor
                                 <li class="page-item next" disabled><a class="page-link"
-                                        style="pointer-events: {{ $providers->currentPage() == $providers->lastPage() ? 'none' : '' }}"
-                                        href="{{ $providers->url($providers->currentPage() + 1) }}"></a>
+                                        style="pointer-events: {{ $offers->currentPage() == $offers->lastPage() ? 'none' : '' }}"
+                                        href="{{ $offers->url($offers->currentPage() + 1) }}"></a>
                                 </li>
                             </ul>
                         </nav>
@@ -224,7 +205,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://price.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function(){
             setTimeout(function(){
@@ -235,23 +216,34 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const nameInput = document.getElementById('name');
+        const descriptionInput = document.getElementById('description');
+        const providerInput = document.getElementById('provider_id');
         const recordIdInput = document.getElementById('record_id');
-        const dataTable = document.getElementById('providersTable');
+        const dataTable = document.getElementById('offersTable');
 
-        nameInput.addEventListener('input', function () {
-            const name = this.value.toLowerCase();
+        function searchRecord() {
+            const description = descriptionInput.value.toLowerCase();
+            const provider = providerInput.options[providerInput.selectedIndex].text.toLowerCase();
             let recordId = '';
 
             Array.from(dataTable.querySelectorAll('tbody tr')).forEach(row => {
-                const rowDataName = row.cells[0].textContent.toLowerCase();
-                if (rowDataName === name) {
+                const rowDescription = row.cells[0].textContent.toLowerCase();
+                const rowProvider = row.cells[1].textContent.toLowerCase(); // Assuming the provider is in the second column
+                console.log(rowDescription,rowProvider);
+                console.log(description,provider);
+
+                if (rowDescription === description && rowProvider === provider) {
                     recordId = row.getAttribute('data-id');
                 }
             });
 
             recordIdInput.value = recordId;
-        });
+
+
+        }
+
+        descriptionInput.addEventListener('input', searchRecord);
+        providerInput.addEventListener('change', searchRecord);
     });
 </script>
 

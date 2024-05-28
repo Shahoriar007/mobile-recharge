@@ -35,7 +35,11 @@ class Provider extends Model
      * @var array<string, string>
      */
     public function products(){
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class, 'provider_id');
+     }
+
+     public function offers(){
+        return $this->hasMany(Offer::class, 'provider_id');
      }
 
 }

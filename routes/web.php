@@ -31,6 +31,10 @@ require __DIR__ . '/providers/providers.php';
 require __DIR__ . '/products/products.php';
 
 
+//products routes
+require __DIR__ . '/offers/offers.php';
+
+
 Route::middleware(['auth'])->group(function () {
 
 Route::get('/', [StaterkitController::class, 'home'])->name('admin-home');

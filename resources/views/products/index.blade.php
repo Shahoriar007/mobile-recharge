@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <select id="status" class="form-control" name="status" >
-                                        <option value="" disabled selected>Select category</option>
+                                        <option value="" disabled selected>Select Status</option>
                                         <option value="active">Active</option>
                                         <option value="inactive">Inactive</option>
                                     </select>
@@ -164,7 +164,7 @@
                                 <td>{{ $product->min_amount }}</td>
                                 <td>{{ $product->max_amount }}</td>
 
-                                <td>{{ $product->provider }}</td>
+                                <td>{{ $product->provider->name }}</td>
                                 <td>{{ $product->status }}</td>
                                 <td>
                                     <!-- Add action buttons here if needed -->
