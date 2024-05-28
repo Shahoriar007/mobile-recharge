@@ -64,4 +64,15 @@ class OfferController extends Controller
 
     return redirect()->back()->with('success', 'Record updated or inserted successfully!');
 }
+
+public function destroy(Request $request)
+{
+    $offerId = $request->input('offer_id');
+    $offer = Offer::findOrFail($offerId);
+
+    $offer->delete();
+    \Session::flash('success', 'Offer successfully deleted.');
+
+    return redirect()->route('offers');
+}
 }

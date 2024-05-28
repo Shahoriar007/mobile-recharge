@@ -181,8 +181,15 @@
                                 <td>{{ $terminal->category }}</td>
                                 <td>{{ $terminal->status }}</td>
                                 <td>
-                                    <!-- Add action buttons here if needed -->
-                                </td>
+                                    <form id="deleteForm" method="POST" action="{{ route('delete-terminal') }}" class="d-inline">
+                                        @method('DELETE')
+                                        @csrf
+                                        <input type="text" name="terminal_id" id="delete-terminal-id" hidden>
+                                        <button type="button" class="btn-link" style="border: none; background: none; padding: 0; margin: 0;"
+                                           onclick="confirmDelete({{ $terminal->id }})">
+                                           <i data-feather="trash-2" class="me-50"></i>
+                                        </button>
+                                     </form>                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -265,10 +272,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
-        function confirmDelete(userId) {
+        function confirmDelete(terminalId) {
 
-            console.log(userId);
-            document.getElementById('delete-user-id').value = userId;
+            console.log(terminalId);
+            document.getElementById('delete-terminal-id').value = terminalId;
         Swal.fire({
             title: 'Are you sure?',
             text: 'You won\'t be able to revert this!',

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Provider;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use DB;
 use App\Models\Provider;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 
 class ProviderController extends Controller
@@ -63,5 +64,23 @@ class ProviderController extends Controller
 
 
     return redirect()->back()->with('success', 'Record updated or inserted successfully!');
+}
+
+public function destroy(Request $request)
+{
+    $providerId = $request->input('provider_id');
+    $provider = Provider::findOrFail($providerId);
+
+    DB::transaction(function() use($provider){
+
+        $provider->offers()->delete();
+        $provider->products()->delete();
+        $provider->delete();
+    });
+
+
+    \Session::flash('success', 'Provider and associated offers and products are successfully deleted.');
+
+    return redirect()->route('providers');
 }
 }

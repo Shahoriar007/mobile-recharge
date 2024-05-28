@@ -88,7 +88,7 @@
                                     <label class="col-form-label" for="provider">Provider<span style="color: red"> * </span></label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <select id="provider" class="form-control" name="provider" >
+                                    <select id="provider" class="form-control" name="provider_id" >
                                         <option value="" disabled selected>Select provider</option>
                                         @foreach($providers as $provider)
                                         <option value="{{ $provider->id }}">{{ $provider->name }}</option>
@@ -167,8 +167,16 @@
                                 <td>{{ $product->provider->name }}</td>
                                 <td>{{ $product->status }}</td>
                                 <td>
-                                    <!-- Add action buttons here if needed -->
-                                </td>
+                                    <form id="deleteForm" method="POST" action="{{ route('delete-product') }}" class="d-inline">
+                                        @method('DELETE')
+                                        @csrf
+                                        <input type="text" name="product_id" id="delete-product-id" hidden>
+                                        <button type="button" class="btn-link" style="border: none; background: none; padding: 0; margin: 0;"
+                                           onclick="confirmDelete({{ $product->id }})">
+                                           <i data-feather="trash-2" class="me-50"></i>
+                                        </button>
+                                     </form>
+                                    </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -251,10 +259,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
-        function confirmDelete(userId) {
+        function confirmDelete(productId) {
 
-            console.log(userId);
-            document.getElementById('delete-user-id').value = userId;
+            console.log(productId);
+            document.getElementById('delete-product-id').value = productId;
         Swal.fire({
             title: 'Are you sure?',
             text: 'You won\'t be able to revert this!',

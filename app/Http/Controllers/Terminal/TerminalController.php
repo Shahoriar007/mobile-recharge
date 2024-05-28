@@ -65,4 +65,16 @@ class TerminalController extends Controller
 
     return redirect()->back()->with('success', 'Record updated or inserted successfully!');
 }
+
+public function destroy(Request $request)
+{
+    $terminalId = $request->input('terminal_id');
+    $terminal = Terminal::findOrFail($terminalId);
+
+    $terminal->delete();
+    \Session::flash('success', 'Provider and associated offers and products are successfully deleted.');
+
+    return redirect()->route('terminals');
+}
+
 }

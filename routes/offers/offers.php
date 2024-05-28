@@ -10,6 +10,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/update/or/create/offer', [OfferController::class, 'storeOrUpdate'])->name('update-or-create-offer');
     // Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('edit-user');
     // Route::put('/users/{user}', [UserController::class, 'update'])->name('update-user');
-    // Route::delete('/users', [UserController::class, 'destroy'])->name('delete-user');
+    Route::delete('/offers', [OfferController::class, 'destroy'])->name('delete-offer');
 
 });

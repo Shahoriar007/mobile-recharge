@@ -155,8 +155,15 @@
 
                                 <td>{{ $offer->cashback }}</td>
                                 <td>
-                                    <!-- Add action buttons here if needed -->
-                                </td>
+                                    <form id="deleteForm" method="POST" action="{{ route('delete-offer') }}" class="d-inline">
+                                        @method('DELETE')
+                                        @csrf
+                                        <input type="text" name="offer_id" id="delete-offer-id" hidden>
+                                        <button type="button" class="btn-link" style="border: none; background: none; padding: 0; margin: 0;"
+                                           onclick="confirmDelete({{ $offer->id }})">
+                                           <i data-feather="trash-2" class="me-50"></i>
+                                        </button>
+                                     </form>                                </td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -250,10 +257,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
-        function confirmDelete(userId) {
+        function confirmDelete(offerId) {
 
-            console.log(userId);
-            document.getElementById('delete-user-id').value = userId;
+            console.log(offerId);
+            document.getElementById('delete-offer-id').value = offerId;
         Swal.fire({
             title: 'Are you sure?',
             text: 'You won\'t be able to revert this!',

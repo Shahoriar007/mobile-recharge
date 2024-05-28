@@ -10,7 +10,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/update/or/create/provider', [ProviderController::class, 'storeOrUpdate'])->name('update-or-create-provider');
     // Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('edit-user');
     // Route::put('/users/{user}', [UserController::class, 'update'])->name('update-user');
-    // Route::delete('/users', [UserController::class, 'destroy'])->name('delete-user');
+    Route::delete('/providers', [ProviderController::class, 'destroy'])->name('delete-provider');
 
 });
 

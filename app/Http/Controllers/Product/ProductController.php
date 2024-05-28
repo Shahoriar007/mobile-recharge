@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\Provider;
 use Illuminate\Http\Request;
-use App\Models\Product;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 
 class ProductController extends Controller
@@ -39,7 +40,7 @@ class ProductController extends Controller
             'code' => 'nullable|string|max:255',
             'min_amount' => 'nullable||numeric|min:0',
             'max_amount' => 'nullable||numeric|min:0',
-            'provider' => 'nullable|exists:providers,id',
+            'provider_id' => 'nullable|exists:providers,id',
             'status' => 'nullable|string|in:active,inactive'
         ];
 
@@ -55,7 +56,7 @@ class ProductController extends Controller
             'code' => 'required|string|max:255',
             'min_amount' => 'required|numeric|min:0',
             'max_amount' => 'required|numeric|min:0',
-            'provider' => 'required|exists:providers,id',
+            'provider_id' => 'required|exists:providers,id',
             'status' => 'required|string|in:active,inactive'
         ];
 
@@ -65,5 +66,17 @@ class ProductController extends Controller
 
 
     return redirect()->back()->with('success', 'Record updated or inserted successfully!');
+}
+
+
+public function destroy(Request $request)
+{
+    $productId = $request->input('product_id');
+    $product = Product::findOrFail($productId);
+
+    $product->delete();
+    \Session::flash('success', 'product successfully deleted.');
+
+    return redirect()->route('products');
 }
 }

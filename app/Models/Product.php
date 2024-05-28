@@ -17,7 +17,7 @@ class Product extends Model
         'code',
         'min_amount',
         'max_amount',
-        'provider',
+        'provider_id',
         'status',
     ];
 

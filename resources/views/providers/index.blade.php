@@ -174,7 +174,15 @@
                                 <td>{{ $provider->status }}</td>
                                 <td>{{ $provider->prefix }}</td>
                                 <td>
-                                    <!-- Add action buttons here if needed -->
+                                    <form id="deleteForm" method="POST" action="{{ route('delete-provider') }}" class="d-inline">
+                                        @method('DELETE')
+                                        @csrf
+                                        <input type="text" name="provider_id" id="delete-provider-id" hidden>
+                                        <button type="button" class="btn-link" style="border: none; background: none; padding: 0; margin: 0;"
+                                           onclick="confirmDelete({{ $provider->id }})">
+                                           <i data-feather="trash-2" class="me-50"></i>
+                                        </button>
+                                     </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -258,13 +266,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
-        function confirmDelete(userId) {
+        function confirmDelete(providerId) {
 
-            console.log(userId);
-            document.getElementById('delete-user-id').value = userId;
+            console.log(providerId);
+            document.getElementById('delete-provider-id').value = providerId;
         Swal.fire({
             title: 'Are you sure?',
-            text: 'You won\'t be able to revert this!',
+            text: 'If you delete the provider, any product or offer of this provider will be deleted!',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
