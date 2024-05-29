@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('user')->nullable();
             $table->string('password')->nullable();
             $table->decimal('amount', 8, 2)->nullable();
+            $table->unsignedBigInteger('provider_id')->nullable();
             $table->timestamps();
         });
     }

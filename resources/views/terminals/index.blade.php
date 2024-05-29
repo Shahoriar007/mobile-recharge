@@ -56,6 +56,27 @@
                         <div class="col-12">
                             <div class="mb-1 row">
                                 <div class="col-sm-3">
+                                    <label class="col-form-label" for="provider">Provider<span style="color: red"> * </span></label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <select id="provider" class="form-control" name="provider_id" >
+                                        <option value="" disabled selected>Select provider</option>
+                                        @foreach($providers as $provider)
+                                        <option value="{{ $provider->id }}">{{ $provider->name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                    @error('provider')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-1 row">
+                                <div class="col-sm-3">
                                     <label class="col-form-label" for="user">User(API)<span style="color: red"> * </span></label>
                                 </div>
                                 <div class="col-sm-9">

@@ -42,4 +42,8 @@ class Provider extends Model
         return $this->hasMany(Offer::class, 'provider_id');
      }
 
+     public function terminals(){
+        return $this->hasMany(Terminal::class, 'provider_id');
+     }
+
 }

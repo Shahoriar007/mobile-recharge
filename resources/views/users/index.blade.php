@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'User List')
+@section('title', 'Employee List')
 
 @section('vendor-style')
     <!-- vendor css files -->
@@ -23,7 +23,7 @@
                     <form action="#" method="get">
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                data-bs-target="#createUser">Add User</button>
+                                data-bs-target="#createUser">Add Employee</button>
                         </div>
                     </form>
                 </div>

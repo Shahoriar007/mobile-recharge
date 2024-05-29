@@ -20,6 +20,7 @@ class Terminal extends Model
         'amount',
         'category',
         'status',
+        'provider_id'
     ];
 
     /**
@@ -27,7 +28,9 @@ class Terminal extends Model
      *
      * @var array<int, string>
      */
-
+    public function provider(){
+        return $this->belongsTo(Provider::class, 'provider_id');
+     }
 
 
 }

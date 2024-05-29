@@ -8,9 +8,16 @@
 		},
         {
             "url": "/users",
-            "name": "Users",
+            "name": "Employees",
             "icon": "users",
             "slug": "users"
+        }
+        ,
+        {
+            "url": "/packages",
+            "name": "Packages",
+            "icon": "users",
+            "slug": "packages"
         },
         {
             "url": "/providers",
@@ -25,19 +32,14 @@
             "slug": "products"
         }
         ,
-        {
-            "url": "/offers",
-            "name": "Offers",
-            "icon": "users",
-            "slug": "offers"
-        }
-        ,
+
         {
             "url": "/terminals",
             "name": "Terminals",
             "icon": "users",
             "slug": "terminals"
         }
+
 
 
 	]
