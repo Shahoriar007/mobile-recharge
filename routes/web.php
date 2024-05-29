@@ -39,6 +39,9 @@ require __DIR__ . '/terminals/terminals.php';
 //products routes
 require __DIR__ . '/packages/packages.php';
 
+//products routes
+require __DIR__ . '/providerResponse/providerResponse.php';
+
 
 Route::middleware(['auth'])->group(function () {
 

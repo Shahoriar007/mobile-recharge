@@ -39,6 +39,22 @@
             "icon": "users",
             "slug": "terminals"
         }
+        ,
+
+        {
+            "url": "/providerResponses",
+            "name": "Provider Response",
+            "icon": "users",
+            "slug": "response-from-provider"
+        }
+        ,
+
+        {
+            "url": "/passing-to-provider",
+            "name": "Pass To Provider",
+            "icon": "users",
+            "slug": "passing-to-provider"
+        }
 
 
 
