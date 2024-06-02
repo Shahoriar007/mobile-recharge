@@ -252,6 +252,8 @@
 
 
 
+
+
     <!-- Hoverable rows end -->
 
 @endsection

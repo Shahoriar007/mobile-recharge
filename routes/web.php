@@ -42,6 +42,9 @@ require __DIR__ . '/packages/packages.php';
 //products routes
 require __DIR__ . '/providerResponse/providerResponse.php';
 
+require __DIR__ . '/passingProvider/passingProvider.php';
+
+
 
 Route::middleware(['auth'])->group(function () {
 
