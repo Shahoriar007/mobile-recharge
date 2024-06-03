@@ -50,7 +50,7 @@
         ,
 
         {
-            "url": "/passing-to-provider",
+            "url": "/passingProvider",
             "name": "Pass To Provider",
             "icon": "users",
             "slug": "passing-to-provider"
