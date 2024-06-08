@@ -13,6 +13,9 @@ Route::middleware(['auth'])->group(function () {
     // Route::put('/users/{user}', [UserController::class, 'update'])->name('update-user');
     Route::delete('/packages', [PackageController::class, 'destroy'])->name('delete-package');
 
+    Route::post('/product/configure', [PackageController::class, 'productConfigure'])->name('product-configure');
+
+
 });
 
 

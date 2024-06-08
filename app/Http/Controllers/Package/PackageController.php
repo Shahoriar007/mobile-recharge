@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Package;
 
 use App\Http\Controllers\Controller;
 use App\Models\Package;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class PackageController extends Controller
@@ -22,8 +23,9 @@ class PackageController extends Controller
             ['link' => "/packages", 'name' => "Packages"], ['name' => "Index"]
         ];
         $packages = $this->packages->latest('created_at')->paginate(10);
+        $products = Product::all();
 
-        return view('packages.index', compact('packages', 'breadcrumbs'));
+        return view('packages.index', compact('packages','products', 'breadcrumbs'));
     }
 
     public function storeOrUpdate(Request $request)
@@ -87,6 +89,10 @@ public function destroy(Request $request)
     \Session::flash('success', 'Package successfully deleted.');
 
     return redirect()->route('packages');
+}
+
+public function productConfigure(Request $request){
+    dd($request->input('package_id'));
 }
 
 }

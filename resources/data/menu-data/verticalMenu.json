@@ -19,6 +19,14 @@
             "icon": "users",
             "slug": "packages"
         },
+
+
+        {
+            "url": "/packageConfigure",
+            "name": "package Configure",
+            "icon": "users",
+            "slug": "packageConfigure"
+        },
         {
             "url": "/providers",
             "name": "Providers",

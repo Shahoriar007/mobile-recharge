@@ -297,6 +297,81 @@
                                                 <i data-feather="trash-2" class="me-50"></i>
                                             </button>
                                         </form>
+
+                                        <form action="#" method="get" class="d-inline">
+                                                <button type="button" class="btn-link" data-bs-toggle="modal"
+                                                style="border: none; background: none; padding: 0; margin: 0;"
+                                                    data-bs-target={{ '#configure-package-' . $package->id  }}>
+                                                    <i data-feather="edit-2" class="me-50"></i>
+                                                </button>
+                                        </form>
+                                        <div class="modal fade" id={{ 'configure-package-' . $package->id }} tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg modal-dialog-centered modal-edit-user">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-transparent">
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body pb-5 px-sm-5 pt-50">
+                                                        <div class="text-center mb-2">
+                                                            <h1 class="mb-1">Configure Package</h1>
+                                                        </div>
+
+                                                        <div class="card-body">
+
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="mb-1 row border rounded p-1">
+                                                                            <div class="col-sm-3">
+                                                                                <label class="col-form-label">Product configure <span style="color: red"> * </span></label>
+                                                                            </div>
+                                                                            <div class="col-sm-9">
+                                                                                <form action="{{ route('product-configure') }}" method="POST">
+                                                                                    @csrf
+                                                                                    <input type="hidden" name="package_id" value="{{ $package->id }}">
+                                                                                    @foreach($products as $product)
+                                                                                    <div class="form-check mb-3">
+                                                                                        <div class="row align-items-center">
+                                                                                            <div class="col-sm-1">
+                                                                                                <input class="form-check-input" type="checkbox" id="product-{{ $product->id }}" name="products[{{ $product->id }}][selected]" value="1">
+                                                                                            </div>
+                                                                                            <div class="col-sm-3">
+                                                                                                <label class="form-check-label" for="product-{{ $product->id }}">
+                                                                                                    {{ $product->name . ', ' . $product->code }}
+                                                                                                </label>
+                                                                                            </div>
+                                                                                            <div class="col-sm-4">
+                                                                                                <input type="number" class="form-control" id="commission-{{ $product->id }}" name="products[{{ $product->id }}][commission]" placeholder="Commission">
+                                                                                            </div>
+                                                                                            <div class="col-sm-4">
+                                                                                                <input type="number" class="form-control" id="charge-{{ $product->id }}" name="products[{{ $product->id }}][charge]" placeholder="Charge">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    @endforeach
+                                                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                                                </form>
+                                                                                @if ($errors->any())
+                                                                                <div class="text-danger mt-3">
+                                                                                    <ul>
+                                                                                        @foreach ($errors->all() as $error)
+                                                                                        <li>{{ $error }}</li>
+                                                                                        @endforeach
+                                                                                    </ul>
+                                                                                </div>
+                                                                                @endif
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+
+
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -325,101 +400,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="createUser" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-edit-user">
-            <div class="modal-content">
-                <div class="modal-header bg-transparent">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body pb-5 px-sm-5 pt-50">
-                    <div class="text-center mb-2">
-                        <h1 class="mb-1">Configure Package</h1>
-                    </div>
 
-                    <div class="card-body">
-                        <form class="form form-horizontal" action="" method="POST">
-                            @csrf
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="first-name">Name<span style="color: red"> * </span></label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="text" id="name" class="form-control" name="name"
-                                                placeholder="Name"  required/>
-                                            @error('name')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="email-id">Email<span style="color: red"> * </span></label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="email" id="email" class="form-control" name="email"
-                                                placeholder="Email" value="{{ old('email') }}" required/>
-                                            @error('email')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="phn-id">Phone Number<span style="color: red"> * </span></label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="number" id="phn" class="form-control" name="phone"
-                                                placeholder="phone number" value="{{ old('phone') }}" required/>
-                                            @error('number')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-12">
-                                    <div class="mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="password">Password<span style="color: red"> * </span></label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <div class="input-group input-group-merge form-password-toggle">
-                                                <input class="form-control form-control-merge" id="login-password"
-                                                    type="password" name="password" placeholder="············"
-                                                    aria-describedby="login-password" tabindex="2" required/>
-                                                <span class="input-group-text cursor-pointer"><i
-                                                        data-feather="eye"></i></span>
-                                            </div>
-                                            @error('password')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-9 offset-sm-3">
-                                    @if (session('error'))
-                                        <div class="text-danger">
-                                            {{ session('error') }}
-                                        </div>
-                                    @endif
-                                    <button type="submit" class="btn btn-primary me-1">Submit</button>
-                                    <button type="reset" class="btn btn-outline-secondary">Reset</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 
