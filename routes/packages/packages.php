@@ -14,6 +14,10 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/packages', [PackageController::class, 'destroy'])->name('delete-package');
 
     Route::post('/product/configure', [PackageController::class, 'productConfigure'])->name('product-configure');
+    Route::post('/add/balance', [PackageController::class, 'addBalance'])->name('add-balance');
+    Route::post('/withdraw/credit', [PackageController::class, 'withdrawCredit'])->name('withdraw-credit');
+    Route::post('/balance/bonus', [PackageController::class, 'balanceBonus'])->name('balance-bonus');
+    Route::post('/drive/commission', [PackageController::class, 'driveCommission'])->name('drive-commission');
 
 
 });

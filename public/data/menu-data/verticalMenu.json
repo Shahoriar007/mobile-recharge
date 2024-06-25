@@ -2,27 +2,69 @@
 	"menu": [
 		{
 			"url": "/",
-			"name": "ss",
+			"name": "Home",
 			"icon": "home",
 			"slug": "home"
 		},
         {
             "url": "/users",
-            "name": "Users",
+            "name": "Employees",
             "icon": "users",
             "slug": "users"
-        },
-        {
-            "url": "/blog-category",
-            "name": "Blog Category",
-            "icon": "file-plus",
-            "slug": "blog-category"
-        },
-        {
-            "url": "/blog",
-            "name": "Blog",
-            "icon": "package",
-            "slug": "blog"
         }
+        ,
+        {
+            "url": "/packages",
+            "name": "Packages",
+            "icon": "users",
+            "slug": "packages"
+        },
+
+
+        {
+            "url": "/packageConfigure",
+            "name": "package Configure",
+            "icon": "users",
+            "slug": "packageConfigure"
+        },
+        {
+            "url": "/providers",
+            "name": "Providers",
+            "icon": "users",
+            "slug": "providers"
+        },
+        {
+            "url": "/products",
+            "name": "Products",
+            "icon": "users",
+            "slug": "products"
+        }
+        ,
+
+        {
+            "url": "/terminals",
+            "name": "Terminals",
+            "icon": "users",
+            "slug": "terminals"
+        }
+        ,
+
+        {
+            "url": "/providerResponses",
+            "name": "Provider Response",
+            "icon": "users",
+            "slug": "response-from-provider"
+        }
+        ,
+
+        {
+            "url": "/passingProvider",
+            "name": "Pass To Provider",
+            "icon": "users",
+            "slug": "passing-to-provider"
+        }
+
+
+
 	]
 }

@@ -30,20 +30,19 @@ require __DIR__ . '/providers/providers.php';
 //products routes
 require __DIR__ . '/products/products.php';
 
-
-//products routes
-require __DIR__ . '/offers/offers.php';
-
-//products routes
-require __DIR__ . '/terminals/terminals.php';
 //products routes
 require __DIR__ . '/packages/packages.php';
 
 //products routes
-require __DIR__ . '/providerResponse/providerResponse.php';
-
 require __DIR__ . '/passingProvider/passingProvider.php';
 
+//products routes
+require __DIR__ . '/providerResponse/providerResponse.php';
+//products routes
+require __DIR__ . '/terminals/terminals.php';
+
+//products routes
+require __DIR__ . '/offers/offers.php';
 
 
 Route::middleware(['auth'])->group(function () {
@@ -51,6 +50,3 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/', [StaterkitController::class, 'home'])->name('admin-home');
 
 });
-
-
-

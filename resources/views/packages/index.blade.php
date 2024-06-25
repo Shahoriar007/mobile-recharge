@@ -286,6 +286,8 @@
                                     <td>{{ $package->withdraw_limit }}</td>
                                     <td>{{ $package->offline_requ }}</td>
                                     <td>
+
+
                                         <form id="deleteForm" method="POST" action="{{ route('delete-package') }}"
                                             class="d-inline">
                                             @method('DELETE')
@@ -299,17 +301,19 @@
                                         </form>
 
                                         <form action="#" method="get" class="d-inline">
-                                                <button type="button" class="btn-link" data-bs-toggle="modal"
+                                            <button type="button" class="btn-link" data-bs-toggle="modal"
                                                 style="border: none; background: none; padding: 0; margin: 0;"
-                                                    data-bs-target={{ '#configure-package-' . $package->id  }}>
-                                                    <i data-feather="edit-2" class="me-50"></i>
-                                                </button>
+                                                data-bs-target={{ '#configure-package-' . $package->id }}>
+                                                <i data-feather="edit-2" class="me-50"></i>
+                                            </button>
                                         </form>
-                                        <div class="modal fade" id={{ 'configure-package-' . $package->id }} tabindex="-1" aria-hidden="true">
+                                        <div class="modal fade" id={{ 'configure-package-' . $package->id }}
+                                            tabindex="-1" aria-hidden="true">
                                             <div class="modal-dialog modal-lg modal-dialog-centered modal-edit-user">
                                                 <div class="modal-content">
                                                     <div class="modal-header bg-transparent">
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body pb-5 px-sm-5 pt-50">
                                                         <div class="text-center mb-2">
@@ -318,55 +322,396 @@
 
                                                         <div class="card-body">
 
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <div class="mb-1 row border rounded p-1">
-                                                                            <div class="col-sm-3">
-                                                                                <label class="col-form-label">Product configure <span style="color: red"> * </span></label>
-                                                                            </div>
-                                                                            <div class="col-sm-9">
-                                                                                <form action="{{ route('product-configure') }}" method="POST">
-                                                                                    @csrf
-                                                                                    <input type="hidden" name="package_id" value="{{ $package->id }}">
-                                                                                    @foreach($products as $product)
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="mb-1 row border rounded p-1">
+                                                                        <div class="col-sm-3">
+                                                                            <label class="col-form-label">Product Configure
+                                                                                <span style="color: red"> * </span></label>
+                                                                        </div>
+                                                                        <div class="col-sm-9">
+                                                                            <form
+                                                                                action="{{ route('product-configure') }}"
+                                                                                method="POST">
+                                                                                @csrf
+                                                                                <input type="hidden" name="package_id"
+                                                                                    value="{{ $package->id }}">
+                                                                                @foreach ($products as $product)
                                                                                     <div class="form-check mb-3">
-                                                                                        <div class="row align-items-center">
+                                                                                        <div
+                                                                                            class="row align-items-center">
+                                                                                            <input class="form-check-input"
+                                                                                                type="hidden"
+                                                                                                id="product-id-{{ $product->id }}"
+                                                                                                name="products[{{ $product->id }}][product_id]"
+                                                                                                value="{{ $product->id }}">
+
+                                                                                            <input class="form-check-input"
+                                                                                                type="hidden"
+                                                                                                id="package-id{{ $product->id }}"
+                                                                                                name="products[{{ $product->id }}][package_id]"
+                                                                                                value="{{ $package->id }}">
                                                                                             <div class="col-sm-1">
-                                                                                                <input class="form-check-input" type="checkbox" id="product-{{ $product->id }}" name="products[{{ $product->id }}][selected]" value="1">
+                                                                                                <input
+                                                                                                    class="form-check-input"
+                                                                                                    type="checkbox"
+                                                                                                    id="product-{{ $product->id }}"
+                                                                                                    name="products[{{ $product->id }}][selected]"
+                                                                                                    value="1">
                                                                                             </div>
                                                                                             <div class="col-sm-3">
-                                                                                                <label class="form-check-label" for="product-{{ $product->id }}">
+                                                                                                <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="product-{{ $product->id }}">
                                                                                                     {{ $product->name . ', ' . $product->code }}
                                                                                                 </label>
                                                                                             </div>
                                                                                             <div class="col-sm-4">
-                                                                                                <input type="number" class="form-control" id="commission-{{ $product->id }}" name="products[{{ $product->id }}][commission]" placeholder="Commission">
+                                                                                                <input type="text"
+                                                                                                    class="form-control"
+                                                                                                    id="commission-{{ $product->id }}"
+                                                                                                    name="products[{{ $product->id }}][commission]"
+                                                                                                    placeholder="Commission">
                                                                                             </div>
                                                                                             <div class="col-sm-4">
-                                                                                                <input type="number" class="form-control" id="charge-{{ $product->id }}" name="products[{{ $product->id }}][charge]" placeholder="Charge">
+                                                                                                <input type="text"
+                                                                                                    class="form-control"
+                                                                                                    id="charge-{{ $product->id }}"
+                                                                                                    name="products[{{ $product->id }}][charge]"
+                                                                                                    placeholder="Charge">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    @endforeach
-                                                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                                                </form>
-                                                                                @if ($errors->any())
+                                                                                @endforeach
+                                                                                <button type="submit"
+                                                                                    class="btn btn-primary">Submit
+                                                                                </button>
+                                                                            </form>
+                                                                            @if ($errors->any())
                                                                                 <div class="text-danger mt-3">
                                                                                     <ul>
                                                                                         @foreach ($errors->all() as $error)
-                                                                                        <li>{{ $error }}</li>
+                                                                                            <li>{{ $error }}</li>
                                                                                         @endforeach
                                                                                     </ul>
                                                                                 </div>
-                                                                                @endif
-                                                                            </div>
+                                                                            @endif
                                                                         </div>
-
                                                                     </div>
 
+                                                                    <div class="mb-1 row border rounded p-1">
+                                                                        <div class="col-sm-3">
+                                                                            <label class="col-form-label">Add balance
+                                                                                <span style="color: red"> * </span></label>
+                                                                        </div>
+                                                                        <div class="col-sm-9">
+                                                                            <form
+                                                                                action="{{ route('add-balance') }}"
+                                                                                method="POST">
+                                                                                @csrf
+                                                                                <input type="hidden" name="package_id"
+                                                                                    value="{{ $package->id }}">
+                                                                                @foreach ($gateways as $gateway)
+                                                                                    <div class="form-check mb-3">
+                                                                                        <div
+                                                                                            class="row align-items-center">
+                                                                                            <input class="form-check-input"
+                                                                                                type="hidden"
+                                                                                                name="gateways[{{ $gateway->id }}][package_id]"
+                                                                                                value="{{ $package->id }}">
 
+                                                                                            <input class="form-check-input"
+                                                                                                type="hidden"
+                                                                                                name="gateways[{{ $gateway->id }}][gateway_id]"
+                                                                                                value="{{$gateway->id }}">
+
+
+                                                                                            <div class="col-sm-1">
+                                                                                                <input
+                                                                                                    class="form-check-input"
+                                                                                                    type="checkbox"
+                                                                                                    id="gateway-{{ $gateway->id }}"
+                                                                                                    name="gateways[{{ $gateway->id }}][selected]"
+                                                                                                    value="1">
+                                                                                            </div>
+                                                                                            <div class="col-sm-3">
+                                                                                                <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="gateway-{{ $gateway->id }}">
+                                                                                                    {{ $gateway->gateway_name . ', ' . $gateway->gateway_code }}
+                                                                                                </label>
+                                                                                            </div>
+
+
+                                                                                            <div class="col-sm-4">
+                                                                                                <input type="text"
+                                                                                                    class="form-control"
+                                                                                                    id="commission-{{ $gateway->id }}"
+                                                                                                    name="gateways[{{ $gateway->id }}][commission]"
+                                                                                                    placeholder="Commission">
+                                                                                            </div>
+                                                                                            <div class="col-sm-4">
+                                                                                                <input type="text"
+                                                                                                    class="form-control"
+                                                                                                    id="charge-{{ $gateway->id }}"
+                                                                                                    name="gateways[{{ $gateway->id }}][charge]"
+                                                                                                    placeholder="Charge">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                @endforeach
+                                                                                <button type="submit"
+                                                                                    class="btn btn-primary">Submit
+                                                                                </button>
+                                                                            </form>
+                                                                            @if ($errors->any())
+                                                                                <div class="text-danger mt-3">
+                                                                                    <ul>
+                                                                                        @foreach ($errors->all() as $error)
+                                                                                            <li>{{ $error }}</li>
+                                                                                        @endforeach
+                                                                                    </ul>
+                                                                                </div>
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="mb-1 row border rounded p-1">
+                                                                        <div class="col-sm-3">
+                                                                            <label class="col-form-label">Withdraw Credit
+                                                                                <span style="color: red"> * </span></label>
+                                                                        </div>
+                                                                        <div class="col-sm-9">
+                                                                            <form
+                                                                                action="{{ route('withdraw-credit') }}"
+                                                                                method="POST">
+                                                                                @csrf
+                                                                                <input type="hidden" name="package_id"
+                                                                                    value="{{ $package->id }}">
+                                                                                @foreach ($methods as $method)
+                                                                                    <div class="form-check mb-3">
+                                                                                        <div
+                                                                                            class="row align-items-center">
+                                                                                            <input class="form-check-input"
+                                                                                                type="hidden"
+                                                                                                name="methods[{{ $method->id }}][package_id]"
+                                                                                                value="{{ $package->id }}">
+
+                                                                                            <input class="form-check-input"
+                                                                                                type="hidden"
+                                                                                                name="methods[{{ $method->id }}][method_id]"
+                                                                                                value="{{$method->id }}">
+
+
+                                                                                            <div class="col-sm-1">
+                                                                                                <input
+                                                                                                    class="form-check-input"
+                                                                                                    type="checkbox"
+                                                                                                    id="method-{{ $method->id }}"
+                                                                                                    name="methods[{{ $method->id }}][selected]"
+                                                                                                    value="1">
+                                                                                            </div>
+                                                                                            <div class="col-sm-3">
+                                                                                                <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="method-{{ $method->id }}">
+                                                                                                    {{ $method->method_name . ', ' . $method->method_code }}
+                                                                                                </label>
+                                                                                            </div>
+
+
+                                                                                            <div class="col-sm-4">
+                                                                                                <input type="text"
+                                                                                                    class="form-control"
+                                                                                                    id="commission-{{ $method->id }}"
+                                                                                                    name="methods[{{ $method->id }}][commission]"
+                                                                                                    placeholder="Commission">
+                                                                                            </div>
+                                                                                            <div class="col-sm-4">
+                                                                                                <input type="text"
+                                                                                                    class="form-control"
+                                                                                                    id="charge-{{ $method->id }}"
+                                                                                                    name="methods[{{ $method->id }}][charge]"
+                                                                                                    placeholder="Charge">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                @endforeach
+                                                                                <button type="submit"
+                                                                                    class="btn btn-primary">Submit
+                                                                                </button>
+                                                                            </form>
+                                                                            @if ($errors->any())
+                                                                                <div class="text-danger mt-3">
+                                                                                    <ul>
+                                                                                        @foreach ($errors->all() as $error)
+                                                                                            <li>{{ $error }}</li>
+                                                                                        @endforeach
+                                                                                    </ul>
+                                                                                </div>
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="mb-1 row border rounded p-1">
+                                                                        <div class="col-sm-3">
+                                                                            <label class="col-form-label">Drive Commission
+                                                                                <span style="color: red"> * </span></label>
+                                                                        </div>
+                                                                        <div class="col-sm-9">
+                                                                            <form
+                                                                                action="{{ route('drive-commission') }}"
+                                                                                method="POST">
+                                                                                @csrf
+                                                                                <input type="hidden" name="package_id"
+                                                                                    value="{{ $package->id }}">
+                                                                                @foreach ($drives as $drive)
+                                                                                    <div class="form-check mb-3">
+                                                                                        <div
+                                                                                            class="row align-items-center">
+                                                                                            <input class="form-check-input"
+                                                                                                type="hidden"
+                                                                                                name="drives[{{ $drive->id }}][package_id]"
+                                                                                                value="{{ $package->id }}">
+
+                                                                                            <input class="form-check-input"
+                                                                                                type="hidden"
+                                                                                                name="drives[{{ $drive->id }}][drive_id]"
+                                                                                                value="{{$drive->id }}">
+
+
+                                                                                            <div class="col-sm-1">
+                                                                                                <input
+                                                                                                    class="form-check-input"
+                                                                                                    type="checkbox"
+                                                                                                    id="drive-{{ $drive->id }}"
+                                                                                                    name="drives[{{ $drive->id }}][selected]"
+                                                                                                    value="1">
+                                                                                            </div>
+                                                                                            <div class="col-sm-3">
+                                                                                                <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="drive-{{ $drive->id }}">
+                                                                                                    {{ $drive->range . ', ' . $drive->code }}
+                                                                                                </label>
+                                                                                            </div>
+
+
+                                                                                            <div class="col-sm-4">
+                                                                                                <input type="text"
+                                                                                                    class="form-control"
+                                                                                                    id="commission-{{ $drive->id }}"
+                                                                                                    name="drives[{{ $drive->id }}][commission]"
+                                                                                                    placeholder="Commission">
+                                                                                            </div>
+                                                                                            <div class="col-sm-4">
+                                                                                                <input type="text"
+                                                                                                    class="form-control"
+                                                                                                    id="charge-{{ $drive->id }}"
+                                                                                                    name="drives[{{ $drive->id }}][charge]"
+                                                                                                    placeholder="Charge">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                @endforeach
+                                                                                <button type="submit"
+                                                                                    class="btn btn-primary">Submit
+                                                                                </button>
+                                                                            </form>
+                                                                            @if ($errors->any())
+                                                                                <div class="text-danger mt-3">
+                                                                                    <ul>
+                                                                                        @foreach ($errors->all() as $error)
+                                                                                            <li>{{ $error }}</li>
+                                                                                        @endforeach
+                                                                                    </ul>
+                                                                                </div>
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="mb-1 row border rounded p-1">
+                                                                        <div class="col-sm-3">
+                                                                            <label class="col-form-label">Balance Bonus
+                                                                                <span style="color: red"> * </span></label>
+                                                                        </div>
+                                                                        <div class="col-sm-9">
+                                                                            <form
+                                                                                action="{{ route('balance-bonus') }}"
+                                                                                method="POST">
+                                                                                @csrf
+                                                                                <input type="hidden" name="package_id"
+                                                                                    value="{{ $package->id }}">
+                                                                                @foreach ($balances as $balance)
+                                                                                    <div class="form-check mb-3">
+                                                                                        <div
+                                                                                            class="row align-items-center">
+                                                                                            <input class="form-check-input"
+                                                                                                type="hidden"
+                                                                                                name="balances[{{ $balance->id }}][package_id]"
+                                                                                                value="{{ $package->id }}">
+
+                                                                                            <input class="form-check-input"
+                                                                                                type="hidden"
+                                                                                                name="balances[{{ $balance->id }}][balance_id]"
+                                                                                                value="{{$balance->id }}">
+
+
+                                                                                            <div class="col-sm-1">
+                                                                                                <input
+                                                                                                    class="form-check-input"
+                                                                                                    type="checkbox"
+                                                                                                    id="balances-{{ $balance->id }}"
+                                                                                                    name="balances[{{ $balance->id }}][selected]"
+                                                                                                    value="1">
+                                                                                            </div>
+                                                                                            <div class="col-sm-3">
+                                                                                                <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="balance-{{ $balance->id }}">
+                                                                                                    {{ $balance->range . ', ' . $balance->code }}
+                                                                                                </label>
+                                                                                            </div>
+
+
+                                                                                            <div class="col-sm-4">
+                                                                                                <input type="text"
+                                                                                                    class="form-control"
+                                                                                                    id="commission-{{ $balance->id }}"
+                                                                                                    name="balances[{{ $balance->id }}][commission]"
+                                                                                                    placeholder="Commission">
+                                                                                            </div>
+                                                                                            <div class="col-sm-4">
+                                                                                                <input type="text"
+                                                                                                    class="form-control"
+                                                                                                    id="charge-{{ $balance->id }}"
+                                                                                                    name="balances[{{ $balance->id }}][charge]"
+                                                                                                    placeholder="Charge">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                @endforeach
+                                                                                <button type="submit"
+                                                                                    class="btn btn-primary">Submit
+                                                                                </button>
+                                                                            </form>
+                                                                            @if ($errors->any())
+                                                                                <div class="text-danger mt-3">
+                                                                                    <ul>
+                                                                                        @foreach ($errors->all() as $error)
+                                                                                            <li>{{ $error }}</li>
+                                                                                        @endforeach
+                                                                                    </ul>
+                                                                                </div>
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
 
                                                                 </div>
+
+
+
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
