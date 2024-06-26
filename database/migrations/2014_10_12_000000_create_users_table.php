@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('phone');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('is_admin')->nullable();
             $table->rememberToken();
             $table->unsignedBigInteger('created_by')->nullable()->comment('from users table');
             $table->unsignedBigInteger('updated_by')->nullable()->comment('from users table');

@@ -5,6 +5,8 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\StaterkitController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Auth\AuthenticationController;
+use App\Http\Controllers\ClientController;
+
 
 //Admin Panel login logout routes
 require __DIR__ . '/auth/auth.php';
@@ -43,10 +45,23 @@ require __DIR__ . '/terminals/terminals.php';
 
 //products routes
 require __DIR__ . '/offers/offers.php';
-
+//products routes
+require __DIR__ . '/client/client.php';
 
 Route::middleware(['auth'])->group(function () {
 
-Route::get('/', [StaterkitController::class, 'home'])->name('admin-home');
+    Route::get('/', function () {
+        if (auth()->user()->is_admin) {
+            return redirect()->route('admin-home');
+        } else {
+            return redirect()->route('client-home');
+        }
+    })->name('root');
+
+    // Route for admin-home
+    Route::get('/admin-home', [StaterkitController::class, 'home'])->name('admin-home');
+
+    // Route for client-home
+    Route::get('/client-home', [ClientController::class, 'chat'])->name('client-home');
 
 });

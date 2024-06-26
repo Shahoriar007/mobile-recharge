@@ -796,6 +796,15 @@
                 recordIdInput.value = recordId;
             });
         });
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        @if(session('openModal'))
+            var packageId = "{{ session('packageId') }}";
+            console.log(packageId);
+            $('#configure-package-' + packageId).modal('show');
+        @endif
+    });
     </script>
 
 
@@ -823,6 +832,7 @@
             document.getElementById('deleteForm').submit();
         }
     </script>
+
 
 
 

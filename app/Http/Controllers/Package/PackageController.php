@@ -129,6 +129,9 @@ public function productConfigure(Request $request){
         }
     });
 
+    return redirect()->back()->with(['openModal' => true, 'packageId' =>$request->input('package_id')]);
+
+
 }
 
 public function addBalance(Request $request){
@@ -157,6 +160,8 @@ public function addBalance(Request $request){
 
         }
     });
+    return redirect()->back()->with(['openModal' => true, 'packageId' =>$request->input('package_id')]);
+
 }
 
 public function withdrawCredit(Request $request){
@@ -185,6 +190,8 @@ public function withdrawCredit(Request $request){
 
         }
     });
+    return redirect()->back()->with(['openModal' => true, 'packageId' =>$request->input('package_id')]);
+
 }
 
 public function balanceBonus(Request $request){
@@ -213,6 +220,8 @@ public function balanceBonus(Request $request){
 
         }
     });
+    return redirect()->back()->with(['openModal' => true, 'packageId' =>$request->input('package_id')]);
+
 }
 
 public function driveCommission(Request $request){
@@ -241,6 +250,8 @@ public function driveCommission(Request $request){
 
         }
     });
+    return redirect()->back()->with(['openModal' => true, 'packageId' =>$request->input('package_id')]);
+
 }
 
 }

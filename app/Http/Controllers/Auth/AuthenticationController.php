@@ -21,7 +21,12 @@ class AuthenticationController extends Controller
         ]);
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->route('admin-home');
+            if(Auth::user()->is_admin){
+                return redirect()->route('admin-home');
+            }
+            else{
+                return redirect()->route('client-home');
+            }
         }
         return redirect()->route('login')
             ->with('error', 'Invalid login credentials')->withInput();

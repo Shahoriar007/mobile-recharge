@@ -1,23 +1,23 @@
 {
-  "menu": [
-    {
-      "url": "/",
-      "name": "ss",
-      "icon": "home",
-      "slug": "home"
-    },
-    {
-        "url": "/users",
-        "name": "Users",
-        "icon": "users",
-        "slug": "users"
-    },
-    {
-        "url": "/blog-category",
-        "name": "Blog Category",
-        "icon": "package",
-        "slug": "blog-category"
-    }
+    "menu": [
+      {
+        "url": "/",
+        "name": "ss",
+        "icon": "home",
+        "slug": "home"
+      },
+      {
+          "url": "/logout",
+          "name": "Logout",
+          "icon": "users",
+          "slug": "users"
+      },
+      {
+          "url": "/guideline",
+          "name": "Guideline",
+          "icon": "package",
+          "slug": "blog-category"
+      }
 
-  ]
-}
+    ]
+  }
