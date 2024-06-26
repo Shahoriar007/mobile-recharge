@@ -23,4 +23,25 @@ class Package extends Model
         'withdraw_limit',
         'offline_requ',
     ];
+
+    public function productConfigs(){
+        return $this->hasMany(ProductConfig::class, 'package_id');
+
+    }
+    public function addBalances(){
+        return $this->hasMany(AddBalance::class, 'package_id');
+
+    }
+    public function withdrawCredits(){
+        return $this->hasMany(WithdrawCredit::class, 'package_id');
+
+    }
+    public function driveCommissions(){
+        return  $this->hasMany(DriveCommission::class, 'package_id');
+
+    }
+    public function balanceBonuses(){
+        return $this->hasMany(BalanceBonus::class, 'package_id');
+
+    }
 }

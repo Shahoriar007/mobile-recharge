@@ -14,4 +14,8 @@ class WithdrawCredit extends Model
         'charge',
         'commission'
     ];
+    public function package(){
+        return $this->belongsTo(Package::class);
+
+    }
 }

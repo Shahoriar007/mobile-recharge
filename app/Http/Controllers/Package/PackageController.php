@@ -32,7 +32,8 @@ class PackageController extends Controller
         $breadcrumbs = [
             ['link' => "/packages", 'name' => "Packages"], ['name' => "Index"]
         ];
-        $packages = $this->packages->latest('created_at')->paginate(10);
+        $packages = Package::with('productConfigs', 'addBalances', 'withdrawCredits', 'driveCommissions', 'balanceBonuses')->get();
+
         $products = Product::all();
         $gateways = Gateway::all();
         $methods = Method::all();

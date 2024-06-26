@@ -15,4 +15,9 @@ class ProductConfig extends Model
         'commission',
         'charge'
     ];
+    public function package(){
+        return $this->belongsTo(Package::class, 'package_id');
+
+    }
+
 }

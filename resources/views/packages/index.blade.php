@@ -371,14 +371,41 @@
                                                                                                     class="form-control"
                                                                                                     id="commission-{{ $product->id }}"
                                                                                                     name="products[{{ $product->id }}][commission]"
-                                                                                                    placeholder="Commission">
+                                                                                                    placeholder="Commission"
+                                                                                                    value="@php
+                                                                                                            $commission = '';
+                                                                                                            if (!empty($package->productConfigs)) {
+                                                                                                                foreach ($package->productConfigs as $config) {
+                                                                                                                    if ($config['product_id'] == $product->id) {
+                                                                                                                        $commission = $config['commission'];
+                                                                                                                        break;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            }
+                                                                                                            echo $commission;
+                                                                                                            @endphp">
+
+
                                                                                             </div>
                                                                                             <div class="col-sm-4">
                                                                                                 <input type="text"
                                                                                                     class="form-control"
                                                                                                     id="charge-{{ $product->id }}"
                                                                                                     name="products[{{ $product->id }}][charge]"
-                                                                                                    placeholder="Charge">
+                                                                                                    placeholder="Charge"
+                                                                                                    value="@php
+                                                                                                            $commission = '';
+                                                                                                            if (!empty($package->productConfigs)) {
+                                                                                                                foreach ($package->productConfigs as $config) {
+                                                                                                                    if ($config['product_id'] == $product->id) {
+                                                                                                                        $commission = $config['charge'];
+                                                                                                                        break;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            }
+                                                                                                            echo $commission;
+                                                                                                            @endphp">
+
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -405,8 +432,7 @@
                                                                                 <span style="color: red"> * </span></label>
                                                                         </div>
                                                                         <div class="col-sm-9">
-                                                                            <form
-                                                                                action="{{ route('add-balance') }}"
+                                                                            <form action="{{ route('add-balance') }}"
                                                                                 method="POST">
                                                                                 @csrf
                                                                                 <input type="hidden" name="package_id"
@@ -423,7 +449,7 @@
                                                                                             <input class="form-check-input"
                                                                                                 type="hidden"
                                                                                                 name="gateways[{{ $gateway->id }}][gateway_id]"
-                                                                                                value="{{$gateway->id }}">
+                                                                                                value="{{ $gateway->id }}">
 
 
                                                                                             <div class="col-sm-1">
@@ -448,14 +474,38 @@
                                                                                                     class="form-control"
                                                                                                     id="commission-{{ $gateway->id }}"
                                                                                                     name="gateways[{{ $gateway->id }}][commission]"
-                                                                                                    placeholder="Commission">
+                                                                                                    placeholder="Commission"
+                                                                                                    value="@php
+                                                                                                            $commission = '';
+                                                                                                            if (!empty($package->addBalances)) {
+                                                                                                                foreach ($package->addBalances as $config) {
+                                                                                                                    if ($config['gateway_id'] == $gateway->id) {
+                                                                                                                        $commission = $config['commission'];
+                                                                                                                        break;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            }
+                                                                                                            echo $commission;
+                                                                                                            @endphp">
                                                                                             </div>
                                                                                             <div class="col-sm-4">
                                                                                                 <input type="text"
                                                                                                     class="form-control"
                                                                                                     id="charge-{{ $gateway->id }}"
                                                                                                     name="gateways[{{ $gateway->id }}][charge]"
-                                                                                                    placeholder="Charge">
+                                                                                                    placeholder="Charge"
+                                                                                                    value="@php
+                                                                                                            $commission = '';
+                                                                                                            if (!empty($package->addBalances)) {
+                                                                                                                foreach ($package->addBalances as $config) {
+                                                                                                                    if ($config['gateway_id'] == $gateway->id) {
+                                                                                                                        $commission = $config['charge'];
+                                                                                                                        break;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            }
+                                                                                                            echo $commission;
+                                                                                                            @endphp">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -482,8 +532,7 @@
                                                                                 <span style="color: red"> * </span></label>
                                                                         </div>
                                                                         <div class="col-sm-9">
-                                                                            <form
-                                                                                action="{{ route('withdraw-credit') }}"
+                                                                            <form action="{{ route('withdraw-credit') }}"
                                                                                 method="POST">
                                                                                 @csrf
                                                                                 <input type="hidden" name="package_id"
@@ -500,7 +549,7 @@
                                                                                             <input class="form-check-input"
                                                                                                 type="hidden"
                                                                                                 name="methods[{{ $method->id }}][method_id]"
-                                                                                                value="{{$method->id }}">
+                                                                                                value="{{ $method->id }}">
 
 
                                                                                             <div class="col-sm-1">
@@ -525,14 +574,38 @@
                                                                                                     class="form-control"
                                                                                                     id="commission-{{ $method->id }}"
                                                                                                     name="methods[{{ $method->id }}][commission]"
-                                                                                                    placeholder="Commission">
+                                                                                                    placeholder="Commission"
+                                                                                                    value="@php
+                                                                                                            $commission = '';
+                                                                                                            if (!empty($package->withdrawCredits)) {
+                                                                                                                foreach ($package->withdrawCredits as $config) {
+                                                                                                                    if ($config['method_id'] == $method->id) {
+                                                                                                                        $commission = $config['commission'];
+                                                                                                                        break;
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            }
+                                                                                                            echo $commission;
+                                                                                                            @endphp">
                                                                                             </div>
                                                                                             <div class="col-sm-4">
                                                                                                 <input type="text"
                                                                                                     class="form-control"
                                                                                                     id="charge-{{ $method->id }}"
                                                                                                     name="methods[{{ $method->id }}][charge]"
-                                                                                                    placeholder="Charge">
+                                                                                                    placeholder="Charge"
+                                                                                                    value="@php
+                                                                                                    $commission = '';
+                                                                                                    if (!empty($package->withdrawCredits)) {
+                                                                                                        foreach ($package->withdrawCredits as $config) {
+                                                                                                            if ($config['method_id'] == $method->id) {
+                                                                                                                $commission = $config['charge'];
+                                                                                                                break;
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                    echo $commission;
+                                                                                                    @endphp">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -559,8 +632,7 @@
                                                                                 <span style="color: red"> * </span></label>
                                                                         </div>
                                                                         <div class="col-sm-9">
-                                                                            <form
-                                                                                action="{{ route('drive-commission') }}"
+                                                                            <form action="{{ route('drive-commission') }}"
                                                                                 method="POST">
                                                                                 @csrf
                                                                                 <input type="hidden" name="package_id"
@@ -577,7 +649,7 @@
                                                                                             <input class="form-check-input"
                                                                                                 type="hidden"
                                                                                                 name="drives[{{ $drive->id }}][drive_id]"
-                                                                                                value="{{$drive->id }}">
+                                                                                                value="{{ $drive->id }}">
 
 
                                                                                             <div class="col-sm-1">
@@ -602,14 +674,38 @@
                                                                                                     class="form-control"
                                                                                                     id="commission-{{ $drive->id }}"
                                                                                                     name="drives[{{ $drive->id }}][commission]"
-                                                                                                    placeholder="Commission">
+                                                                                                    placeholder="Commission"
+                                                                                                    value="@php
+                                                                                                    $commission = '';
+                                                                                                    if (!empty($package->driveCommissions)) {
+                                                                                                        foreach ($package->driveCommissions as $config) {
+                                                                                                            if ($config['drive_id'] == $drive->id) {
+                                                                                                                $commission = $config['commission'];
+                                                                                                                break;
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                    echo $commission;
+                                                                                                    @endphp">
                                                                                             </div>
                                                                                             <div class="col-sm-4">
                                                                                                 <input type="text"
                                                                                                     class="form-control"
                                                                                                     id="charge-{{ $drive->id }}"
                                                                                                     name="drives[{{ $drive->id }}][charge]"
-                                                                                                    placeholder="Charge">
+                                                                                                    placeholder="Charge"
+                                                                                                    value="@php
+                                                                                                    $commission = '';
+                                                                                                    if (!empty($package->driveCommissions)) {
+                                                                                                        foreach ($package->driveCommissions as $config) {
+                                                                                                            if ($config['drive_id'] == $drive->id) {
+                                                                                                                $commission = $config['charge'];
+                                                                                                                break;
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                    echo $commission;
+                                                                                                    @endphp">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -636,8 +732,7 @@
                                                                                 <span style="color: red"> * </span></label>
                                                                         </div>
                                                                         <div class="col-sm-9">
-                                                                            <form
-                                                                                action="{{ route('balance-bonus') }}"
+                                                                            <form action="{{ route('balance-bonus') }}"
                                                                                 method="POST">
                                                                                 @csrf
                                                                                 <input type="hidden" name="package_id"
@@ -654,7 +749,7 @@
                                                                                             <input class="form-check-input"
                                                                                                 type="hidden"
                                                                                                 name="balances[{{ $balance->id }}][balance_id]"
-                                                                                                value="{{$balance->id }}">
+                                                                                                value="{{ $balance->id }}">
 
 
                                                                                             <div class="col-sm-1">
@@ -679,14 +774,38 @@
                                                                                                     class="form-control"
                                                                                                     id="commission-{{ $balance->id }}"
                                                                                                     name="balances[{{ $balance->id }}][commission]"
-                                                                                                    placeholder="Commission">
+                                                                                                    placeholder="Commission"
+                                                                                                    value="@php
+                                                                                                    $commission = '';
+                                                                                                    if (!empty($package->balanceBonuses)) {
+                                                                                                        foreach ($package->balanceBonuses as $config) {
+                                                                                                            if ($config['balance_id'] == $balance->id) {
+                                                                                                                $commission = $config['commission'];
+                                                                                                                break;
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                    echo $commission;
+                                                                                                    @endphp">
                                                                                             </div>
                                                                                             <div class="col-sm-4">
                                                                                                 <input type="text"
                                                                                                     class="form-control"
                                                                                                     id="charge-{{ $balance->id }}"
                                                                                                     name="balances[{{ $balance->id }}][charge]"
-                                                                                                    placeholder="Charge">
+                                                                                                    placeholder="Charge"
+                                                                                                    value="@php
+                                                                                                    $commission = '';
+                                                                                                    if (!empty($package->balanceBonuses)) {
+                                                                                                        foreach ($package->balanceBonuses as $config) {
+                                                                                                            if ($config['balance_id'] == $balance->id) {
+                                                                                                                $commission = $config['charge'];
+                                                                                                                break;
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                    echo $commission;
+                                                                                                    @endphp">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -797,14 +916,14 @@
             });
         });
 
-    document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
 
-        @if(session('openModal'))
-            var packageId = "{{ session('packageId') }}";
-            console.log(packageId);
-            $('#configure-package-' + packageId).modal('show');
-        @endif
-    });
+            @if (session('openModal'))
+                var packageId = "{{ session('packageId') }}";
+                console.log(packageId);
+                $('#configure-package-' + packageId).modal('show');
+            @endif
+        });
     </script>
 
 
